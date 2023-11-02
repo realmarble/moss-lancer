@@ -9,3 +9,8 @@ after that, add the macro in this folder to your world and you're ready to go. O
 after you paste the json object containing the details of your brief (example included [here](examplebrief.json)),
 when you click the open brief button, the briefing will be shown to every connected player, including the GM (you.)
 That's it! have fun!
+
+Here's how the example briefing looks:
+
+[![Example Brief](https://github.com/realmarble/moss-lancer/assets/42872133/891e1690-92c9-455f-a475-73e268fec8fe)](https://github-production-user-asset-6210df.s3.amazonaws.com/42872133/280106154-891e1690-92c9-455f-a475-73e268fec8fe.mp4)
+
