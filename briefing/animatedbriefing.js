@@ -16,10 +16,10 @@ function Briefing(object) {
         title: "INCOMING REQUEST, STAND BY",
         content: `
         <div id="standby" style="width:100%;height:100%;background-size: 40px 40px;
-        background-image: radial-gradient(circle, #1E1E48 1px, rgba(0, 0, 0, 0) 1px);background-color: #0c0c1d;font-family: 'Ubuntu Mono', monospace;
-        color: white;">
+        background-image: radial-gradient(circle, ${object.BackgroundAccent} 1px, rgba(0, 0, 0, 0) 1px);background-color: ${object.BackgroundColor};font-family: 'Ubuntu Mono', monospace;
+        color: ${object.TextColor};">
       
-        <h1 style="text-align: center;color:white;font-size:4em;">${object.LoadScreenTitle}</h1>
+        <h1 style="text-align: center;color:${object.TextColor};font-size:4em;">${object.LoadScreenTitle}</h1>
         <div id="fluffmessages">
           
 <script>
@@ -69,20 +69,19 @@ var intervalId = setInterval(() => {
         style="
           height: 100%;
           width: 100%;
-          background-color: #0c0c1d;
           font-family: 'Ubuntu Mono', monospace;
-          color: white;
+          color: ${object.TextColor};
           display:none;
           text-align: center; /* adjust as needed */
           vertical-align: middle;
           background-size: 40px 40px;
-        background-image: radial-gradient(circle, #1E1E48 1px, rgba(0, 0, 0, 0) 1px);
+          background-image: radial-gradient(circle, ${object.BackgroundAccent} 1px, rgba(0, 0, 0, 0) 1px);background-color: ${object.BackgroundColor};
       ">
       
         <style>
           .client-container {
             text-align: center;
-            border: 1px solid #ddd;
+            border: 1px solid ${object.BorderColor};
             width: 100%;
             margin: 0 auto;
             display: flex;
@@ -90,7 +89,7 @@ var intervalId = setInterval(() => {
           .client-logo {
             width: 30%;
             height: inherit;
-            border: 1px solid #ddd;
+            border: 1px solid ${object.BorderColor};
             margin: 20px auto;
           }
           .description {
@@ -100,7 +99,7 @@ var intervalId = setInterval(() => {
             margin: 20px;
           }
           .reward-information {
-                border: 1px solid #ddd;
+                border: 1px solid ${object.BorderColor};
                 /* height: 30%; */
                 overflow: auto;
               }
@@ -108,7 +107,7 @@ var intervalId = setInterval(() => {
             width: 100%;
                   display: flex;
                   justify-content: center;
-                  border: 1px solid #ddd;
+                  border: 1px solid ${object.BorderColor};
                   padding: 20px;
                   margin: 0 auto;
               }
@@ -143,7 +142,7 @@ var intervalId = setInterval(() => {
               >
             </div>
             <div class="description">
-              <div style="height: 60%;border: 1px solid #ddd;">
+              <div style="height: 60%;border: 1px solid ${object.BorderColor};">
                 <p class="typed" data-text="${object.ClientDescription}">
                 </p>
                 <p class="typed" data-text="${object.MissionDescription}">

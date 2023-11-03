@@ -1,0 +1,27 @@
+{
+    "id": "moss-lancer",
+    "title": "Moss's Lancer Additions",
+    "description": "a few tweaks to enhance the experience of playing Lancer",
+    "authors": [
+      {
+      "name": "moss"
+      }
+    ],
+    "version": "0.0.1",
+    "scripts": [
+        "lib/typeit.js",
+        "briefing/animatedbriefing.js",
+        "main.js"
+      ],
+    "compatibility": {
+      "minimum": "10",
+      "verified": "11"
+    },
+    "url": "https://github.com/realmarble/moss-lancer",
+  "manifest": "https://github.com/realmarble/moss-lancer/releases/download/0.0.1/module.json",
+  "download": "https://github.com/realmarble/moss-lancer/releases/download/0.0.1/moss-lancer.zip",
+  "license": "MIT",
+  "readme": "https://github.com/realmarble/moss-lancer",
+  "bugs": "https://github.com/realmarble/moss-lancer/issues",
+  "changelog": "https://github.com/realmarble/moss-lancer/releases"
+  }

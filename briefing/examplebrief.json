@@ -53,5 +53,9 @@
       "CONNECTION SECURE",
       "UNION CONNECTION STANDARDS ACHIEVED",
       "CONNECTION HAS BEEN NOTED BY ONBOARD LOG SYSTEM"
-      ]
+      ],
+      "BackgroundColor":"#0c0c1d",
+      "BackgroundAccent":"#1E1E48",
+      "TextColor":"white",
+      "BorderColor":"#ddd"
 }
