@@ -1,17 +1,4 @@
-function loadTypeIt() {
-
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = "https://unpkg.com/typeit@6.1.0/dist/typeit.min.js";
-    script.onload = resolve;
-    script.onerror = reject;
-    document.head.appendChild(script);
-    window.typeitloaded=true;})
-  }
 function Briefing(object) {
-  if (!window.typeitloaded) {
-    loadTypeIt();
-  }
     let brief = new Dialog({
         title: "INCOMING REQUEST, STAND BY",
         content: `
@@ -220,7 +207,7 @@ function briefcontroller() {
       ></textarea>
       <button
         style="width: 100%; height: 10%; bottom: 0; position: absolute; left: 0"
-        onclick="game.socket.emit('system.lancer', {message:document.getElementById('briefingtextarea').value,TYPE:'BRIEFING'});Briefing(JSON.parse(document.getElementById('briefingtextarea').value));"
+        onclick="CallBrief(JSON.parse(document.getElementById('briefingtextarea').value))"
       >
         OPEN BRIEF
       </button>

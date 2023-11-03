@@ -7,21 +7,42 @@
       "name": "moss"
       }
     ],
-    "version": "0.0.1",
+    "version": "0.0.2",
     "scripts": [
-        "lib/typeit.js",
+        "lib/typeit.js",  
         "briefing/animatedbriefing.js",
         "main.js"
+      ],
+      "styles": [
+        "css/custom.css"
       ],
     "compatibility": {
       "minimum": "10",
       "verified": "11"
     },
+    "requires": [
+      {
+        "id": "socketlib",
+        "type": "module",
+        "manifest": "https://raw.githubusercontent.com/manuelVo/foundryvtt-socketlib/develop/module.json",
+        "compatibility": {}
+      }
+    ],
+    "packs": [
+      {
+        "name": "macro-pack",
+        "label": "Macros",
+        "system": "lancer",
+        "path": "/packs/macros.db",
+        "type": "Macro"
+      }
+  ],
     "url": "https://github.com/realmarble/moss-lancer",
-  "manifest": "https://github.com/realmarble/moss-lancer/releases/download/0.0.1/module.json",
-  "download": "https://github.com/realmarble/moss-lancer/releases/download/0.0.1/moss-lancer.zip",
+  "manifest": "https://github.com/realmarble/moss-lancer/releases/download/0.0.2/module.json",
+  "download": "https://github.com/realmarble/moss-lancer/releases/download/0.0.2/moss-lancer.zip",
   "license": "MIT",
   "readme": "https://github.com/realmarble/moss-lancer",
   "bugs": "https://github.com/realmarble/moss-lancer/issues",
-  "changelog": "https://github.com/realmarble/moss-lancer/releases"
+  "changelog": "https://github.com/realmarble/moss-lancer/releases",
+  "socket": true
   }

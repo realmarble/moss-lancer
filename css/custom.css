@@ -1,0 +1,36 @@
+/* Custom CSS */
+.-emu-layout body.-emu .dialog .dialog-content {
+    padding: 0;
+    padding-block-start:0;
+    }
+    .-emu-layout body.-emu .dialog div.dialog-content{
+    padding-block-start:0;
+    }
+    h1{
+    border-bottom:0;
+    border-block-end-width: 0;}
+    h2{
+    border-bottom:0;
+    border-block-end-width: 0;}
+    .-emu-layout body.-emu #sidebar h1, .-emu-layout body.-emu .dialog h1, .-emu-layout body.-emu .window-app:not(.-emu-clean-sheet) h1{
+        border-block-end-width: 0px;
+    }
+    .-emu-layout body.-emu .dialog div.dialog-content{padding:0;}
+
+    .horus {
+        font-size: 1.1em;
+        background-color: rgba(0,0,0,.7)!important;
+        box-shadow: none;
+        color: #fff;
+        font-style: normal;
+        letter-spacing: .05em;
+        border-radius: 0
+    }
+    
+    .horus:hover {
+        background-color: #000!important;
+        -webkit-animation: distort .6s infinite;
+        animation: distort .6s infinite;
+        text-transform: uppercase;
+        font-weight: 700
+    }
