@@ -4,3 +4,24 @@ Here's how the example briefing looks:
 
 [![Example Brief](https://github.com/realmarble/moss-lancer/assets/42872133/891e1690-92c9-455f-a475-73e268fec8fe)](https://github-production-user-asset-6210df.s3.amazonaws.com/42872133/280106154-891e1690-92c9-455f-a475-73e268fec8fe.mp4)
 
+# Customization Overview
+
+| Key      | Description |
+| ----------- | ----------- |
+| ClientLogo      | Title       |
+| ClientName   | Text        |
+| ClientDescription      | Title       |
+| MissionDescription   | Text        |
+| AdditionalDescription      | Title       |
+| PaymentInfo   | Text        |
+| AdditionalPaymentInfo      | Title       |
+| PaymentFlavour   | Text        |
+| DeployedForces      | Title       |
+| Objectives   | Text        |
+| Notes      | Title       |
+| LoadScreenTitle   | Text        |
+| LoadScreenFluff      | Title       |
+| BackgroundColor   | Text        |
+| BackgroundAccent      | Title       |
+| TextColor   | Text        |
+| BorderColor   | Text        |
