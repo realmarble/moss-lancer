@@ -5,9 +5,6 @@
   text-align: center;
   color: white;
   border: 16px solid #000000;
-  animation-name: step1;
-  animation-iteration-count: 1; 
-  animation-duration: 4s;
 }
 
 /* { transition: .75s; }; */ 
