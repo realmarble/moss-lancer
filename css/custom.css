@@ -16,21 +16,6 @@
         border-block-end-width: 0px;
     }
     .-emu-layout body.-emu .dialog div.dialog-content{padding:0;}
-
-    .horus {
-        font-size: 1.1em;
-        background-color: rgba(0,0,0,.7)!important;
-        box-shadow: none;
-        color: #fff;
-        font-style: normal;
-        letter-spacing: .05em;
-        border-radius: 0
-    }
-    
-    .horus:hover {
-        background-color: #000!important;
-        -webkit-animation: distort .6s infinite;
-        animation: distort .6s infinite;
-        text-transform: uppercase;
-        font-weight: 700
-    }
+     .no-padding > .window-content { /*i have no idea why this doesn't work*/
+        padding: 0;
+      }
