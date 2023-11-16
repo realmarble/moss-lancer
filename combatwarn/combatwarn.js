@@ -168,3 +168,20 @@ function AnnouncementController() {
   },{width:500, height:800})
   announcementcontroller.render(true);   
 }
+//DONT USE THIS. NOT FINISHED
+class AnnouncementEditor extends Application{
+  constructor(){
+    super();
+  }
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      classes:["no-padding"],
+      popOut: true,
+      template:"modules/moss-lancer/templates/warningeditor.html",
+      width:1400,
+      height:720,
+      baseApplication: "WarningEditor",
+      title:"Combat Announcement Editor"
+    });
+  }
+  }
