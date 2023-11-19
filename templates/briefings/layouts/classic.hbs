@@ -1,0 +1,86 @@
+<div
+  id="briefingcontainer"
+  style="
+    height: 100%;
+    width: 100%;
+    font-family: 'Ubuntu Mono', monospace;
+    color: {{TextColor}};
+    display:none;
+    text-align: center; /* adjust as needed */
+    vertical-align: middle;
+    background-size: 40px 40px;
+    background-image: radial-gradient(circle, {{BackgroundAccent}} 1px, rgba(0, 0, 0, 0) 1px);background-color: {{BackgroundColor}};"
+>
+
+  <style>
+    .client-container { text-align: center; border: 1px solid
+    {{BorderColor}}; width: 100%; margin: 0 auto; display: flex; } .client-logo
+    { width: 30%; height: inherit; border: 1px solid
+    {{BorderColor}}; margin: 20px auto; } .description { width: 70%; text-align:
+    left; overflow-wrap: break-word; margin: 20px; } .reward-information {
+    border: 1px solid
+    {{BorderColor}}; /* height: 30%; */ overflow: auto; } .mission-briefing {
+    width: 100%; display: flex; justify-content: center; border: 1px solid
+    {{BorderColor}}; padding: 20px; margin: 0 auto; } .briefing-section { flex:
+    1; padding: 0 20px; } .briefing-title { text-align: center; font-size: 24px;
+    margin-bottom: 20px; width: 100%; } .section-title { font-weight: bold;
+    margin-bottom: 10px; } .notes { font-style: italic; }
+  </style>
+  <div>
+    <h1 class="typed" data-text="INCOMING REQUEST"></h1>
+    <div class="client-container">
+      <div class="client-logo">
+        <img src="{{ClientLogo}}" alt="Client Logo" />
+        <span
+          style="text-align: center"
+          class="typed"
+          data-text="{{ClientName}}"
+        ></span>
+      </div>
+      <div class="description">
+        <div style="height: 60%;border: 1px solid {{BorderColor}};">
+          <p class="typed" data-text="{{ClientDescription}}">
+          </p>
+          <p class="typed" data-text="{{MissionDescription}}">
+          </p>
+          <p class="typed" data-text="{{AdditionalDescription}}"></p>
+        </div>
+
+        <div class="reward-information">
+          <h1 class="typed" data-text="PAYMENT" style="text-align: center"></h1>
+          <p class="typed" data-text="{{PaymentInfo}}"></p>
+          <p class="typed" data-text="{{AdditionalPaymentInfo}}">
+            <span
+              style="float:right; color: gray;"
+            >{{PaymentFlavour}}</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="mission-briefing"> 
+  <div class="briefing-section">
+    <div class="section-title typed" data-text="Deploying Forces:"></div>
+    <ul>
+      {{#each DeployedForces}}
+        <li><p class="typed" data-text="{{this}}"></p></li>
+      {{/each}}
+    </ul>
+  </div>
+  <div class="briefing-section">
+    <div class="section-title typed" data-text="OBJECTIVE:"></div>
+    <ul>
+      {{#each Objectives}}
+        <li><p class="typed" data-text="{{this}}"></p></li>
+      {{/each}}
+    </ul>
+  </div>
+  <div class="briefing-section">
+    <div class="section-title typed" data-text="OBJECTIVE:"></div>
+    <ul>
+      {{#each Notes}}
+        <li><p class="typed notes" data-text="{{this}}"></p></li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
+</div>

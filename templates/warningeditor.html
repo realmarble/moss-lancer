@@ -8,164 +8,70 @@
       height: 100%;
     "
   >
-    <h3>Intro Options:</h3>
-    <select id="introtype">
-      <option value="none">None</option>
-      <option value="loadscreen">Loading Screen</option>
-      <option value="logo">Logo</option>
+    <h3>Announcement Type:</h3>
+    <select id="type">
+      <option value="standard">Standard</option>
+      <option value="airforce">Air Force</option>
     </select>
-    <div id="introoptions"></div>
-    <h3>Briefing Options:</h3>
-    <div id="briefingoptions">
-      <input type="text" name="ClientName" placeholder="Name of the Client" />
-      <input type="text" name="ClientLogo" placeholder="Logo of the Client" />
-      <textarea
-        name="ClientDescription"
-        placeholder="Description of the Client"
-        style="width: 100%; height: 150px"
-      ></textarea>
-      <textarea
-        name="MissionDescription"
-        placeholder="Description of the Mission"
-        style="width: 100%; height: 150px"
-      ></textarea>
-      <textarea
-        name="AdditionalDescription"
-        placeholder="Complementary Mission Info"
-        style="width: 100%; height: 150px"
-      ></textarea>
-      <textarea
-        name="PaymentInfo"
-        placeholder="Payment Information"
-        style="width: 100%; height: 150px"
-      ></textarea>
-      <textarea
-        name="AdditionalPaymentInfo"
-        placeholder="Additional Payment Information"
-        style="width: 100%; height: 150px"
-      ></textarea>
-      <input
-        type="text"
-        name="PaymentFlavour"
-        placeholder="Payment Flavour Text"
-      />
-      <textarea
-        name="DeployedForces"
-        placeholder='Deployed Forces (Defined As Array)'
-        style="width: 100%; height: 150px"
-      ></textarea>
-      <textarea
-        name="Objectives"
-        placeholder="Mission Objectives (Defined As Array)"
-        style="width: 100%; height: 150px"
-      ></textarea>
-      <textarea
-        name="Notes"
-        placeholder="Mission Notes (Defined As Array)"
-        style="width: 100%; height: 150px"
-      ></textarea>
-      Background Color:<input
-        type="color"
-        name="BackgroundColor"
-        value="#0c0c1d"
-      /><br />
-      Background Accent:<input
-        type="color"
-        name="BackgroundAccent"
-        value="#1E1E48"
-      /><br />
+    <h3>Options:</h3>
+    <div id="options">
       Text Color:<input type="color" name="TextColor" value="#FFFFFF" /><br />
-      Border Color:<input type="color" name="BorderColor" value="#C0C0C0" />
+      Border Color:<input type="color" name="BorderColor" value="#000000" /><br />
     </div>
-    <button id="briefgenbutton" style="width: 100%">Generate Brief</button>
+    <button id="warninggenbutton" style="width: 100%">Generate Warning</button>
   </div>
   <div style="width: 50%; position: absolute; right: 0; height: 100%">
     <textarea
-      id="brieftextdisplay"
+      id="warningtextdisplay"
       style="width: 100%; height: 94%; resize: none"
+      placeholder="this is where the code for your announcement will show."
     >
-  This is where the code for your briefing will show.</textarea
+  </textarea
     >
     <button
       style="width: 50%; height: 5%"
-      onclick="navigator.clipboard.writeText(document.getElementById('brieftextdisplay').value);"
+      onclick="navigator.clipboard.writeText(document.getElementById('warningtextdisplay').value);"
     >
       Copy</button
     ><button
       style="width: 50%; height: 5%"
-      onclick="Briefing(JSON.parse(document.getElementById('brieftextdisplay').value))"
+      onclick="Briefing(JSON.parse(document.getElementById('warningtextdisplay').value))"
     >
       Preview
     </button>
   </div>
   <script>
   
-    briefobject = {};
-    document.getElementById("introtype").addEventListener("change", function () {
-      introptions = document.getElementById("introoptions");
-      switch (this.value) {
-        case "none":
-          introptions.innerHTML = "";
-          break;
-        case "logo":
-          introptions.innerHTML =
-            '<input type="text" placeholder="A Path to your logo." name="LogoPath">';
-          break;
-        case "loadscreen":
-          introptions.innerHTML =
-            '<input type="text" name="LoadScreenTitle" placeholder="A Title for the loadscreen."><textarea name="LoadScreenFluff"cols="30" rows="10" placeholder="The fluff that shows during the animation. Defined as an Array."></textarea>';
-          break;
-        default:
-          introptions.innerHTML = "";
-          break;
-      }
-    });
-    document.getElementById("briefgenbutton").onclick = function () {
+    warningobject = {};
+    document.getElementById("type").addEventListener("change", function () {
+    introptions = document.getElementById("options");
+    options={
+    "standard":`Stripes:<input type="checkbox" name="Stripes"><br>
+<input type="text" name="Emblem" placeholder="Path to your emblem">
+Action Color:<input type="color" name="ActionColor" value="#DFFF00"/>
+<input type="text" name="Action" placeholder="content of Highlighted Text">
+<input type="text" name="Message" placeholder="Message (lowest line)">`,
+    "airforce":""  
+    }
+    try {
+      introoptions.innerHTML = options[this.value]  
+    } catch (error) {
+      introptions.innerHTML = "Error";
+    }
+  });
+    document.getElementById("warninggenbutton").onclick = function () {
       //build a list of the inputs and sort them into the object
-      briefingoptions = Array.prototype.slice
-        .call(
-          document.getElementById("briefingoptions").getElementsByTagName("input")
-        )
-        .concat(
-          Array.prototype.slice.call(
-            document
-              .getElementById("briefingoptions")
-              .getElementsByTagName("textarea")
-          )
-        );
-      briefingoptions.forEach((element) => {
+      optionvalues = Array.prototype.slice.call(document.getElementById("briefingoptions").getElementsByTagName("input")).concat(Array.prototype.slice.call(document.getElementById("briefingoptions").getElementsByTagName("textarea")));
+      
+      optionvalues.forEach((element) => {
         try {
-          briefobject[element.name] = JSON.parse(element.value);
+          warningobject[element.name] = JSON.parse(element.value);
         } catch (error) {
-          briefobject[element.name] = element.value;
+          warningobject[element.name] = element.value;
         }
       });
-      if (document.getElementById("introtype").value != "none") {
-        briefobject.intro = true;
-        briefobject.IntroData = {};
-        briefobject["IntroData"].type =
-          document.getElementById("introtype").value;
-        introoptions = Array.prototype.slice
-          .call(
-            document.getElementById("introoptions").getElementsByTagName("input")
-          )
-          .concat(
-            Array.prototype.slice.call(
-              document
-                .getElementById("introoptions")
-                .getElementsByTagName("textarea")
-            )
-          );
-        introoptions.forEach((element) => {
-          try {
-            briefobject["IntroData"][element.name] = JSON.parse(element.value);
-          } catch (error) {
-            briefobject["IntroData"][element.name] = element.value;
-          }
-        });
-      }
       document.getElementById("brieftextdisplay").value = JSON.stringify(
-        briefobject,
+        warningobject,
         null,
         3
       );
@@ -174,4 +80,4 @@
   
   </div>
   
-  
+

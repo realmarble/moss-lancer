@@ -1,0 +1,199 @@
+<div
+id="briefingcontainer"
+style="
+  height: 100%;
+  width: 100%;
+  font-family: 'Ubuntu Mono', monospace;
+  color: white;
+  text-align: center; /* adjust as needed */
+  vertical-align: middle;
+  background-size: 40px 40px;
+  background-image: radial-gradient(circle, #1E1E48 1px, rgba(0, 0, 0, 0) 1px);background-color: #0c0c1d;
+  overflow: hidden;">
+<style>
+    .logo{
+        width: 100%;
+        height: 40%;
+        border: 2px white solid;
+    }
+    .top {
+  position: fixed;
+  top: 0px;
+  left: 0;
+  
+}
+    .strip {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+    .strip {
+  font-family: 'Ubuntu Mono', monospace;
+  width: 200vw;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 10px 0;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -0%);
+  overflow: hidden;
+  transition: 0.5s;
+  z-index: 100;
+  color: white;
+}
+.ticker {
+  padding: 0px 10px;
+  font-family: var(--font-fam);
+  text-transform: uppercase;
+  font-size: 4vmin;
+  font-weight: 600;
+  animation: strapmove 5s linear infinite backwards;
+  user-select: none;
+  text-wrap: nowrap;
+}
+@keyframes strapmove {
+  0% {
+    transform: translate(0%);
+  }
+  100% {
+    transform: translate(300%);
+  }
+}
+    .data-window{
+        width: 60%;
+        height: 50%;
+        border: white;
+        margin: auto;
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        border-style: solid;
+        background-color: #1E1E48;
+    }
+    .left-window{
+        height: 100%;
+        width: 19.7%;
+        left: 0;
+        position: absolute;
+        border: 2px white solid;
+    }
+    .right-window{
+        border: 2px white solid;
+        height: 100%;
+        width: 19.7%;
+        right: 0;
+        position: absolute;
+    }
+    .top-window{
+        border: 2px white solid;
+        height: 25%;
+        width: 60%;
+        top: 0;
+        left: 20%;
+        position: absolute;
+        overflow: hidden;
+    }
+    .bottom-window{
+        height: 20%;
+        width: 60%;
+        bottom: 0;
+        left: 20%;
+        position: absolute;
+    }
+</style>
+<script>
+    function generateStockListing() {
+  // Generate a random stock name with 3-4 random letters
+   randomStockName = generateRandomLetters(3);
+
+  // Generate a random percentage change value between -5% and 5%
+   randomPercentageChange = (Math.random() * 10 - 5).toFixed(2);
+
+  // Determine if the stock value goes up or down
+   isIncrease = randomPercentageChange > 0;
+// Determine the color based on the direction (green for increase, red for decrease)
+ textColor = isIncrease ? "green" : "red";
+  // Create the stock listing string
+   stockListing = `${randomStockName} <span style="color:${textColor}">${randomPercentageChange.replace("-", "")}%</span>`;
+
+  
+
+  // Return the stock listing and text color
+  return stockListing;
+}
+
+// Function to generate a random string of specified length with random letters
+function generateRandomLetters(length) {
+   alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let randomString = '';
+  for (let i = 0; i < length; i++) {
+    randomString += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+  }
+  return randomString;
+}
+
+// Example usage:
+function updatetickerElements() {
+  // Find all elements with the class "ticker"
+   tickerElements = document.getElementsByClassName("ticker");
+
+  // Iterate through each element and update its text content and style
+  Array.from(tickerElements).forEach(element => {
+    element.innerHTML = generateStockListing()
+  });
+}
+updatetickerElements()
+</script>
+<div class="top-window"><div class="top strip">
+    <div class="ticker">LMN 3.56%</div>
+    <div class="ticker">GHI 0.78%</div>
+    <div class="ticker">MNO 1.03%</div>
+    <div class="ticker">PQR 3.78%</div>
+    <div class="ticker">STU 0.86%</div>
+    <div class="ticker">BCD 3.45%</div>
+    <div class="ticker">QRS 1.32%</div>
+    <div class="ticker">QRT 1.32%</div>
+    <div class="ticker">ZAB 2.76%</div>
+    <div class="ticker">STU 0.88%</div>
+    <div class="ticker">LMN 4.09%</div>
+    <div class="ticker">OPQ 2.81%</div>
+    <div class="ticker">BM 12.81%</div>
+    <div class="ticker">BCD 1.17%</div>
+    <div class="ticker">PQR 1.07%</div>
+    <div class="ticker">OPQ 0.96%</div>
+    <div class="ticker">DEF 1.21%</div>
+    <div class="ticker">CDE 1.28%</div>
+    <div class="ticker">VWX 3.13%</div>
+    <div class="ticker">RST 3.21%</div>
+    </div></div>
+<div class="left-window">
+    <div class="logo">
+        <img src="https://raw.githubusercontent.com/massif-press/compcon/master/public/static/img/logo/ha.svg" alt="">
+        <span style="text-align: center;">Superior by design.</span><br>
+        <span style="text-align: center;">Harrison Armory.</span>
+    </div>
+</div>
+<div class="data-window"></div>
+<div class="right-window">
+<h2>AVAILABLE ASSETS:</h2>
+<ul style="list-style-type: none;">
+  <li><span style="text-align: center;">Pilot 1</span></li>
+  <li><span style="text-align: center;">Pilot 2</span></li>
+  <li><span style="text-align: center;">Pilot 3</span></li>
+  <li><span style="text-align: center;">Pilot 4</span></li>
+</ul>
+<h2>MISSION INFO:</h2>
+<h3>OBJECTIVES:</h3>  
+<ul style="list-style-type: none;">
+  <li><span style="text-align: center;">DESTROY NONCORPORATE FORCES</span></li>
+  <li><span style="text-align: center;">ESTABILISH SECURE PERIMETER</span></li>
+  <li><span style="text-align: center;">ENSURE COMPLIANCE OF THE DIRECTIVE</span></li>
+</ul>
+</div>
+<div class="bottom-window">
+    <h1>In Furtherance of the Divine Directive</h1>
+</div>
+
+
+</div>
+

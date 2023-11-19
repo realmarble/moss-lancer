@@ -128,7 +128,11 @@ if (object.Stripes == true) {
 popup.remove()
 console.log('anim cleaned')
 }
-emblemanim()
+
+
+if (object.Emblem != "") {
+  emblemanim()
+  }
 if (object.Stripes == true) {
 stripeanim()
 }

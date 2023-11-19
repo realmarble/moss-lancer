@@ -9,8 +9,27 @@ Hooks.once("socketlib.ready", () => {
 });
 
 Hooks.on("ready", function() {
+dynamicStyles=null;
 console.log("registering stuff...")
+AddStyle(`@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');`) //this fixes the font issues
+
+if (game.settings.get('moss-lancer', 'StartupSound')) {
+  try {
+    AudioHelper.play({src: game.settings.get('moss-lancer', 'StartupSoundPath'), volume: 1, autoplay: true, loop: false}, false); //play the file only for the current client   
+  } catch (error) {
+    console.log(error)
+    ui.notifications.error(error)
+  }
+}
 });
+function AddStyle(body) { //this allows up to add animations on runtime
+  if (!dynamicStyles) {
+    dynamicStyles = document.createElement("style");
+    dynamicStyles.type = "text/css";
+    document.head.appendChild(dynamicStyles);
+  }
+  dynamicStyles.sheet.insertRule(body, dynamicStyles.length);
+}
 function MessageHandler(msg){
 console.log(`message of type:${msg.TYPE}. Contents:${msg.message}`)
 }

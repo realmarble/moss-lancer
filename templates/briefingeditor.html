@@ -18,6 +18,7 @@
   <h3>Briefing Options:</h3>
   <select id="briefingtype">
     <option value="classic">Classic</option>
+    <option value="corporate">Corporate</option>
   </select>
   <h3>Intro Data:</h3>
   <div id="introoptions"></div>
@@ -89,8 +90,9 @@
   <textarea
     id="brieftextdisplay"
     style="width: 100%; height: 94%; resize: none"
+    placeholder="This is where the code for your briefing will show."
   >
-This is where the code for your briefing will show.</textarea
+</textarea
   >
   <button
     style="width: 50%; height: 5%"
@@ -141,6 +143,7 @@ This is where the code for your briefing will show.</textarea
         briefobject[element.name] = element.value;
       }
     });
+    briefobject.LayoutType = document.getElementById("briefingtype").value
     if (document.getElementById("introtype").value != "none") {
       briefobject.intro = true;
       briefobject.IntroData = {};

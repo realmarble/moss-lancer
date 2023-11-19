@@ -1,0 +1,110 @@
+<div id="standby" style="width:100%;height:100%;background-size: 40px 40px;overflow-y:hidden;
+  background-image: radial-gradient(circle, {{BackgroundAccent}} 1px, rgba(0, 0, 0, 0) 1px);background-color: {{BackgroundColor}};font-family: 'Ubuntu Mono', monospace;
+  color: {{TextColor}};">
+
+
+  <style>
+  .image-container {
+    display: flex;
+    width: 250px;
+    height:250px;
+    transition: .75s;
+    margin:auto;
+    position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+
+  }
+  .half-image {
+      height:250px;
+      width: 250px;
+      background-image: url({{IntroData.LogoPath}});
+      background-size: 250px;
+      position: fixed;
+      transition: .75s;
+  }
+  .contractcontainer {
+    /* display: none; */
+    /* transition: 0.75s; */
+    width: 1000px;
+    word-wrap: break-word;
+    text-align: center;
+    margin:auto;
+    bottom: -2000px;
+    position: absolute;
+    left:200px;
+    color: {{TextColor}};
+    display:none;
+  }
+
+</style>
+</head>
+<body>
+<div class="image-container">
+<div id="left" class="half-image" style="clip-path: inset(0 50% 0 0);left: 0px;"></div>
+<div id="right" class="half-image" style="clip-path: inset(0 0 0 50%);right: 0px;"></div>
+</div>
+<div class="contractcontainer" >
+<p class="contract" >
+ {{IntroData.Paragraph1}}
+</p>
+<p class="contract" >
+{{IntroData.Paragraph2}}
+</p>
+<p class="contract" >
+{{IntroData.Paragraph3}}
+</p>
+<p class="contract" >
+{{IntroData.Paragraph4}}
+</p>
+<p class="contract" >
+{{IntroData.Paragraph5}}
+</p>
+
+</div>
+
+<script>
+list=Array.from(document.getElementsByClassName("typed"))
+    list.forEach(element => {
+      text= element.getAttribute("data-text")
+      new TypeIt(element, {
+    strings: text,
+    speed: 5,
+    waitUntilVisible: true,
+    cursor: false,
+  }).go();})
+  left = document.getElementById("left")
+  right = document.getElementById("right")
+  contract = document.getElementsByClassName("contractcontainer")[0]
+  timer = ms => new Promise(res => setTimeout(res, ms))
+
+  function logoanim(){
+left.style.left="-570px"
+right.style.right="-570px"
+  }
+  function closelogoanim(){
+    left.style.left="0px"
+    right.style.right="0px"
+      }
+async function load () { // We need to wrap the loop into an async function for this to work
+  contract.style.display="block";
+for (var i = 0; i < 50; i++) {
+  await timer(40);
+contract.style.bottom = (-2000+i*80)+"px" //moving the contract along the screen
+if (i % 10 == 0) {await timer(150);}
+}
+}
+fullanim = async () => {
+await timer(1000);
+logoanim()
+await timer(1000);
+load()
+await timer(2000);
+closelogoanim()
+await timer(800);
+document.getElementById("standby").style.display="none"
+document.getElementById("briefingcontainer").style.display="block"
+}
+fullanim()
+</script>
+    </div>

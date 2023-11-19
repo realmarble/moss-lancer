@@ -1,0 +1,58 @@
+<div id="standby" style="width:100%;height:100%;background-size: 40px 40px;
+  background-image: radial-gradient(circle, {{
+    BackgroundAccent
+  }} 1px, rgba(0, 0, 0, 0) 1px);background-color: {{
+    BackgroundColor
+  }};font-family: 'Ubuntu Mono', monospace;
+  color: {{TextColor}};">
+
+  <h1 style="text-align: center;color:{{TextColor}};font-size:4em;">{{
+    IntroData.LoadScreenTitle
+  }}</h1>
+  <div id="fluffmessages">
+    
+<script>
+lines=[
+{{#each IntroData.LoadScreenFluff}}
+"{{this}}",
+{{/each}}
+]
+div=document.getElementById("fluffmessages")
+var logRandomLine = (arr) => {
+if (arr.length === 0) {
+clearInterval(intervalId);
+return;
+}
+
+var randomIndex = Math.floor(Math.random() * arr.length);
+var randomLine = arr[randomIndex];
+arr.splice(randomIndex, 1);
+div.innerHTML += '<p>'+randomLine+'</p>'
+};
+
+// Set an interval to log a random line every 50ms for ten times
+var intervalCount = 0;
+var intervalId = setInterval(() => {
+logRandomLine(lines);
+intervalCount++;
+if (intervalCount >= 20) {
+document.getElementById("standby").style.display="none"
+document.getElementById("briefingcontainer").style.display="block"
+list=Array.from(document.getElementsByClassName("typed"))
+  list.forEach(element => {
+    text= element.getAttribute("data-text")
+    new TypeIt(element, {
+  strings: text,
+  speed: 5,
+  waitUntilVisible: true,
+  cursor: false,
+}).go();
+
+  });
+
+clearInterval(intervalId);
+}
+}, 35);
+</script>
+  </div>
+  </div>
