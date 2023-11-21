@@ -5,6 +5,7 @@
   text-align: center;
   color: white;
   border: 16px solid #000000;
+  font-family: 'Ubuntu Mono', monospace;
 }
 
 /* { transition: .75s; }; */ 
@@ -27,7 +28,7 @@
 100% {opacity:0;}
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap'); /* this is somewhere else */
 /*this is warning stripe css*/
 /* For positioning an element at the top of the screen */
 .top {

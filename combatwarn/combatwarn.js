@@ -1,143 +1,204 @@
-object = {
-
-}
-function CombatPopup(object) {
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
-if (object.Stripes == true) {
-  stripe1 = document.createElement("div")
-  stripe1.innerHTML = `<div class="top strip">
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  </div>` 
-  stripe2 = document.createElement("div")
-  stripe2.innerHTML = `
-  <div class="bottom strip">
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  <div class="word">Warning</div>
-  </div>`
-document.body.appendChild(stripe1);
-document.body.appendChild(stripe2); 
+warningtypes = {
+  standard:standard,
+  airforce:airforce
 }
 
-
-emblem = document.createElement("div")
-emblem.innerHTML = `<img id="emblem" class="centered" src = "${object.Emblem}" alt="My Happy SVG" style="z-index: 10;border: 0;animation: flicker 2s;display: none;height:40%"/>`
-popup = document.createElement("div")
-popup.innerHTML = `<div id="animation" class="centered" style="height: 1px;width: 30px;border: 1px solid #000000;transition: .75s;z-index: 20;padding:1em;">
-<h4  id="systempopuptitle" style="transition: .75s;animation: flicker 2s;display:none;">${object.Title}</h4>
-<h1  id="systempopupaction" style="color:${object.ActionColor};transition: .75s;animation: flicker 2s;display:none;" >${object.Action}</h1>
-<h1  id="systempopupmessage" style="transition: .75s;animation: flicker 2s;display:none;" >${object.Message}</h1>
-
-</div>`
-
-document.body.appendChild(popup);
-document.body.appendChild(emblem);
-elem = document.getElementById("animation")
-function setTransition(time){
-    elem.style.transition = time
-}
-const emblemanim = async() => {
-emblem = document.getElementById("emblem")
-await sleep(250)
-emblem.style.display = "block"
-await sleep(3550)
-emblem.style.animation = "flicker-out 2s 1"
-await sleep(2000)
-emblem.style.display = "none"
-}
-const stripeanim = async() => {
-  await sleep(250)
-htmlcollection =  document.getElementsByClassName("strip")
-stripes = Array.prototype.slice.call(htmlcollection); 
-stripes[0].style.top=0;
-stripes[1].style.bottom=0;
-await sleep(3550)
-stripes[0].style.top="-100px";
-stripes[1].style.bottom="-100px";
-}
-const popupanim = async() => {
-    await sleep(250)
-    setTransition("0.2s")
-  elem.style.width="33%"
-  await sleep(250)
-  elem.style.height="25%"
-  await sleep(250)
-  setTransition("0.1s")
-  elem.style.borderWidth = "16px"
-  await sleep(50)
-  document.getElementById("systempopuptitle").style.display="block"
-  await sleep(250)
-  document.getElementById("systempopupaction").style.display="block"
-  await sleep(250)
-  document.getElementById("systempopupmessage").style.display="block"
-  await sleep(2500)
-  document.getElementById("systempopuptitle").style.animation = "flicker-out 1s 1"
-  document.getElementById("systempopupaction").style.animation = "flicker-out 1s 1"
-  document.getElementById("systempopupmessage").style.animation = "flicker-out 1s 1"
-  await sleep(250)
-  elem.style.borderWidth = "1px"
-  elem.style.height="1px"
-  await sleep(250)
-  elem.style.width="0px"
-  elem.style.display="none"
-}
-const cleanup = async()=>{
-await sleep(15000)
-emblem.remove()
-if (object.Stripes == true) {
-  stripes[0].remove()
-  stripes[1].remove()
-}
-
-popup.remove()
-console.log('anim cleaned')
-}
-
-
-if (object.Emblem != "") {
-  emblemanim()
+function standard(object){
+  sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+  if (object.Stripes == true) {
+    stripe1 = document.createElement("div")
+    stripe1.innerHTML = `<div class="top strip">
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    </div>` 
+    stripe2 = document.createElement("div")
+    stripe2.innerHTML = `
+    <div class="bottom strip">
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    <div class="word">Warning</div>
+    </div>`
+  document.body.appendChild(stripe1);
+  document.body.appendChild(stripe2); 
   }
-if (object.Stripes == true) {
-stripeanim()
+  
+  
+  emblem = document.createElement("div")
+  emblem.innerHTML = `<img id="emblem" class="centered" src = "${object.Emblem}" alt="My Happy SVG" style="z-index: 10;border: 0;animation: flicker 2s;display: none;height:40%"/>`
+  popup = document.createElement("div")
+  popup.innerHTML = `<div id="animation" class="centered" style="height: 1px;width: 30px;border: 1px solid #000000;transition: .75s;z-index: 20;padding:1em;">
+  <h4  id="systempopuptitle" style="transition: .75s;animation: flicker 2s;display:none;">${object.Title}</h4>
+  <h1  id="systempopupaction" style="color:${object.ActionColor};transition: .75s;animation: flicker 2s;display:none;" >${object.Action}</h1>
+  <h1  id="systempopupmessage" style="transition: .75s;animation: flicker 2s;display:none;" >${object.Message}</h1>
+  
+  </div>`
+  
+  document.body.appendChild(popup);
+  document.body.appendChild(emblem);
+  elem = document.getElementById("animation")
+  function setTransition(time){
+      elem.style.transition = time
+  }
+  const emblemanim = async() => {
+  emblem = document.getElementById("emblem")
+  await sleep(250)
+  emblem.style.display = "block"
+  await sleep(3550)
+  emblem.style.animation = "flicker-out 2s 1"
+  await sleep(2000)
+  emblem.style.display = "none"
+  }
+  const stripeanim = async() => {
+    await sleep(250)
+  htmlcollection =  document.getElementsByClassName("strip")
+  stripes = Array.prototype.slice.call(htmlcollection); 
+  stripes[0].style.top=0;
+  stripes[1].style.bottom=0;
+  await sleep(3550)
+  stripes[0].style.top="-100px";
+  stripes[1].style.bottom="-100px";
+  }
+  const popupanim = async() => {
+      await sleep(250)
+      setTransition("0.2s")
+    elem.style.width="33%"
+    await sleep(250)
+    elem.style.height="25%"
+    await sleep(250)
+    setTransition("0.1s")
+    elem.style.borderWidth = "16px"
+    await sleep(50)
+    document.getElementById("systempopuptitle").style.display="block"
+    await sleep(250)
+    document.getElementById("systempopupaction").style.display="block"
+    await sleep(250)
+    document.getElementById("systempopupmessage").style.display="block"
+    await sleep(2500)
+    document.getElementById("systempopuptitle").style.animation = "flicker-out 1s 1"
+    document.getElementById("systempopupaction").style.animation = "flicker-out 1s 1"
+    document.getElementById("systempopupmessage").style.animation = "flicker-out 1s 1"
+    await sleep(250)
+    elem.style.borderWidth = "1px"
+    elem.style.height="1px"
+    await sleep(250)
+    elem.style.width="0px"
+    elem.style.display="none"
+  }
+  const cleanup = async()=>{
+  await sleep(15000)
+  emblem.remove()
+  if (object.Stripes == true) {
+    stripes[0].remove()
+    stripes[1].remove()
+  }
+  
+  popup.remove()
+  console.log('anim cleaned')
+  }
+  
+  
+  if (object.Emblem != "") {
+    emblemanim()
+    }
+  if (object.Stripes == true) {
+  stripeanim()
+  }
+  popupanim()
+  cleanup()
 }
-popupanim()
-cleanup()
+function airforce(object){ //this is fine but it could be better, i think it's fine personally
+sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+const mainanim = async() => {
+  container = document.createElement("div")
+container.classList.add("centered");
+container.style.borderWidth = "0px"//clean unnecessary border
+employerstring = document.createElement("h1")
+teamstring = document.createElement("h1")
+teamstring.style.fontSize = "4em"
+teamcontainer = document.createElement("div")
+container.appendChild(employerstring);
+employerstring.style.textAlign = "center"
+teamstring.style.textAlign = "center"
+container.appendChild(teamstring);
+container.appendChild(teamcontainer);
+teamcontainer.style.display="flex"
+teamcontainer.style.justifyContent="space-evenly"
+object.Callsigns.forEach(element => {
+p = document.createElement("p")
+p.style.padding="10px"
+new TypeIt(p, {
+  strings: element,
+  speed: 15,
+  waitUntilVisible: true,
+  cursor: false,
+}).go();
+teamcontainer.appendChild(p);
+});
+new TypeIt(teamstring, {
+  strings: object.TeamName,
+  speed: 15,
+  waitUntilVisible: true,
+  cursor: false,
+}).go();
+new TypeIt(employerstring, {
+  strings: object.EmployerName,
+  speed: 15,
+  waitUntilVisible: true,
+  cursor: false,
+}).go();
+document.body.appendChild(container);
+container.style.transition = "1.5s"
+await sleep(5000);
+container.style.opacity = "0";
+await sleep(1500);
+container.remove()
+  }
+mainanim()
+
+}
+
+
+function CombatPopup(object) {
+try {
+  warningtypes[object.type](object)
+} catch (error) {
+  console.log(error)
+}
 }
 function AnnouncementController() {
   let announcementcontroller = new Dialog({
@@ -172,7 +233,7 @@ function AnnouncementController() {
   },{width:500, height:800})
   announcementcontroller.render(true);   
 }
-//DONT USE THIS. NOT FINISHED
+//This works but the template it uses doesn't
 class AnnouncementEditor extends Application{
   constructor(){
     super();
