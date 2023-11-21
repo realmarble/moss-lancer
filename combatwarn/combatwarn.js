@@ -1,6 +1,7 @@
 warningtypes = {
   standard:standard,
-  airforce:airforce
+  airforce:airforce,
+  meltdown:meltdown
 }
 
 function standard(object){
@@ -191,7 +192,91 @@ container.remove()
 mainanim()
 
 }
-
+async function meltdown(object){
+  timer = ms => new Promise(res => setTimeout(res, ms))
+  cleanup = []
+  function displaytype(text){
+  el = document.createElement("p")
+  document.getElementById("cinematic-overlay1").appendChild(el);
+  new TypeIt(el, {
+      strings: text,
+      speed: 15,
+      waitUntilVisible: true,
+      cursor: false,
+    }).go();
+  }
+  
+  async function cornerdisplay(){
+      var overlay = document.createElement("div");
+      cleanup.push(overlay)
+      overlay.id = "cinematic-overlay1";
+      overlay.style.position = "fixed";
+      overlay.style.top = "40px";
+      overlay.style.right = "0";
+      overlay.style.color = "white";
+      overlay.style.padding = "10px";
+      overlay.style.zIndex = "99";
+      overlay.style.height = "400px";
+      overlay.style.left = "80px";
+      document.body.appendChild(overlay);
+      await timer(40)
+      object.CornerDisplayText.forEach(async element => {
+          displaytype("//"+element)
+          await timer(1500)   
+      });
+      }
+      async function horizontaloverlay(){
+          items = object.HorizontalScrollText
+          var overlay = document.createElement("div");
+          cleanup.push(overlay)
+          overlay.id = "cinematic-overlay2";
+          overlay.style.position = "absolute"
+          overlay.style.color = "#0715cd"
+          overlay.style.top = "0px";
+          overlay.style.left = "0px";
+          overlay.style.zIndex = "9";
+          overlay.style.height = "100%";
+          overlay.style.width = "100%";
+          document.body.appendChild(overlay);
+          for (let i = 0; i < 20; i++) {
+              var text = document.createElement("p");
+              text.style.left="-100%"
+              text.style.transition="15s"
+              text.style.position="absolute"
+              text.style.whiteSpace ="nowrap"
+              text.style.bottom = (200 + (Math.random()*900))+"px"
+              new TypeIt(text, {
+                  strings: "["+items[Math.floor(Math.random()*items.length)]+"]",
+                  speed: 15,
+                  waitUntilVisible: true,
+                  cursor: false,
+                }).go();
+               overlay.appendChild(text);
+               await timer(450)
+               text.style.left="100%"
+          }
+          }
+  cornerdisplay() //shows the white text in the corner
+  horizontaloverlay() // scrolling text in blue
+  CombatPopup({
+  "type":"standard",
+  "Stripes":false,
+  "Emblem":"",
+  "Title":object.Title,
+  "ActionColor":object.ActionColor,
+  "Action":object.Action,
+  "Message":object.Message})
+  await timer(30000)
+  console.log("cleanup")
+  cleanup.forEach(element => {
+      element.style.transition = "1.5s"
+      element.style.opacity = "0"
+  });
+  await timer(1500)
+  cleanup.forEach(element => {
+      element.remove()
+  });
+  }
 
 function CombatPopup(object) {
 try {
