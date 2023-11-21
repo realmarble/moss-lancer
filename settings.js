@@ -24,18 +24,18 @@ game.settings.register("moss-lancer", "StartupSound", {
       console.log(value)
     }
   });
-  game.settings.register("moss-lancer", "ToolIcon", {
-    name: "Tool Icon",
-    hint: "Whether to display the module's icon in the tool list.",
-    scope: "world",     // This specifies a client-stored setting
-    config: true,        // This specifies that the setting appears in the configuration view
-    requiresReload: true, // This will prompt the user to reload the application for the setting to take effect.
-    type: Boolean,
-    default: false,        // The default value for the setting
-    onChange: value => { // A callback function which triggers when the setting is changed
-     console.log(value)
-    }
-  });
+  // game.settings.register("moss-lancer", "ToolIcon", {
+  //   name: "Tool Icon",
+  //   hint: "Whether to display the module's icon in the tool list.",
+  //   scope: "world",     // This specifies a client-stored setting
+  //   config: true,        // This specifies that the setting appears in the configuration view
+  //   requiresReload: true, // This will prompt the user to reload the application for the setting to take effect.
+  //   type: Boolean,
+  //   default: false,        // The default value for the setting
+  //   onChange: value => { // A callback function which triggers when the setting is changed
+  //    console.log(value)
+  //   }
+  // });
   //this isnt needed right now
 // game.settings.register("moss-lancer", "ModuleSettings", {
 //   name: "Combat Type",

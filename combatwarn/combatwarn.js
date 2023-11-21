@@ -318,6 +318,9 @@ function AnnouncementController() {
   },{width:500, height:800})
   announcementcontroller.render(true);   
 }
+function announcementeditor() {
+new AnnouncementEditor().render(true)  
+}
 //This works but the template it uses doesn't
 class AnnouncementEditor extends Application{
   constructor(){
