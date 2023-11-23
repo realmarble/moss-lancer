@@ -1,7 +1,7 @@
 warningtypes = {
-  standard:standard,
-  airforce:airforce,
-  meltdown:meltdown
+  "standard":standard,
+  "airforce":airforce,
+  "meltdown":meltdown
 }
 
 function standard(object){
@@ -144,8 +144,8 @@ function standard(object){
 }
 function airforce(object){ //this is fine but it could be better, i think it's fine personally
 sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
-const mainanim = async() => {
-  container = document.createElement("div")
+mainanim = async() => {
+container = document.createElement("div")
 container.classList.add("centered");
 container.style.borderWidth = "0px"//clean unnecessary border
 employerstring = document.createElement("h1")
@@ -321,7 +321,6 @@ function AnnouncementController() {
 function announcementeditor() {
 new AnnouncementEditor().render(true)  
 }
-//This works but the template it uses doesn't
 class AnnouncementEditor extends Application{
   constructor(){
     super();
@@ -338,3 +337,23 @@ class AnnouncementEditor extends Application{
     });
   }
   }
+
+  function testfilepicker() {
+    new FilePickerTest().render(true)  
+    }
+    class FilePickerTest extends Application{
+      constructor(){
+        super();
+      }
+      static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+          classes:["no-padding"],
+          popOut: true,
+          template:"modules/moss-lancer/templates/test.hbs",
+          width:1400,
+          height:720,
+          baseApplication: "WarningEditor",
+          title:"File Picker Test"
+        });
+      }
+      }

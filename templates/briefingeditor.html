@@ -96,9 +96,9 @@
   >
   <button
     style="width: 50%; height: 5%"
-    onclick="navigator.clipboard.writeText(document.getElementById('brieftextdisplay').value);"
+    onclick="submitBriefingDialog(JSON.parse(document.getElementById('brieftextdisplay').value));"
   >
-    Copy</button
+    Save</button
   ><button
     style="width: 50%; height: 5%"
     onclick="Briefing(JSON.parse(document.getElementById('brieftextdisplay').value))"

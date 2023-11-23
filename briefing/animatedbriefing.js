@@ -43,11 +43,7 @@ async function Briefing(object) {
       content: `${await intros[object.IntroData.type] + await layouts[object.LayoutType]}`,
       buttons: {},
       default: "two",
-      render: () => {
-         document
-           .getElementById("briefingcontainer")
-           .parentElement.nextElementSibling.remove();
-      },
+      render: () => {},
       close: (html) => {},
     },
     { width: 1400, height: 700 }

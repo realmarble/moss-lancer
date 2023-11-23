@@ -14,6 +14,7 @@
       "additional/tips.js",
       "combatwarn/combatwarn.js",
       "settings.js",
+      "assemblyviewer.js",
       "main.js"
     ],
     "styles": [

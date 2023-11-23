@@ -1,0 +1,17 @@
+<style>
+.tile{
+    width: 150px;
+    height: 150px;
+    border: 1px black solid;
+    background-color: wheat;
+}
+</style>
+<script>
+container = document.getElementById("tilecontainer")
+AssemblyStorage.Read().forEach(element => {
+div = document.createElement("div")
+div.classList.toggle("tile");
+container.appendChild(div)
+});
+</script>
+<div id="tilecontainer"></div>

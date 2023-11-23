@@ -9,6 +9,9 @@ Hooks.once("socketlib.ready", () => {
 });
 
 Hooks.on("ready", function() {
+if (AssemblyStorage.Read()==null) {
+  AssemblyStorage.Set([]) //AssemblyViewer setup
+}
 dynamicStyles=null;
 console.log("registering stuff...")
 AddStyle(`@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');`) //this fixes the font issues
@@ -22,7 +25,7 @@ if (game.settings.get('moss-lancer', 'StartupSound')) {
   }
 }
 });
-function AddStyle(body) { //this allows up to add animations on runtime
+function AddStyle(body) { //this allows to add animations on runtime
   if (!dynamicStyles) {
     dynamicStyles = document.createElement("style");
     dynamicStyles.type = "text/css";

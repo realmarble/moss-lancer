@@ -15,13 +15,14 @@ function ShowTips(tiplist) {
         vertical-align: middle;
       "
       >
-      <h1 id="tipstext">PLACEHOLDER</h1>
+      <h1 id="tipstext"></h1>
       <button onclick="newtip()" style="width: 100%;bottom: 0;position:absolute;left: 0;">Next Tip</button>
       <script>
       tipslist=${JSON.stringify(tiplist)}
       function newtip(){
          document.getElementById("tipstext").childNodes[0].textContent = tipslist[Math.floor(Math.random()*tipslist.length)];
       }
+      newtip()
       </script>
       </div>
       `,
