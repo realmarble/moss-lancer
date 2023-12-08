@@ -1,0 +1,149 @@
+<script>
+    dossiers = document.getElementsByTagName("dossier")
+    dossiers = Array.prototype.slice.call(dossiers)
+    dossiers.forEach((element) => element.parentElement.style.padding = "0px");
+    </script>
+    <style>
+       dossier  .contents-bar {
+            color: white ;
+            width: 100%;
+            overflow: auto;
+            display: none;
+            display: flex;
+            align-self: flex-start;
+            flex-direction: column;
+        }
+
+       dossier  .data-screen {
+            font-family: 'Ubuntu Mono', monospace;
+            width: 80%;
+            height: 100%;
+            position: absolute;
+            right: 0px;
+            padding: 5px;
+        }
+
+       dossier  .category {
+            list-style: none;
+            border: 3px solid gainsboro;
+            border-radius: 5px;
+        }
+        dossier .category h2 {
+            border-block-end-style: none !important;
+        }
+
+       dossier  .article {
+            cursor: pointer;
+            padding-bottom: 10px;
+        }
+
+       dossier .tab {
+            font-family: 'Ubuntu Mono', monospace;
+            justify-content: space-around;
+            display: flex;
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: x-large;
+            flex-direction: row;
+            padding-top: 5px;
+        }
+
+        dossier .tab-item {
+            cursor: pointer;
+        }
+      dossier   #data{
+            font-family: 'Ubuntu Mono', monospace;
+            position: absolute;
+            left: 0px;
+            align-self: baseline;
+            width: 20%;
+            height: 100%;
+        }
+        dossier  .entryholder{
+            height: 93.55%;
+            background-color: slategray;
+    overflow-y: scroll;
+
+        }
+    </style>
+
+<dossier>
+        <div id="data">
+            <div class="tab">
+                <div class="tab-item" data-target="characters"><i class="fa-solid fa-person"></i></div>
+                <div class="tab-item" data-target="contacts"><i class="fa-solid fa-address-book"></i></div>
+                <div class="tab-item" data-target="reserves"><i class="fa-solid fa-database"></i></div>
+                <div class="tab-item" data-target="objectives"><i class="fa-solid fa-question"></i></div>
+            </div>
+            <div class="entryholder">
+                <div class="contents-bar" id="characters">
+                    {{#each characters}}
+                    <ol class="category">
+                        <h2>{{this.name}}</h2>
+                        {{#each this.contents}}
+                        <li class="article" data-template="{{this.template}}" data-templatedata="{{this.data}}">{{this.name}}</li>
+                        {{/each}}
+                    </ol>
+                    {{/each}}
+                </div>
+                <div class="contents-bar" id="contacts" style="display: none;">
+                 {{#each contacts}}
+                    <ol class="category">
+                        <h2>{{this.name}}</h2>
+                        {{#each this.contents}}
+                        <li class="article" data-template="{{this.template}}" data-templatedata="{{this.data}}">{{this.name}}</li>
+                        {{/each}}
+                    </ol>
+                    {{/each}}
+                </div>
+                <div class="contents-bar" id="reserves" style="display: none;">
+                    {{#each reserves}}
+                    <ol class="category">
+                        <h2>{{this.name}}</h2>
+                        {{#each this.contents}}
+                        <li class="article" data-template="{{this.template}}" data-templatedata="{{this.data}}">{{this.name}}</li>
+                        {{/each}}
+                    </ol>
+                    {{/each}}
+                </div>
+                <div class="contents-bar" id="objectives" style="display: none;">
+                    {{#each objectives}}
+                    <ol class="category">
+                        <h2>{{this.name}}</h2>
+                        {{#each this.contents}}
+                        <li class="article" data-template="{{this.template}}" data-templatedata="{{this.data}}">{{this.name}}</li>
+                        {{/each}}
+                    </ol>
+                    {{/each}}
+                </div>
+            </div>
+            </div>
+
+        <div class="data-screen">
+            <h1>OPERATION DOSSIER</h1>
+            <h2>SECURITY CLEARANCE NULL-ALEPH</h2>
+        </div>
+
+    <script>
+        $(document).ready(function(){
+            $("dossier .category h2").each(function() {
+                $(this).siblings().toggle()
+            });
+
+            $("dossier .tab-item").click(function(){
+                var target = $(this).data('target');
+                $(".contents-bar").hide();
+                $("#" + target).show();
+            });
+
+            $("dossier .category h2").click(function(){
+                $(this).siblings().toggle();
+            });
+
+            $("dossier .article").click(async function(){
+                var template = 'modules/moss-lancer/templates/dossier/pages/'+$(this).data('template')+".hbs"
+                $(".data-screen").html(await renderTemplate(template,$(this).data('templatedata')));
+            });
+        });
+    </script>
+</dossier>

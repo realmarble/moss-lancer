@@ -4,6 +4,8 @@ async function Briefing(object) {
     loadscreen: renderTemplate('modules/moss-lancer/templates/briefings/intros/loadscreen.hbs',object),
     logo: renderTemplate('modules/moss-lancer/templates/briefings/intros/logo.hbs',object),
     brigador: renderTemplate('modules/moss-lancer/templates/briefings/intros/brigador.hbs',object),
+    encrypted: renderTemplate('modules/moss-lancer/templates/briefings/intros/encrypted.hbs',object),
+    text: renderTemplate('modules/moss-lancer/templates/briefings/intros/text.hbs',object)
   };
   layouts = {
     classic: renderTemplate('modules/moss-lancer/templates/briefings/layouts/classic.hbs',object),
@@ -37,17 +39,7 @@ async function Briefing(object) {
     `;
     }
   }
-  let brief = new Dialog(
-    {
-      title: "INCOMING REQUEST, STAND BY",
-      content: `${await intros[object.IntroData.type] + await layouts[object.LayoutType]}`,
-      buttons: {},
-      default: "two",
-      render: () => {},
-      close: (html) => {},
-    },
-    { width: 1400, height: 700 }
-  );
+  let brief = new BriefingWindow(String.raw`${await intros[object.IntroData.type] + await layouts[object.LayoutType]}`)
   brief.render(true);
 }
 
@@ -57,24 +49,29 @@ function briefcontroller() {
 }
 
 function briefingeditor() {
-  let briefeditor = new BriefingEditor();
+  //we define the available options in constants.js
+  let briefeditor = new BriefingEditor(BriefingEditorConfig);
   briefeditor.render(true);
 }
 
 class BriefingEditor extends Application {
-  constructor() {
+  constructor(config) {
     super();
+    this.config = config;
   }
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["no-padding"],
       popOut: true,
-      template: "modules/moss-lancer/templates/briefingeditor.html",
+      template: "modules/moss-lancer/templates/briefingeditor.hbs",
       width: 1400,
       height: 720,
       baseApplication: "BriefingEditor",
       title: "Briefing Editor",
     });
+  }
+  getData() {
+    return this.config;
   }
 }
 class BriefingController extends Application {
@@ -102,14 +99,18 @@ class BriefingWindow extends Application {
     return mergeObject(super.defaultOptions, {
       classes: ["no-padding"],
       popOut: true,
-      template: "modules/moss-lancer/templates/briefing.hbs",//i don't know how to pass data to these
-      width: 500,
-      height: 800,
-      baseApplication: "BriefingController",
-      title: "Briefing Controller",
+      template: "modules/moss-lancer/templates/briefings/briefing.hbs",
+      width: 1400,
+      height: 700,
+      baseApplication: "BriefingWindow",
+      title: "STAND BY...",
     });
   }
   getData() {
-    return this.content
+    const data = super.getData();
+    data.html = this.content;
+    data.RandomID = Math.random().toString(36) //this is for supporting multiple instances of windows with dynamically typed text.
+    return data;
   }
 }
+

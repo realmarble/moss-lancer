@@ -27,29 +27,29 @@
     margin-bottom: 10px; } .notes { font-style: italic; }
   </style>
   <div>
-    <h1 class="typed" data-text="INCOMING REQUEST"></h1>
+    <h1 class="typed{{RandomID}}" data-text="INCOMING REQUEST"></h1>
     <div class="client-container">
       <div class="client-logo">
         <img src="{{ClientLogo}}" alt="Client Logo" />
         <span
           style="text-align: center"
-          class="typed"
+          class="typed{{RandomID}}"
           data-text="{{ClientName}}"
         ></span>
       </div>
       <div class="description">
         <div style="height: 60%;border: 1px solid {{BorderColor}};">
-          <p class="typed" data-text="{{ClientDescription}}">
+          <p class="typed{{RandomID}}" data-text="{{ClientDescription}}">
           </p>
-          <p class="typed" data-text="{{MissionDescription}}">
+          <p class="typed{{RandomID}}" data-text="{{MissionDescription}}">
           </p>
-          <p class="typed" data-text="{{AdditionalDescription}}"></p>
+          <p class="typed{{RandomID}}" data-text="{{AdditionalDescription}}"></p>
         </div>
 
         <div class="reward-information">
-          <h1 class="typed" data-text="PAYMENT" style="text-align: center"></h1>
-          <p class="typed" data-text="{{PaymentInfo}}"></p>
-          <p class="typed" data-text="{{AdditionalPaymentInfo}}">
+          <h1 class="typed{{RandomID}}" data-text="PAYMENT" style="text-align: center"></h1>
+          <p class="typed{{RandomID}}" data-text="{{PaymentInfo}}"></p>
+          <p class="typed{{RandomID}}" data-text="{{AdditionalPaymentInfo}}">
             <span
               style="float:right; color: gray;"
             >{{PaymentFlavour}}</span></p>
@@ -59,26 +59,26 @@
   </div>
 <div class="mission-briefing"> 
   <div class="briefing-section">
-    <div class="section-title typed" data-text="Deploying Forces:"></div>
+    <div class="section-title typed{{RandomID}}" data-text="Deploying Forces:"></div>
     <ul>
       {{#each DeployedForces}}
-        <li><p class="typed" data-text="{{this}}"></p></li>
+        <li><p class="typed{{RandomID}}" data-text="{{this}}"></p></li>
       {{/each}}
     </ul>
   </div>
   <div class="briefing-section">
-    <div class="section-title typed" data-text="OBJECTIVE:"></div>
+    <div class="section-title typed{{RandomID}}" data-text="OBJECTIVE:"></div>
     <ul>
       {{#each Objectives}}
-        <li><p class="typed" data-text="{{this}}"></p></li>
+        <li><p class="typed{{RandomID}}" data-text="{{this}}"></p></li>
       {{/each}}
     </ul>
   </div>
   <div class="briefing-section">
-    <div class="section-title typed" data-text="OBJECTIVE:"></div>
+    <div class="section-title typed{{RandomID}}" data-text="NOTES:"></div>
     <ul>
       {{#each Notes}}
-        <li><p class="typed notes" data-text="{{this}}"></p></li>
+        <li><p class="typed{{RandomID}} notes" data-text="{{this}}"></p></li>
       {{/each}}
     </ul>
   </div>

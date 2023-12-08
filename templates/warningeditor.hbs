@@ -1,0 +1,102 @@
+<div style="width: 100%;height: 100%;">
+  <div
+  style="
+    width: 50%;
+    position: absolute;
+    left: 0;
+    overflow-y: scroll;
+    height: 100%;
+  "
+>
+  <h3>Announcement Type:</h3>
+  <select id="type">
+    {{#each type}}
+    <option value="{{this.Name}}">{{this.DisplayName}}</option>
+    {{/each}}
+  </select>
+  <h3>Options:</h3>
+  <div id="options">
+    Stripes:<input type="checkbox" id="stripescheckbox"><br>
+    <input type="hidden" name="Stripes" value="false"/>
+    <div style="display: inline"><input style="width: calc(100% - 50px);" type="text" name="Emblem" placeholder="Path to your emblem"><br/></div>
+    <input type="text" name="Title" placeholder="Warning Title"><br/>
+    <input type="text" name="Action" placeholder="content of Highlighted Text"><br/>
+    <input type="text" name="Message" placeholder="Message (lowest line)"><br/>
+    Text Color:<input type="color" name="TextColor" value="#FFFFFF" /><br/>
+    Border Color:<input type="color" name="BorderColor" value="#000000" /><br/>
+    Action Color:<input type="color" name="ActionColor" value="#DFFF00"/>
+    <script>
+    addFilePicker(document.querySelector("input[name=Emblem]"))//if this works, get to work on layout
+var checkbox = document.querySelector("input[id=stripescheckbox]");
+checkbox.addEventListener('change', function() {
+  if (this.checked) {
+    document.querySelector("input[name=Stripes]").value = true
+  } else {
+    document.querySelector("input[name=Stripes]").value = false
+  }
+})
+    </script>
+  </div>
+  <button id="warninggenbutton" style="width: 100%">Generate Warning</button>
+</div>
+<div style="width: 50%; position: absolute; right: 0; height: 100%">
+  <textarea
+    id="warningtextdisplay"
+    style="width: 100%; height: 94%; resize: none"
+    placeholder="this is where the code for your announcement will show."
+  >
+</textarea
+  >
+  <button
+    style="width: 50%; height: 5%"
+    onclick="submitWarningDialog(JSON.parse(document.getElementById('warningtextdisplay').value));"
+  >
+    Save</button
+  ><button
+    style="width: 50%; height: 5%"
+    onclick="CombatPopup(JSON.parse(document.getElementById('warningtextdisplay').value))"
+  >
+    Preview
+  </button>
+</div>
+<script>
+
+warningobject = {};
+  document.getElementById("type").addEventListener("change", async function () { 
+  introoptions = document.getElementById("options");
+
+  try {
+      introoptions.innerHTML = await renderTemplate(`modules/moss-lancer/templates/warnings/settingtemplates/${this.value}.html`,{})
+      inputs = Array.prototype.slice.call(document.getElementById("options").getElementsByTagName("input")).concat(Array.prototype.slice.call(document.getElementById("options").getElementsByTagName("textarea")));
+      inputs.forEach(element => {
+        if (element.hasAttribute("filepicker")) {
+          addFilePicker(element)
+        }
+      });
+    } catch (error) {
+      introoptions.innerHTML = "";
+      console.error(error)
+    }
+  })
+  document.getElementById("warninggenbutton").onclick = function () {
+    warningobject = {};
+    warningobject.type = document.getElementById("type").value
+    //build a list of the inputs and sort them into the object
+    optionvalues = Array.prototype.slice.call(document.getElementById("options").querySelectorAll("input[name]")).concat(Array.prototype.slice.call(document.getElementById("options").querySelectorAll("textarea[name]")));
+    
+    optionvalues.forEach((element) => {
+      try {
+        warningobject[element.name] = JSON.parse(element.value);
+      } catch (error) {
+        warningobject[element.name] = element.value;
+      }
+    });
+    document.getElementById("warningtextdisplay").value = JSON.stringify(
+      warningobject,
+      null,
+      3
+    );
+  };
+</script>
+
+</div>

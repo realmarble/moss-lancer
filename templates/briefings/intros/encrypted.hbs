@@ -1,0 +1,115 @@
+<div id="standby" style="width:100%;height:100%;background-size: 40px 40px;overflow-y:hidden;
+  background-image: radial-gradient(circle, {{BackgroundAccent}} 1px, rgba(0, 0, 0, 0) 1px);background-color: {{BackgroundColor}};font-family: 'Ubuntu Mono', monospace;
+  color: {{TextColor}};">
+
+
+<div class="layout">
+    <div class="matrixdisplay">
+        <div class="matrix">
+            <span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><br>
+            <span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><br>
+            <span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><br>
+            <span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><br>
+            <span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span>
+        </div>
+        <div class="matrixconnection">
+            <hr class="solid">
+            <hr class="solid">
+            <hr class="solid">
+            <hr class="solid">
+            <hr class="solid">
+        </div>
+        <div class="matrix">
+            <span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><br>
+            <span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><br>
+            <span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><br>
+            <span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><br>
+            <span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span><span class="matrixspan">a</span>
+        </div>
+    </div>
+    <h1 class="status">ACCESS DENIED</h1>
+</div>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+.status{
+    font-family: "Ubuntu Mono", monospace;   
+}
+.matrixconnection > hr {
+  padding: 10px;
+  background-color: #F61331; 
+  border-top: 0px !important;
+}
+
+.success{
+  background-color: #4BB543 !important; 
+}
+
+.matrixconnection{
+    width:20%;
+}
+.matrix, .matrixconnection { 
+    display: inline-block;
+    vertical-align: top;
+}
+.matrixspan{
+font-family: "Ubuntu Mono", monospace;
+padding: 20px;
+font-size: 2em;
+}
+.matrixdisplay {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+</style>
+<script>
+    timer = ms => new Promise(res => setTimeout(res, ms))
+     characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+function generateString(length) {
+    let result = '';
+     charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+}       pairs = [...Array(25).keys()];
+        bars = Array.prototype.slice.call(document.querySelectorAll("hr.solid"))
+        spans = Array.prototype.slice.call(document.querySelectorAll("span.matrixspan"))
+        function setpair(pairnumber,Letter1,Letter2){
+        if(pairnumber>25){return}
+        span1 = spans[0+pairnumber]
+        span2 = spans[25+pairnumber]
+        span1.innerHTML=Letter1
+        span2.innerHTML=Letter2
+        }
+        async function loop(){
+        for (let i = -10; i < 50; i++) {
+            pairs.forEach(element => {
+            setpair(element,generateString(1),generateString(1))
+        });
+        if (i % 10 == 0) {
+        if(i/10 ==-1){continue}
+        bars[(i/10)].classList.toggle("success");
+        pairs = pairs.slice(5);
+        if ((i/10)==4) {
+            document.querySelector("h1.status").innerHTML = "ACCESS GRANTED"     
+        }
+        }
+        await timer(25);  
+        }
+        await timer(125);
+        document.getElementById("standby").style.display="none"
+document.getElementById("briefingcontainer").style.display="block"
+    }
+loop()
+</script>
+    </div>

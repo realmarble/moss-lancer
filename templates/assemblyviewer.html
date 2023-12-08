@@ -1,17 +1,83 @@
 <style>
-.tile{
-    width: 150px;
-    height: 150px;
-    border: 1px black solid;
-    background-color: wheat;
+  .tile{
+      width: 150px;
+      height: 150px;
+      border: 3px black solid;
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
+      transition: 0.1s;
+      position: relative; 
+      border-radius: 15px;
+  }
+  .tile:hover{
+background-color: #6C756B;
+  }
+  #tilecontainer{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;  
+  }
+  .tiletools {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 5px;
+  font-size: x-large;
+  width: 100%;
 }
-</style>
-<script>
-container = document.getElementById("tilecontainer")
-AssemblyStorage.Read().forEach(element => {
-div = document.createElement("div")
-div.classList.toggle("tile");
-container.appendChild(div)
-});
-</script>
-<div id="tilecontainer"></div>
+
+.tiletools i {
+  width: 33%;
+  text-align: center;
+}
+
+  
+  </style>
+  <script>
+  handler = {
+  Briefing:CallBrief,
+  Warning:CallAnnouncement,
+  Document:()=>{console.log("none")}
+  }
+  function rendertiles() {
+    container = document.getElementById("tilecontainer")
+    container.innerHTML=""
+    if (AssemblyStorage.Read().length != 0) {
+      AssemblyStorage.Read().forEach(element => {
+  div = document.createElement("div")
+  div.classList.toggle("tile");
+  div.innerHTML = `
+  <span>${element.assemblyName}</span>
+  <div class="tiletools">
+    <i class="fa-solid fa-play"></i>
+    <i class="fa-solid fa-pen-to-square"></i>
+    <i class="fa-solid fa-trash"></i>
+  </div>`
+  container.appendChild(div)
+  div.querySelector(".fa-play").addEventListener("click", function() {
+    handler[element.assemblyType](element) //onclick, route object to correct handler and launch it.
+  });
+  div.querySelector(".fa-trash").addEventListener("click", function() {
+    DeleteConfirm(element.id)
+  });
+  div.querySelector(".fa-pen-to-square").addEventListener("click", async function() {
+     AssemblyEditor(element.id,JSON.stringify(element,null,3))
+  });
+  })   
+    } else {
+      container.innerHTML=`<h1 style="top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    border-block-end-style: none;  
+    color: black;
+    position: absolute;  ">Nothing here yet.</h1>`
+    }
+  }
+  rendertiles()
+  </script>
+  <div id="tilecontainer"></div>

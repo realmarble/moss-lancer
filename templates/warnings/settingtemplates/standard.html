@@ -1,0 +1,20 @@
+
+Stripes:<input type="checkbox" id="stripescheckbox"><br>
+<input type="hidden" name="Stripes" value="false"/>
+<div style="display: inline"><input style="width: calc(100% - 50px);" type="text" name="Emblem" placeholder="Path to your emblem" filepicker><br/></div>
+<input type="text" name="Title" placeholder="Warning Title"><br/>
+<input type="text" name="Action" placeholder="content of Highlighted Text"><br/>
+<input type="text" name="Message" placeholder="Message (lowest line)"><br/>
+Text Color:<input type="color" name="TextColor" value="#FFFFFF" /><br/>
+Border Color:<input type="color" name="BorderColor" value="#000000" /><br/>
+Action Color:<input type="color" name="ActionColor" value="#DFFF00"/>
+<script>
+var checkbox = document.querySelector("input[id=stripescheckbox]");
+checkbox.addEventListener('change', function() {
+if (this.checked) {
+document.querySelector("input[name=Stripes]").value = true
+} else {
+document.querySelector("input[name=Stripes]").value = false
+}
+})
+</script>

@@ -1,9 +1,9 @@
 warningtypes = {
   "standard":standard,
   "airforce":airforce,
-  "meltdown":meltdown
+  "meltdown":meltdown,
+  "zen":zen
 }
-
 function standard(object){
   sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
   if (object.Stripes == true) {
@@ -129,7 +129,6 @@ function standard(object){
   }
   
   popup.remove()
-  console.log('anim cleaned')
   }
   
   
@@ -267,7 +266,6 @@ async function meltdown(object){
   "Action":object.Action,
   "Message":object.Message})
   await timer(30000)
-  console.log("cleanup")
   cleanup.forEach(element => {
       element.style.transition = "1.5s"
       element.style.opacity = "0"
@@ -276,8 +274,20 @@ async function meltdown(object){
   cleanup.forEach(element => {
       element.remove()
   });
-  }
-
+}
+function zen(object) { //not done, will finish later (probably)
+  //structure:
+  //container div {
+  // centered div{
+  //  span with text
+  //}
+  // span with text
+  //}
+  containerdiv = document.createElement("div")
+  div = document.createElement("div")
+  div.classList.add("centered")
+  container.appendChild(div) 
+}
 function CombatPopup(object) {
 try {
   warningtypes[object.type](object)
@@ -319,41 +329,25 @@ function AnnouncementController() {
   announcementcontroller.render(true);   
 }
 function announcementeditor() {
-new AnnouncementEditor().render(true)  
+new AnnouncementEditor(WarningEditorConfig).render(true)  
 }
 class AnnouncementEditor extends Application{
-  constructor(){
+  constructor(config){
     super();
+    this.config = config;
   }
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes:["no-padding"],
       popOut: true,
-      template:"modules/moss-lancer/templates/warningeditor.html",
+      template:"modules/moss-lancer/templates/warningeditor.hbs",
       width:1400,
       height:720,
       baseApplication: "WarningEditor",
       title:"Combat Announcement Editor"
     });
   }
+  getData() {
+    return this.config;
   }
-
-  function testfilepicker() {
-    new FilePickerTest().render(true)  
-    }
-    class FilePickerTest extends Application{
-      constructor(){
-        super();
-      }
-      static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
-          classes:["no-padding"],
-          popOut: true,
-          template:"modules/moss-lancer/templates/test.hbs",
-          width:1400,
-          height:720,
-          baseApplication: "WarningEditor",
-          title:"File Picker Test"
-        });
-      }
-      }
+  }

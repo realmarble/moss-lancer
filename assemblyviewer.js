@@ -7,7 +7,7 @@ class AssemblyViewer extends Application {
       classes: ["no-padding"],
       popOut: true,
       template: "modules/moss-lancer/templates/assemblyviewer.html",
-      width: 700,
+      width: 716,
       height: 720,
       baseApplication: "AssemblyViewer",
       title: "Assembly Viewer",
@@ -23,10 +23,15 @@ const AssemblyStorage = {
     localStorage.setItem("moss.AssemblyStorage", JSON.stringify(object));
   },
   Flush: () => {
-    localStorage.setItem("moss.AssemblyStorage", "");
+    localStorage.setItem("moss.AssemblyStorage", []);
   },
   Read: () => {
-    return JSON.parse(localStorage.getItem("moss.AssemblyStorage"));
+    try {
+      return JSON.parse(localStorage.getItem("moss.AssemblyStorage"));  
+    } catch (error) {
+      return []
+    }
+    
   },
   Push: (object) => {
     AssemblyStorageTemp = JSON.parse(
@@ -84,13 +89,19 @@ function submitBriefingDialog(object){
             label: "Submit",
             callback: () => {
                 object.assemblyName = document.getElementsByName("AssemblySubmitName")[0].value
-                object.AssemblyType ="Briefing"
+                object.assemblyType ="Briefing"
                 AssemblyStorage.Push(object)
+                try {
+                  rendertiles()
+                } catch (e) {
+                  //i dont care
+                }
             }
           },
           no: {
             label: "Cancel",
-            callback: () => {}
+            callback: () => {
+            }
           }
         },
           default: 'no',
@@ -105,15 +116,48 @@ function submitWarningDialog(object){
             label: "Submit",
             callback: () => {
                 object.assemblyName = document.getElementsByName("AssemblySubmitName")[0].value
-                object.AssemblyType ="Warning"
+                object.assemblyType ="Warning"
                 AssemblyStorage.Push(object)
+                try {
+                  rendertiles()
+                } catch (e) {
+                  //i dont care
+                }
             }
           },
           no: {
             label: "Cancel",
-            callback: () => {}
+            callback: () => {
+            }
           }
         },
           default: 'no',
       }).render(true)    
+}
+async function AssemblyEditor(id,object){
+  new Dialog({
+    title: "Assembly Editor",
+    content: await renderTemplate("modules/moss-lancer/templates/assemblyeditor.hbs", {id:id,object:object}),
+    buttons: {
+      yes: {
+        label: "Save Changes",
+        callback: () => {
+          AssemblyStorage.Update(id,JSON.parse(document.getElementsByName("assemblyeditortext")[0].value));try {rendertiles()} catch (e) {};
+        }
+      }
+    },
+      default: 'yes',
+  },{width: 716,height: 720 }).render(true)  
+}
+async function DeleteConfirm(id) {
+  const confirmation = await Dialog.prompt({
+    content: "Delete Assembly?"
+  });
+
+  if (!confirmation) {
+    return;
+  }
+
+  AssemblyStorage.Delete(id);
+  rendertiles();
 }

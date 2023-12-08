@@ -1,8 +1,10 @@
 # moss-lancer
-i keep my stuff for LANCER on foundry VTT here
+A module to add some stylized popups for your players, along with a slew with other features.
 
 ## Current Functionality
 
 - Briefings
 - Combat Warnings
 - Chatroom
+- Playing a sound file on startup
+- Tips 

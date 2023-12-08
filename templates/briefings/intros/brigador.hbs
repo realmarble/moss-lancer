@@ -64,15 +64,6 @@
 </div>
 
 <script>
-list=Array.from(document.getElementsByClassName("typed"))
-    list.forEach(element => {
-      text= element.getAttribute("data-text")
-      new TypeIt(element, {
-    strings: text,
-    speed: 5,
-    waitUntilVisible: true,
-    cursor: false,
-  }).go();})
   left = document.getElementById("left")
   right = document.getElementById("right")
   contract = document.getElementsByClassName("contractcontainer")[0]

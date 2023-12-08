@@ -4,16 +4,21 @@
   "description": "Tools and animations for enhancing your game",
   "authors": [
     {
-    "name": "moss"
+    "name": "moss",
+    "discord" : "realmarble"
     }
   ],
-  "version": "0.0.5",
+  "version": "0.0.6",
   "scripts": [
+    // think about bundling some of these up or something
       "lib/typeit.js",
+      "document/document.js",
+      "util.js",
+      "constants.js",
+      "settings.js",
       "briefing/animatedbriefing.js",
       "additional/tips.js",
       "combatwarn/combatwarn.js",
-      "settings.js",
       "assemblyviewer.js",
       "main.js"
     ],
@@ -34,7 +39,8 @@
     }
   ],
   "packs": [
-    {
+    { 
+      //is this still necessary?
       "name": "macro-pack",
       "label": "Macros",
       "system": "lancer",
@@ -43,8 +49,8 @@
     }
 ],
   "url": "https://github.com/realmarble/moss-lancer",
-"manifest": "https://github.com/realmarble/moss-lancer/releases/download/0.0.5/module.json",
-"download": "https://github.com/realmarble/moss-lancer/releases/download/0.0.5/moss-lancer.zip",
+"manifest": "https://github.com/realmarble/moss-lancer/releases/download/0.0.6/module.json",
+"download": "https://github.com/realmarble/moss-lancer/releases/download/0.0.6/moss-lancer.zip",
 "license": "MIT",
 "readme": "https://github.com/realmarble/moss-lancer",
 "bugs": "https://github.com/realmarble/moss-lancer/issues",

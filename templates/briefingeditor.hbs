@@ -10,22 +10,23 @@
 >
   <h3>Intro Options:</h3>
   <select id="introtype">
-    <option value="none">None</option>
-    <option value="loadscreen">Loading Screen</option>
-    <option value="logo">Logo</option>
-    <option value="brigador">Brigador</option>
+    {{#each intro}}
+    <option value="{{this.Name}}">{{this.DisplayName}}</option>
+    {{/each}}
   </select>
   <h3>Briefing Options:</h3>
   <select id="briefingtype">
-    <option value="classic">Classic</option>
-    <!-- <option value="corporate">Corporate</option> -->
+    {{#each layout}}
+    <option value="{{this.Name}}">{{this.DisplayName}}</option>
+    {{/each}}
   </select>
   <h3>Intro Data:</h3>
   <div id="introoptions"></div>
   <h3>Briefing Data:</h3>
   <div id="briefingoptions">
+    <!-- template -->
     <input type="text" name="ClientName" placeholder="Name of the Client" />
-    <input type="text" name="ClientLogo" placeholder="Logo of the Client" />
+    <div style="display: inline"><input style="width: calc(100% - 50px);" type="text" name="ClientLogo" placeholder="logo of the client"><br/>
     <textarea
       name="ClientDescription"
       placeholder="Description of the Client"
@@ -83,44 +84,45 @@
     /><br />
     Text Color:<input type="color" name="TextColor" value="#FFFFFF" /><br />
     Border Color:<input type="color" name="BorderColor" value="#C0C0C0" />
+    <script>addFilePicker(document.querySelector("input[name=ClientLogo]"))</script></div>
   </div>
   <button id="briefgenbutton" style="width: 100%">Generate Brief</button>
 </div>
 <div style="width: 50%; position: absolute; right: 0; height: 100%">
-  <textarea
-    id="brieftextdisplay"
-    style="width: 100%; height: 94%; resize: none"
-    placeholder="This is where the code for your briefing will show."
-  >
-</textarea
-  >
-  <button
-    style="width: 50%; height: 5%"
-    onclick="submitBriefingDialog(JSON.parse(document.getElementById('brieftextdisplay').value));"
-  >
-    Save</button
-  ><button
-    style="width: 50%; height: 5%"
-    onclick="Briefing(JSON.parse(document.getElementById('brieftextdisplay').value))"
-  >
-    Preview
-  </button>
+  <textarea id="brieftextdisplay" style="width: 100%; height: 94%; resize: none" placeholder="This is where the code for your briefing will show."></textarea>
+  <button style="width: 50%; height: 5%"onclick="submitBriefingDialog(JSON.parse(document.getElementById('brieftextdisplay').value));">Save</button><button style="width: 50%; height: 5%" onclick="Briefing(JSON.parse(document.getElementById('brieftextdisplay').value))">Preview</button>
 </div>
 <script>
 
   briefobject = {};
-  document.getElementById("introtype").addEventListener("change", function () {
+  document.getElementById("introtype").addEventListener("change", async function () {
     introptions = document.getElementById("introoptions");
-    options={
-      "none":"",
-      "logo":'<input type="text" placeholder="A Path to your logo." name="LogoPath">',
-      "loadscreen":'<input type="text" name="LoadScreenTitle" placeholder="A Title for the loadscreen."><textarea name="LoadScreenFluff"cols="30" rows="10" placeholder="The fluff that shows during the animation. Defined as an Array."></textarea>',
-      "brigador":'<input type="text" name="LogoPath" placeholder="Logo Path" /><textarea name="Paragraph1" placeholder="Contract Paragraph 1" style="width: 100%; height: 150px"></textarea><textarea name="Paragraph2" placeholder="Contract Paragraph 2" style="width: 100%; height: 150px"></textarea><textarea name="Paragraph3" placeholder="Contract Paragraph 3" style="width: 100%; height: 150px"></textarea><textarea name="Paragraph4" placeholder="Contract Paragraph 4" style="width: 100%; height: 150px"></textarea><textarea name="Paragraph5" placeholder="Contract Paragraph 5" style="width: 100%; height: 150px"></textarea>'
-    }
     try {
-      introoptions.innerHTML = options[this.value]  
+      introoptions.innerHTML = await renderTemplate(`modules/moss-lancer/templates/briefings/settingtemplates/intro/${this.value}.html`,{})
+      inputs = Array.prototype.slice.call(document.getElementById("introoptions").getElementsByTagName("input")).concat(Array.prototype.slice.call(document.getElementById("introoptions").getElementsByTagName("textarea")));
+      inputs.forEach(element => {
+        if (element.hasAttribute("filepicker")) {
+          addFilePicker(element)
+        }
+      });
     } catch (error) {
       introptions.innerHTML = "";
+      console.error(error)
+    }
+  });
+  document.getElementById("briefingtype").addEventListener("change", async function () {
+    briefingoptions = document.getElementById("briefingoptions");
+    try {
+      briefingoptions.innerHTML = await renderTemplate(`modules/moss-lancer/templates/briefings/settingtemplates/layout/${this.value}.html`,{})
+      inputs = Array.prototype.slice.call(document.getElementById("briefingoptions").getElementsByTagName("input")).concat(Array.prototype.slice.call(document.getElementById("briefingoptions").getElementsByTagName("textarea")));
+      inputs.forEach(element => {
+        if (element.hasAttribute("filepicker")) {
+          addFilePicker(element)
+        }
+      });
+    } catch (error) {
+      briefingoptions.innerHTML = "";
+      console.error(error)
     }
   });
   document.getElementById("briefgenbutton").onclick = function () {

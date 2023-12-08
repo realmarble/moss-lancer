@@ -1,5 +1,5 @@
 Hooks.on("init", function (){
-console.log("registering settings")
+console.log("Moss | registering settings")
 game.settings.register("moss-lancer", "StartupSound", {
     name: "Startup Sound",
     hint: "Whether to play a specific sound on startup.",
@@ -22,7 +22,8 @@ game.settings.register("moss-lancer", "StartupSound", {
     default: "",        // The default value for the setting
     onChange: value => { // A callback function which triggers when the setting is changed
       console.log(value)
-    }
+    },
+    filePicker: true,
   });
    game.settings.register("moss-lancer", "ToolIcon", {
      name: "Tool Icon",
@@ -39,7 +40,7 @@ game.settings.register("moss-lancer", "StartupSound", {
 })
 
 Hooks.on("getSceneControlButtons", (controls) => {
-  if(!game.settings.get('moss-lancer', 'StartupSound')){return;}
+  if(!game.settings.get('moss-lancer', 'ToolIcon')){return;}
   annoucement = {
    icon: "fas fa-bullhorn",
    name: "announcementeditor",

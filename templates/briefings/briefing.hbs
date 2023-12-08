@@ -1,0 +1,15 @@
+<script>
+briefs = document.getElementsByTagName("briefing")
+briefs = Array.prototype.slice.call(briefs)
+briefs.forEach((element) => element.parentElement.style.padding = "0px");
+list=Array.from(document.getElementsByClassName("typed{{RandomID}}"))
+    list.forEach(element => {
+      text= element.getAttribute("data-text")
+      new TypeIt(element, {
+    strings: text,
+    speed: 5,
+    waitUntilVisible: true,
+    cursor: false,
+  }).go();})
+</script>
+<briefing>{{{html}}}</briefing>
