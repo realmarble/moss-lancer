@@ -1,5 +1,8 @@
 
 async function Briefing(object) {
+  typeitid = makeid(36)
+  object.RandomID = typeitid
+  console.log("ID:",typeitid)
   intros = {
     loadscreen: renderTemplate('modules/moss-lancer/templates/briefings/intros/loadscreen.hbs',object),
     logo: renderTemplate('modules/moss-lancer/templates/briefings/intros/logo.hbs',object),
@@ -39,7 +42,7 @@ async function Briefing(object) {
     `;
     }
   }
-  let brief = new BriefingWindow(String.raw`${await intros[object.IntroData.type] + await layouts[object.LayoutType]}`)
+  let brief = new BriefingWindow(String.raw`${await intros[object.IntroData.type] + await layouts[object.LayoutType]}`,typeitid)
   brief.render(true);
 }
 
@@ -91,9 +94,10 @@ class BriefingController extends Application {
   }
 }
 class BriefingWindow extends Application {
-  constructor(content) {
+  constructor(content,typeitid) {
     super();
     this.content = content
+    this.typeitid = typeitid;
   }
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -109,7 +113,7 @@ class BriefingWindow extends Application {
   getData() {
     const data = super.getData();
     data.html = this.content;
-    data.RandomID = Math.random().toString(36) //this is for supporting multiple instances of windows with dynamically typed text.
+    data.RandomID = this.typeitid //this is for supporting multiple instances of windows with dynamically typed text.
     return data;
   }
 }

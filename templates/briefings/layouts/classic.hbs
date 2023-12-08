@@ -1,5 +1,5 @@
 <div
-  id="briefingcontainer"
+  id="briefingcontainer{{RandomID}}"
   style="
     height: 100%;
     width: 100%;
@@ -62,7 +62,7 @@
     <div class="section-title typed{{RandomID}}" data-text="Deploying Forces:"></div>
     <ul>
       {{#each DeployedForces}}
-        <li><p class="typed{{RandomID}}" data-text="{{this}}"></p></li>
+        <li><p class="typed{{../RandomID}}" data-text="{{this}}"></p></li>
       {{/each}}
     </ul>
   </div>
@@ -70,7 +70,7 @@
     <div class="section-title typed{{RandomID}}" data-text="OBJECTIVE:"></div>
     <ul>
       {{#each Objectives}}
-        <li><p class="typed{{RandomID}}" data-text="{{this}}"></p></li>
+        <li><p class="typed{{../RandomID}}" data-text="{{this}}"></p></li>
       {{/each}}
     </ul>
   </div>
@@ -78,7 +78,7 @@
     <div class="section-title typed{{RandomID}}" data-text="NOTES:"></div>
     <ul>
       {{#each Notes}}
-        <li><p class="typed{{RandomID}} notes" data-text="{{this}}"></p></li>
+        <li><p class="typed{{../RandomID}} notes" data-text="{{this}}"></p></li>
       {{/each}}
     </ul>
   </div>

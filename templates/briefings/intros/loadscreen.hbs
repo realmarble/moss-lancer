@@ -1,4 +1,4 @@
-<div id="standby" style="width:100%;height:100%;background-size: 40px 40px;
+<div id="standby{{RandomID}}" style="width:100%;height:100%;background-size: 40px 40px;
   background-image: radial-gradient(circle, {{
     BackgroundAccent
   }} 1px, rgba(0, 0, 0, 0) 1px);background-color: {{
@@ -9,7 +9,7 @@
   <h1 style="text-align: center;color:{{TextColor}};font-size:4em;">{{
     IntroData.LoadScreenTitle
   }}</h1>
-  <div id="fluffmessages">
+  <div id="fluffmessages{{RandomID}}">
     
 <script>
 lines=[
@@ -17,10 +17,10 @@ lines=[
 "{{this}}",
 {{/each}}
 ]
-div=document.getElementById("fluffmessages")
+div=document.getElementById("fluffmessages{{RandomID}}")
 var logRandomLine = (arr) => {
 if (arr.length === 0) {
-clearInterval(intervalId);
+clearInterval(intervalId{{RandomID}});
 return;
 }
 
@@ -32,13 +32,13 @@ div.innerHTML += '<p>'+randomLine+'</p>'
 
 // Set an interval to log a random line every 50ms for ten times
 var intervalCount = 0;
-var intervalId = setInterval(() => {
+var intervalId{{RandomID}} = setInterval(() => {
 logRandomLine(lines);
 intervalCount++;
 if (intervalCount >= 20) {
-document.getElementById("standby").style.display="none"
-document.getElementById("briefingcontainer").style.display="block"
-clearInterval(intervalId);
+document.getElementById("standby{{RandomID}}").style.display="none"
+document.getElementById("briefingcontainer{{RandomID}}").style.display="block"
+clearInterval(intervalId{{RandomID}});
 }
 }, 35);
 </script>
