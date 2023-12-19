@@ -1,4 +1,4 @@
-BriefingEditorConfig = {
+BriefingConfig = {
   layout: [
     { DisplayName: "Classic", Name: "classic" }
   ],
@@ -8,9 +8,10 @@ BriefingEditorConfig = {
     { DisplayName: "Logo", Name: "logo" },
     { DisplayName: "Brigador", Name: "brigador" },
     { DisplayName: "Encrypted", Name: "encrypted" },
+    { DisplayName: "Directive", Name: "directive" },
   ],
 };
-WarningEditorConfig = {
+WarningConfig = {
     type:[
     { DisplayName: "Standard", Name: "standard" },
     { DisplayName: "Airforce", Name: "airforce" },

@@ -6,7 +6,7 @@ Hooks.once("socketlib.ready", () => {
   socket.register("msghandler",MessageHandler)
   socket.register("showtips",ShowTips)
   socket.register("combatannouncement",CombatPopup)
-  socket.register("RenderApplication",RenderApplication)
+  socket.register("OpenFrameViewer",OpenFrameViewer)
   console.log("Moss | registering socket functions...")
 });
 
@@ -16,7 +16,6 @@ if (AssemblyStorage.Read()==null) {
 }
 dynamicStyles=null;
 console.log("Moss | registering stuff...")
-AddStyle(`@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');`) //this fixes the font issues
 
 if (game.settings.get('moss-lancer', 'StartupSound')) {
   try {
@@ -50,4 +49,7 @@ function CallTips(tips){
 }
 function CallRenderApplication(object){
   socket.executeForEveryone(RenderApplication,object)
+}
+function CallFrameViewer(link){
+  socket.executeForEveryone(OpenFrameViewer,link)
 }

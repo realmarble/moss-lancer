@@ -1,4 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&display=swap');
 /* Custom CSS */
+.-emu-layout body.-emu .dialog .dialog-content {
+    padding: 0;
+    padding-block-start:0;
+    }
+    .-emu-layout body.-emu .dialog div.dialog-content{
+    padding-block-start:0;
+    }
+    h1{
+    border-bottom:0;
+    border-block-end-width: 0;}
+    h2{
+    border-bottom:0;
+    border-block-end-width: 0;}
+    .-emu-layout body.-emu #sidebar h1, .-emu-layout body.-emu .dialog h1, .-emu-layout body.-emu .window-app:not(.-emu-clean-sheet) h1{
+        border-block-end-width: 0px;
+    }
+    .-emu-layout body.-emu .dialog div.dialog-content{padding:0;}
 .tilecontainer > h1.centered {
     top: 50%;
     left: 50%;
@@ -9,5 +28,3 @@
     color: black;
     position: absolute;  
 }
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&display=swap');

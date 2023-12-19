@@ -1,4 +1,4 @@
-<div id="standby" style="width:100%;height:100%;background-size: 40px 40px;overflow-y:hidden;
+<div id="standby{{RandomID}}" style="width:100%;height:100%;background-size: 40px 40px;overflow-y:hidden;
   background-image: radial-gradient(circle, {{BackgroundAccent}} 1px, rgba(0, 0, 0, 0) 1px);background-color: {{BackgroundColor}};font-family: 'Ubuntu Mono', monospace;
   color: {{TextColor}};">
 
@@ -107,8 +107,8 @@ function generateString(length) {
         await timer(25);  
         }
         await timer(125);
-        document.getElementById("standby").style.display="none"
-document.getElementById("briefingcontainer").style.display="block"
+        document.getElementById("standby{{RandomID}}").style.display="none"
+document.getElementById("briefingcontainer{{RandomID}}").style.display="block"
     }
 loop()
 </script>

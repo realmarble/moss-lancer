@@ -1,40 +1,16 @@
-
 async function Briefing(object) {
   typeitid = makeid(36)
   object.RandomID = typeitid
-  console.log("ID:",typeitid)
-  intros = {
-    loadscreen: renderTemplate('modules/moss-lancer/templates/briefings/intros/loadscreen.hbs',object),
-    logo: renderTemplate('modules/moss-lancer/templates/briefings/intros/logo.hbs',object),
-    brigador: renderTemplate('modules/moss-lancer/templates/briefings/intros/brigador.hbs',object),
-    encrypted: renderTemplate('modules/moss-lancer/templates/briefings/intros/encrypted.hbs',object),
-    text: renderTemplate('modules/moss-lancer/templates/briefings/intros/text.hbs',object)
-  };
-  layouts = {
-    classic: renderTemplate('modules/moss-lancer/templates/briefings/layouts/classic.hbs',object),
-    corporate:renderTemplate('modules/moss-lancer/templates/briefings/layouts/corporate.hbs',object)
-  };
   introhtml = "";
   if ((object.Intro = true)) {
     try {
-      introhtml = intros[object.IntroData.type];
+      introhtml = await renderTemplate(`modules/moss-lancer/templates/briefings/intros/${object.IntroData.type}.hbs`,object)
     } catch (error) {
       introhtml = `
     <div id="standby" style="width:100%;height:100%;background-size: 40px 40px;
   background-image: radial-gradient(circle, ${object.BackgroundAccent} 1px, rgba(0, 0, 0, 0) 1px);background-color: ${object.BackgroundColor};font-family: 'Ubuntu Mono', monospace;
   color: ${object.TextColor};">
   <script>
-    list=Array.from(document.getElementsByClassName("typed"))
-    list.forEach(element => {
-      text= element.getAttribute("data-text")
-      new TypeIt(element, {
-    strings: text,
-    speed: 5,
-    waitUntilVisible: true,
-    cursor: false,
-  }).go();
-  
-    });
     document.getElementById("standby").style.display="none"
   document.getElementById("briefingcontainer").style.display="block"
     </script>
@@ -42,7 +18,9 @@ async function Briefing(object) {
     `;
     }
   }
-  let brief = new BriefingWindow(String.raw`${await intros[object.IntroData.type] + await layouts[object.LayoutType]}`,typeitid)
+  introhtml = await renderTemplate(`modules/moss-lancer/templates/briefings/intros/${object.IntroData.type}.hbs`,object)
+  briefinghtml = await renderTemplate(`modules/moss-lancer/templates/briefings/layouts/${object.LayoutType}.hbs`,object)
+  let brief = new BriefingWindow(String.raw`${introhtml + briefinghtml}`,typeitid)
   brief.render(true);
 }
 
@@ -53,7 +31,7 @@ function briefcontroller() {
 
 function briefingeditor() {
   //we define the available options in constants.js
-  let briefeditor = new BriefingEditor(BriefingEditorConfig);
+  let briefeditor = new BriefingEditor(BriefingConfig);
   briefeditor.render(true);
 }
 

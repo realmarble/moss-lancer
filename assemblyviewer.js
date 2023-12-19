@@ -17,69 +17,64 @@ class AssemblyViewer extends Application {
 function openAssemblyViewer() {
   new AssemblyViewer().render(true);
 }
-
-const AssemblyStorage = {
-  Set: (object) => {
-    localStorage.setItem("moss.AssemblyStorage", JSON.stringify(object));
-  },
-  Flush: () => {
-    localStorage.setItem("moss.AssemblyStorage", []);
-  },
-  Read: () => {
+class LocalStorage {
+  constructor(key) {
+    this.key = key;
+  }
+  Set(object) {
+    localStorage.setItem(this.key, JSON.stringify(object)); 
+  }
+  Flush() {
+    localStorage.setItem(this.key, []);
+  }
+  Read() {
     try {
-      return JSON.parse(localStorage.getItem("moss.AssemblyStorage"));  
+      return JSON.parse(localStorage.getItem(this.key));  
     } catch (error) {
       return []
-    }
-    
-  },
-  Push: (object) => {
-    AssemblyStorageTemp = JSON.parse(
-      localStorage.getItem("moss.AssemblyStorage")
-    );
-    l = AssemblyStorageTemp.length;
-    object.id = l;
+    }}
+  Push(object) {
+    AssemblyStorageTemp = JSON.parse(localStorage.getItem(this.key));
+    object.id = makeid(10); //safer
     AssemblyStorageTemp.push(object);
-    localStorage.setItem(
-      "moss.AssemblyStorage",
-      JSON.stringify(AssemblyStorageTemp)
-    );
-  },
-  Delete: (id) => {
+    localStorage.setItem(this.key, JSON.stringify(AssemblyStorageTemp));
+  }
+  Delete(id) {
     AssemblyStorageTemp = JSON.parse(
-      localStorage.getItem("moss.AssemblyStorage")
+      localStorage.getItem(this.key)
     );
     index = AssemblyStorageTemp.findIndex((element) => element.id === id);
     if (index !== -1) {
       // Use splice to remove the element from the array
       AssemblyStorageTemp.splice(index, 1);
       localStorage.setItem(
-        "moss.AssemblyStorage",
+        this.key,
         JSON.stringify(AssemblyStorageTemp)
       );
       return true;
     } else {
       return false;
     }
-  },
-  Update: (id, object) => {
+  }
+  Update(id, object) {
     AssemblyStorageTemp = JSON.parse(
-      localStorage.getItem("moss.AssemblyStorage")
+      localStorage.getItem(this.key)
     );
     index = AssemblyStorageTemp.findIndex((element) => element.id === id);
     if (index !== -1) {
       // Use splice to remove the element from the array
       AssemblyStorageTemp[index] = object;
       localStorage.setItem(
-        "moss.AssemblyStorage",
+        this.key,
         JSON.stringify(AssemblyStorageTemp)
       );
       return true;
     } else {
       return false;
     }
-  },
-};
+  }
+}
+const AssemblyStorage = new LocalStorage("moss.AssemblyStorage")
 function submitBriefingDialog(object){
     new Dialog({
         title: "Submit Briefing",
