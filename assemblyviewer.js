@@ -26,6 +26,7 @@ class LocalStorage {
   }
   Flush() {
     localStorage.setItem(this.key, []);
+    console.log(`Flushed Storage of key ${this.key}`)
   }
   Read() {
     try {
@@ -34,16 +35,16 @@ class LocalStorage {
       return []
     }}
   Push(object) {
-    AssemblyStorageTemp = JSON.parse(localStorage.getItem(this.key));
-    object.id = makeid(10); //safer
+    var AssemblyStorageTemp = JSON.parse(localStorage.getItem(this.key));
+    object.id = randomID(10); //safer
     AssemblyStorageTemp.push(object);
     localStorage.setItem(this.key, JSON.stringify(AssemblyStorageTemp));
   }
   Delete(id) {
-    AssemblyStorageTemp = JSON.parse(
+    var AssemblyStorageTemp = JSON.parse(
       localStorage.getItem(this.key)
     );
-    index = AssemblyStorageTemp.findIndex((element) => element.id === id);
+    var index = AssemblyStorageTemp.findIndex((element) => element.id === id);
     if (index !== -1) {
       // Use splice to remove the element from the array
       AssemblyStorageTemp.splice(index, 1);
@@ -57,10 +58,10 @@ class LocalStorage {
     }
   }
   Update(id, object) {
-    AssemblyStorageTemp = JSON.parse(
+    var AssemblyStorageTemp = JSON.parse(
       localStorage.getItem(this.key)
     );
-    index = AssemblyStorageTemp.findIndex((element) => element.id === id);
+    var index = AssemblyStorageTemp.findIndex((element) => element.id === id);
     if (index !== -1) {
       // Use splice to remove the element from the array
       AssemblyStorageTemp[index] = object;
@@ -90,6 +91,7 @@ function submitBriefingDialog(object){
                   rendertiles()
                 } catch (e) {
                   //i dont care
+                  console.log('failed to render tiles:',e)
                 }
             }
           },
@@ -117,6 +119,7 @@ function submitWarningDialog(object){
                   rendertiles()
                 } catch (e) {
                   //i dont care
+                  console.log('failed to render tiles:',e)
                 }
             }
           },
@@ -128,6 +131,35 @@ function submitWarningDialog(object){
         },
           default: 'no',
       }).render(true)    
+}
+function submitGenericDialog(object,displayname,savetype){
+  new Dialog({
+      title: `Submit ${displayname}`,
+      content: `<h2>Enter ${displayname} Name:</h2><br><input type="text" name="AssemblySubmitName" placeholder="Assembly Name">`,
+      buttons: {
+        yes: {
+          label: "Submit",
+          callback: () => {
+              //object.MetaData = {}
+              object.assemblyName = document.getElementsByName("AssemblySubmitName")[0].value
+              object.assemblyType =savetype
+              AssemblyStorage.Push(object)
+              try {
+                rendertiles()
+              } catch (e) {
+                //i dont care
+                console.log('failed to render tiles:',e)
+              }
+          }
+        },
+        no: {
+          label: "Cancel",
+          callback: () => {
+          }
+        }
+      },
+        default: 'no',
+    }).render(true)    
 }
 async function AssemblyEditor(id,object){
   new Dialog({

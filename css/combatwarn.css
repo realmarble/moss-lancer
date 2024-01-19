@@ -113,3 +113,6 @@
   font-size: 4em;
   animation: flicker 2s;
 }
+#systempopupmessage {
+  white-space: nowrap;
+}

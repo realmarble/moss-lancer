@@ -2,12 +2,18 @@ let socket;
 
 Hooks.once("socketlib.ready", () => {
 	socket = socketlib.registerModule("moss-lancer");
-  socket.register("briefing",Briefing)//with RenderApplication this can be implemented a different way
-  socket.register("msghandler",MessageHandler)
-  socket.register("showtips",ShowTips)
-  socket.register("combatannouncement",CombatPopup)
-  socket.register("OpenFrameViewer",OpenFrameViewer)
-  console.log("Moss | registering socket functions...")
+  socketfuncs =[
+  Briefing,
+  ShowTips,
+  CombatPopup,
+  OpenFrameViewer,
+  OpenDocument,
+  SFX
+  ]
+  socketfuncs.forEach(element => {
+    socket.register(element.name,element)
+  });
+
 });
 
 Hooks.on("ready", function() {
@@ -52,4 +58,10 @@ function CallRenderApplication(object){
 }
 function CallFrameViewer(link){
   socket.executeForEveryone(OpenFrameViewer,link)
+}
+function CallOpenDocument(data){
+  socket.executeForEveryone(OpenDocument,data)
+}
+function CallSFX(obj){
+  socket.executeForEveryone(SFX,obj)
 }

@@ -48,7 +48,7 @@ Hooks.on("getSceneControlButtons", (controls) => {
    button: true,
    visible: true,
    onClick: () => {
-     announcementeditor()
+    new AnnouncementEditor().render(true)  
    },
  };
  briefing = {
@@ -58,9 +58,29 @@ Hooks.on("getSceneControlButtons", (controls) => {
      button: true,
      visible: true,
      onClick: () => {
-       briefingeditor()
+      new BriefingEditor().render(true);
      },
    };
+   sfx = {
+    icon: "fa-solid fa-sparkles",
+    name: "sfxeditor",
+    title: "SFX Editor",
+    button: true,
+    visible: true,
+    onClick: () => {
+    new SFXEditor().render(true)
+    },
+  };
+  documents = {
+    icon: "fa-solid fa-file-contract",
+    name: "doceditor",
+    title: "Document Editor",
+    button: true,
+    visible: true,
+    onClick: () => {
+      new DocumentEditor().render(true)
+    },
+  };
    assembly = {
     icon: "fas fa-folder",
     name: "assemblyviewer",
@@ -78,6 +98,6 @@ Hooks.on("getSceneControlButtons", (controls) => {
    icon: "fas fa-palette",
    layer: "controls",
    visible:game.user.role==4,
-   tools: [annoucement,briefing,assembly],
+   tools: [annoucement,briefing,sfx,documents,assembly],
  });
 });

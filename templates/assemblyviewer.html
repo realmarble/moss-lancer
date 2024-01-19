@@ -9,16 +9,15 @@
       transition: 0.1s;
       position: relative; 
       border-radius: 15px;
+      margin: auto;
   }
   .tile:hover{
 background-color: #6C756B;
   }
   #tilecontainer{
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 25%);
   grid-template-rows: repeat(4, 1fr);
-  grid-column-gap: 5px;
-  grid-row-gap: 5px;  
   }
   .tiletools {
   display: flex;
@@ -37,17 +36,22 @@ background-color: #6C756B;
   
   </style>
   <script>
-  handler = {
+  var handler = {
   Briefing:CallBrief,
   Warning:CallAnnouncement,
   FrameViewer:CallFrameViewer,
-  Document:()=>{console.log("none")}
-  }
+  Document:CallOpenDocument,
+  SFX:CallSFX
+}
   function rendertiles() {
     container = document.getElementById("tilecontainer")
     container.innerHTML=""
     if (AssemblyStorage.Read().length != 0) {
       AssemblyStorage.Read().forEach(element => {
+      // if (element.MetaData == undefined) {
+      //   console.log("Element without Metadata")
+      //   return;
+      // }
   div = document.createElement("div")
   div.classList.toggle("tile");
   div.innerHTML = `

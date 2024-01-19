@@ -70,7 +70,7 @@ font-size: 2em;
 }
 </style>
 <script>
-    timer = ms => new Promise(res => setTimeout(res, ms))
+    _timer = ms => new Promise(res => setTimeout(res, ms))
      characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 function generateString(length) {
@@ -104,9 +104,9 @@ function generateString(length) {
             document.querySelector("h1.status").innerHTML = "ACCESS GRANTED"     
         }
         }
-        await timer(25);  
+        await _timer(25);  
         }
-        await timer(125);
+        await _timer(125);
         document.getElementById("standby{{RandomID}}").style.display="none"
 document.getElementById("briefingcontainer{{RandomID}}").style.display="block"
     }

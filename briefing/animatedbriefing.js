@@ -1,5 +1,5 @@
 async function Briefing(object) {
-  typeitid = makeid(36)
+  typeitid = randomID(36)
   object.RandomID = typeitid
   introhtml = "";
   if ((object.Intro = true)) {
@@ -18,61 +18,31 @@ async function Briefing(object) {
     `;
     }
   }
-  introhtml = await renderTemplate(`modules/moss-lancer/templates/briefings/intros/${object.IntroData.type}.hbs`,object)
-  briefinghtml = await renderTemplate(`modules/moss-lancer/templates/briefings/layouts/${object.LayoutType}.hbs`,object)
+  try {
+    introhtml = await renderTemplate(`modules/moss-lancer/templates/briefings/intros/${object.IntroData.type}.hbs`,object)  
+  } catch (error) {
+    ui.notifications.error("Error in Intro Params:",e);
+    return
+  }
+  try {
+    briefinghtml = await renderTemplate(`modules/moss-lancer/templates/briefings/layouts/${object.LayoutType}.hbs`,object)
+  } catch (error) {
+    ui.notifications.error("Error in Briefing Params:",e);
+    return
+  }
   let brief = new BriefingWindow(String.raw`${introhtml + briefinghtml}`,typeitid)
   brief.render(true);
 }
 
-function briefcontroller() {
-  let briefcontroller = new BriefingController();
-  briefcontroller.render(true);
-}
-
-function briefingeditor() {
-  //we define the available options in constants.js
-  let briefeditor = new BriefingEditor(BriefingConfig);
-  briefeditor.render(true);
-}
-
-class BriefingEditor extends Application {
-  constructor(config) {
-    super();
-    this.config = config;
-  }
-  static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
-      classes: ["no-padding"],
-      popOut: true,
-      template: "modules/moss-lancer/templates/briefingeditor.hbs",
-      width: 1400,
-      height: 720,
-      baseApplication: "BriefingEditor",
-      title: "Briefing Editor",
-    });
-  }
-  getData() {
-    return this.config;
-  }
-}
-class BriefingController extends Application {
+class BriefingEditor extends BaseEditor {
   constructor() {
     super();
-  }
-  static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
-      classes: ["no-padding"],
-      popOut: true,
-      template: "modules/moss-lancer/templates/briefingcontroller.html",
-      width: 500,
-      height: 800,
-      baseApplication: "BriefingController",
-      title: "Briefing Controller",
-    });
+    this.config = MOSS.EditorConfigs.BriefingEditor;
   }
 }
+
 class BriefingWindow extends Application {
-  constructor(content,typeitid) {
+  constructor(content,typeitid = randomID(10)) {
     super();
     this.content = content
     this.typeitid = typeitid;

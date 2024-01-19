@@ -7,9 +7,10 @@
     "name": "moss"
     }
   ],
-  "version": "0.0.6",
+  "version": "0.0.61",
   "scripts": [
       "lib/typeit.js",
+      "lib/editor.js",
       "document/document.js",
       "sfx/sfx.js",
       "util.js",
@@ -37,18 +38,10 @@
       "compatibility": {}
     }
   ],
-  "packs": [
-    { 
-      "name": "macro-pack",
-      "label": "Macros",
-      "system": "lancer",
-      "path": "/packs/macros.db",
-      "type": "Macro"
-    }
-],
+  "packs": [],
 "url": "https://github.com/realmarble/moss-lancer",
-"manifest": "https://github.com/realmarble/moss-lancer/releases/download/0.0.6/module.json",
-"download": "https://github.com/realmarble/moss-lancer/releases/download/0.0.6/moss-lancer.zip",
+"manifest": "https://github.com/realmarble/moss-lancer/releases/download/0.0.61/module.json",
+"download": "https://github.com/realmarble/moss-lancer/releases/download/0.0.61/moss-lancer.zip",
 "license": "MIT",
 "readme": "https://github.com/realmarble/moss-lancer",
 "bugs": "https://github.com/realmarble/moss-lancer/issues",

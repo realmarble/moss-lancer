@@ -67,7 +67,7 @@
   left = document.getElementById("left")
   right = document.getElementById("right")
   contract = document.getElementsByClassName("contractcontainer")[0]
-  timer = ms => new Promise(res => setTimeout(res, ms))
+  _timer = ms => new Promise(res => setTimeout(res, ms))
 
   function logoanim(){
 left.style.left="-570px"
@@ -80,19 +80,19 @@ right.style.right="-570px"
 async function load () { // We need to wrap the loop into an async function for this to work
   contract.style.display="block";
 for (var i = 0; i < 50; i++) {
-  await timer(40);
+  await _timer(40);
 contract.style.bottom = (-2000+i*80)+"px" //moving the contract along the screen
-if (i % 10 == 0) {await timer(150);}
+if (i % 10 == 0) {await _timer(150);}
 }
 }
 fullanim = async () => {
-await timer(1000);
+await _timer(1000);
 logoanim()
-await timer(1000);
+await _timer(1000);
 load()
-await timer(2000);
+await _timer(2000);
 closelogoanim()
-await timer(800);
+await _timer(800);
 document.getElementById("standby{{RandomID}}").style.display="none"
 document.getElementById("briefingcontainer{{RandomID}}").style.display="block"
 }

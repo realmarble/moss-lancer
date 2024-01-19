@@ -1,3 +1,19 @@
+Hooks.on("init", function() {
+//two handlebar helpers for switch cases
+Handlebars.registerHelper("switch", function(value, options) {
+    this._switch_value_ = value;
+    var html = options.fn(this); // Process the body of the switch block
+    delete this._switch_value_;
+    return html;
+  });
+  
+  Handlebars.registerHelper("case", function(value, options) {
+    if (value == this._switch_value_) {
+      return options.fn(this);
+    }
+  });
+})
+
 function addFilePicker(elem) {
     button = document.createElement('button')
     button.classList.add("file-picker")
@@ -26,14 +42,34 @@ function addFilePicker(elem) {
   function OpenFrameViewer(obj){
       new FrameViewer(obj.link,{title:"Incoming Transmission..."}).render(true);
   }
-  function makeid(length) {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    let counter = 0;
-    while (counter < length) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-      counter++;
+async function _timer(ms) {return new Promise(res => setTimeout(res, ms))}
+async function _cornerdisplay(lines, prefix = "//"){
+    var id = randomID(10)
+    function _displaytype(text){
+        el = document.createElement("p")
+        document.getElementById(id).appendChild(el);
+        new TypeIt(el, {
+            strings: text,
+            speed: 15,
+            waitUntilVisible: true,
+            cursor: false,
+          }).go();
+        }
+    var overlay = document.createElement("div");
+    overlay.id = id;
+    overlay.style.position = "fixed";
+    overlay.style.top = "40px";
+    overlay.style.right = "0";
+    overlay.style.color = "white";
+    overlay.style.padding = "10px";
+    overlay.style.zIndex = "99";
+    overlay.style.height = "400px";
+    overlay.style.left = "80px";
+    document.body.appendChild(overlay);
+    await _timer(40)
+    lines.forEach(async element => {
+        _displaytype(prefix+element)
+        await _timer(1500)   
+    });
+    return overlay
     }
-    return result;
-}

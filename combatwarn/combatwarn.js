@@ -1,9 +1,9 @@
+//technically, combatwarning falls under the sfx category.
 class StandardWarning extends SfxEffect {
   constructor(data){
     super(data);
   }
   play(){
-    sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
   if (this.data.Stripes == true) {
     var stripe1 = document.createElement("div")
     stripe1.innerHTML = `<div class="top strip">
@@ -75,53 +75,53 @@ class StandardWarning extends SfxEffect {
   }
   const emblemanim = async() => {
   emblem = document.getElementById("emblem")
-  await sleep(250)
+  await _timer(250)
   emblem.style.display = "block"
-  await sleep(3550)
+  await _timer(3550)
   emblem.style.animation = "flicker-out 2s 1"
-  await sleep(2000)
+  await _timer(2000)
   emblem.style.display = "none"
   }
   const stripeanim = async() => {
-    await sleep(250)
+    await _timer(250)
   var htmlcollection =  document.getElementsByClassName("strip")
   var stripes = Array.prototype.slice.call(htmlcollection); 
   stripes[0].style.top=0;
   stripes[1].style.bottom=0;
-  await sleep(3550)
+  await _timer(3550)
   stripes[0].style.top="-100px";
   stripes[1].style.bottom="-100px";
   }
   const popupanim = async() => {
-      await sleep(250)
+      await _timer(250)
       setTransition("0.2s")
     elem.style.width="33%"
-    await sleep(250)
+    await _timer(250)
     elem.style.height="25%"
-    await sleep(250)
+    await _timer(250)
     setTransition("0.1s")
     elem.style.borderWidth = "16px"
-    await sleep(50)
+    await _timer(50)
     document.getElementById("systempopuptitle").style.display="block"
-    await sleep(250)
+    await _timer(250)
     document.getElementById("systempopupaction").style.display="block"
-    await sleep(250)
+    await _timer(250)
     document.getElementById("systempopupmessage").style.display="block"
-    await sleep(2500)
+    await _timer(2500)
     document.getElementById("systempopuptitle").style.animation = "flicker-out 1s 1"
     document.getElementById("systempopupaction").style.animation = "flicker-out 1s 1"
     document.getElementById("systempopupmessage").style.animation = "flicker-out 1s 1"
-    await sleep(250)
+    await _timer(250)
     elem.style.borderWidth = "1px"
     elem.style.height="1px"
-    await sleep(250)
+    await _timer(250)
     elem.style.width="0px"
     elem.style.display="none"
   }
   const cleanup = async()=>{
-  await sleep(15000)
+  await _timer(15000)
   emblem.remove()
-  if (object.Stripes == true) {
+  if (this.data.Stripes == true) {
     stripes[0].remove()
     stripes[1].remove()
   }
@@ -130,10 +130,10 @@ class StandardWarning extends SfxEffect {
   }
   
   
-  if (object.Emblem != "") {
+  if (this.data.Emblem != "") {
     emblemanim()
     }
-  if (object.Stripes == true) {
+  if (this.data.Stripes == true) {
   stripeanim()
   }
   popupanim()
@@ -148,7 +148,6 @@ warningtypes = {
   "meltdown":meltdown,
 }
 function standard(object){
-  sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
   if (object.Stripes == true) {
     stripe1 = document.createElement("div")
     stripe1.innerHTML = `<div class="top strip">
@@ -220,51 +219,51 @@ function standard(object){
   }
   const emblemanim = async() => {
   emblem = document.getElementById("emblem")
-  await sleep(250)
+  await _timer(250)
   emblem.style.display = "block"
-  await sleep(3550)
+  await _timer(3550)
   emblem.style.animation = "flicker-out 2s 1"
-  await sleep(2000)
+  await _timer(2000)
   emblem.style.display = "none"
   }
   const stripeanim = async() => {
-    await sleep(250)
+    await _timer(250)
   htmlcollection =  document.getElementsByClassName("strip")
   stripes = Array.prototype.slice.call(htmlcollection); 
   stripes[0].style.top=0;
   stripes[1].style.bottom=0;
-  await sleep(3550)
+  await _timer(3550)
   stripes[0].style.top="-100px";
   stripes[1].style.bottom="-100px";
   }
   const popupanim = async() => {
-      await sleep(250)
+      await _timer(250)
       setTransition("0.2s")
     elem.style.width="33%"
-    await sleep(250)
+    await _timer(250)
     elem.style.height="25%"
-    await sleep(250)
+    await _timer(250)
     setTransition("0.1s")
     elem.style.borderWidth = "16px"
-    await sleep(50)
+    await _timer(50)
     document.getElementById("systempopuptitle").style.display="block"
-    await sleep(250)
+    await _timer(250)
     document.getElementById("systempopupaction").style.display="block"
-    await sleep(250)
+    await _timer(250)
     document.getElementById("systempopupmessage").style.display="block"
-    await sleep(2500)
+    await _timer(2500)
     document.getElementById("systempopuptitle").style.animation = "flicker-out 1s 1"
     document.getElementById("systempopupaction").style.animation = "flicker-out 1s 1"
     document.getElementById("systempopupmessage").style.animation = "flicker-out 1s 1"
-    await sleep(250)
+    await _timer(250)
     elem.style.borderWidth = "1px"
     elem.style.height="1px"
-    await sleep(250)
+    await _timer(250)
     elem.style.width="0px"
     elem.style.display="none"
   }
   const cleanup = async()=>{
-  await sleep(15000)
+  await _timer(15000)
   emblem.remove()
   if (object.Stripes == true) {
     stripes[0].remove()
@@ -285,7 +284,6 @@ function standard(object){
   cleanup()
 }
 function airforce(object){ //this is fine but it could be better, i think it's fine personally
-sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 mainanim = async() => {
 container = document.createElement("div")
 container.classList.add("centered");
@@ -326,47 +324,17 @@ new TypeIt(employerstring, {
 }).go();
 document.body.appendChild(container);
 container.style.transition = "1.5s"
-await sleep(5000);
+await _timer(5000);
 container.style.opacity = "0";
-await sleep(1500);
+await _timer(1500);
 container.remove()
   }
 mainanim()
 
 }
 async function meltdown(object){
-  timer = ms => new Promise(res => setTimeout(res, ms))
   cleanup = []
-  function displaytype(text){
-  el = document.createElement("p")
-  document.getElementById("cinematic-overlay1").appendChild(el);
-  new TypeIt(el, {
-      strings: text,
-      speed: 15,
-      waitUntilVisible: true,
-      cursor: false,
-    }).go();
-  }
-  
-  async function cornerdisplay(){
-      var overlay = document.createElement("div");
-      cleanup.push(overlay)
-      overlay.id = "cinematic-overlay1";
-      overlay.style.position = "fixed";
-      overlay.style.top = "40px";
-      overlay.style.right = "0";
-      overlay.style.color = "white";
-      overlay.style.padding = "10px";
-      overlay.style.zIndex = "99";
-      overlay.style.height = "400px";
-      overlay.style.left = "80px";
-      document.body.appendChild(overlay);
-      await timer(40)
-      object.CornerDisplayText.forEach(async element => {
-          displaytype("//"+element)
-          await timer(1500)   
-      });
-      }
+  cleanup.push(await _cornerdisplay(object.CornerDisplayText)) //shows the white text in the corner
       async function horizontaloverlay(){
           items = object.HorizontalScrollText
           var overlay = document.createElement("div");
@@ -394,11 +362,10 @@ async function meltdown(object){
                   cursor: false,
                 }).go();
                overlay.appendChild(text);
-               await timer(450)
+               await _timer(450)
                text.style.left="100%"
           }
           }
-  cornerdisplay() //shows the white text in the corner
   horizontaloverlay() // scrolling text in blue
   CombatPopup({
   "type":"standard",
@@ -408,12 +375,12 @@ async function meltdown(object){
   "ActionColor":object.ActionColor,
   "Action":object.Action,
   "Message":object.Message})
-  await timer(30000)
+  await _timer(30000)
   cleanup.forEach(element => {
       element.style.transition = "1.5s"
       element.style.opacity = "0"
   });
-  await timer(1500)
+  await _timer(1500)
   cleanup.forEach(element => {
       element.remove()
   });
@@ -471,26 +438,10 @@ function AnnouncementController() {
   },{width:500, height:800})
   announcementcontroller.render(true);   
 }
-function announcementeditor() {
-new AnnouncementEditor(WarningConfig).render(true)  
-}
-class AnnouncementEditor extends Application{
-  constructor(config){
+class AnnouncementEditor extends BaseEditor{
+
+  constructor() {
     super();
-    this.config = config;
-  }
-  static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
-      classes:["no-padding"],
-      popOut: true,
-      template:"modules/moss-lancer/templates/warningeditor.hbs",
-      width:1400,
-      height:720,
-      baseApplication: "WarningEditor",
-      title:"Combat Announcement Editor"
-    });
-  }
-  getData() {
-    return this.config;
+    this.config = MOSS.EditorConfigs.WarningEditor;
   }
   }

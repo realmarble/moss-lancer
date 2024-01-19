@@ -1,0 +1,56 @@
+{{#if StructureOverride}}
+<div style="width: 100%;height: 100%;">
+{{{html}}}
+</div>
+{{else}}
+<div style="width: 100%;height: 100%;">
+  <div style="width: 50%; position: absolute; right: 0; height: 100%">
+    <textarea
+      id="{{ViewConfig.TextAreaID}}"
+      style="width: 100%; height: 94%; resize: none"
+      placeholder="{{ViewConfig.TextAreaPlaceholder}}"
+    ></textarea>
+    <div
+      style="display: inline-flex;flex-direction: row;justify-content: center;width:100%"
+    >
+      {{#each ViewConfig.Buttons}}
+        <button
+          style="height: 5%"
+          id="viewbutton{{this.Name}}"
+        >{{this.DisplayName}}</button>
+      {{/each}}
+    </div>
+  </div>
+  <div
+    style="width: 50%;position: absolute;left: 0;overflow-y: scroll;height: 100%;"
+  >
+    {{#each DataSections}}
+      {{#switch this.type}}
+        {{#case "select"}}
+          <h3>{{this.DisplayName}}</h3>
+          <select id="{{this.Name}}type">
+            {{#each data}}
+              <option value="{{this.Name}}">{{this.DisplayName}}</option>
+            {{/each}}
+          </select>
+        {{/case}}
+        {{#case "input"}}
+          <h3>{{this.DisplayName}}</h3>
+          <div id="{{this.Name}}options">
+            {{#if this.content}}
+              {{{this.content}}}
+            {{/if}}
+          </div>
+        {{/case}}
+        {{#case "button"}}
+          <button
+            id="{{this.Name}}button"
+            style="width: 100%"
+          >{{this.DisplayName}}</button>
+        {{/case}}
+      {{/switch}}
+    {{/each}}
+  </div>
+</div>
+{{/if}}
+</div>
