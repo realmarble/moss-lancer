@@ -98,6 +98,6 @@ Hooks.on("getSceneControlButtons", (controls) => {
    icon: "fas fa-palette",
    layer: "controls",
    visible:game.user.role==4,
-   tools: [annoucement,briefing,sfx,documents,assembly],
+   tools: [annoucement,briefing,documents,assembly],
  });
 });
