@@ -72,4 +72,14 @@ async function _cornerdisplay(lines, prefix = "//"){
         await _timer(1500)   
     });
     return overlay
-    }
+}
+function InteractiveMessage(msg){ //whatever you send through this will be received only by the GM.
+  if (game.user.isGM) {
+    ui.notifications.info(`Message Callback: ${msg}`) //this allows GM to check locally whether message works
+  } else {
+    game.socket.emit("module.moss-lancer", {
+      type:"interactivemsg",
+      content:msg
+    }) 
+  }
+}
