@@ -7,17 +7,17 @@
     "name": "moss"
     }
   ],
-  "version": "0.0.7",
+  "version": "0.0.7.1",
   "scripts": [
       "lib/typeit.js",
       "lib/editor.js",
+      "lib/syncwindow.js",
       "document/document.js",
       "sfx/sfx.js",
       "util.js",
       "constants.js",
       "settings.js",
       "briefing/animatedbriefing.js",
-      "additional/tips.js",
       "combatwarn/combatwarn.js",
       "assemblyviewer.js",
       "main.js"
