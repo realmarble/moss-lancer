@@ -4,7 +4,6 @@ Hooks.once("socketlib.ready", () => {
 	socket = socketlib.registerModule("moss-lancer");
   socketfuncs =[
   Briefing,
-  ShowTips,
   CombatPopup,
   OpenFrameViewer,
   OpenDocument,
@@ -22,6 +21,7 @@ if (AssemblyStorage.Read()==null) {
 }
 dynamicStyles=null;
 console.log("Moss | registering stuff...")
+console.log(`Moss | Version ${MOSS.ModuleVer}`)
 
 if (game.settings.get('moss-lancer', 'StartupSound')) {
   try {
@@ -31,7 +31,18 @@ if (game.settings.get('moss-lancer', 'StartupSound')) {
     ui.notifications.error(error)
   }
 }
+
+if (game.user.role==4) { //if user is GM
+  console.log("Moss | Mounted Interactive Message Listener")
+  game.socket.on("module.moss-lancer", (data)=>{
+    if (data.type == "interactivemsg") {
+      ui.notifications.info(`Message Callback: ${data.content}`)
+    }
+  });  
+}
 });
+
+
 function AddStyle(body) { //this allows to add css stuff on runtime
   if (!dynamicStyles) {
     dynamicStyles = document.createElement("style");
