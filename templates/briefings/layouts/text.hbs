@@ -1,0 +1,40 @@
+<div
+  id="briefingcontainer{{RandomID}}"
+  style="
+    height: 100%;
+    width: 100%;
+    font-family: 'Ubuntu Mono', monospace;
+    color: {{TextColor}};
+    display:none;
+    text-align: center; /* adjust as needed */
+    vertical-align: middle;
+    background-size: 40px 40px;
+    background-image: radial-gradient(circle, {{BackgroundAccent}} 1px, rgba(0, 0, 0, 0) 1px);background-color: {{BackgroundColor}};"
+>
+
+  <p class="text{{RandomID}}" style="top: 20px;position:absolute;text-align:left;"></p>
+  <div class="addhtml{{RandomID}}" style="display: none;">
+    {{{AdditionalHTML}}}
+  </div>
+  <script>
+
+lines=[
+{{#each TextLines}}
+"{{{this}}}",
+{{/each}}
+]
+instance{{RandomID}} = new TypeIt("p.text{{RandomID}}", {
+    speed: {{TextSpeed}},
+    waitUntilVisible: true,
+    cursor: false,
+    afterComplete: async () => {
+    document.getElementsByClassName("addhtml{{RandomID}}")[0].style.display= "block"
+    }
+    })
+lines.forEach(element => {
+  instance{{RandomID}}.type(element).break()
+});
+instance{{RandomID}}.go()
+</script>
+  </div>
+</div>

@@ -43,10 +43,10 @@
           </div>
         {{/case}}
         {{#case "button"}}
-          <button
-            id="{{this.Name}}button"
-            style="width: 100%"
-          >{{this.DisplayName}}</button>
+            {{#if this.closediv}}
+              </div>{{!-- bumfuck fix  --}}
+            {{/if}}
+          <button id="{{this.Name}}button" style="width: 100%">{{this.DisplayName}}</button>
         {{/case}}
       {{/switch}}
     {{/each}}
