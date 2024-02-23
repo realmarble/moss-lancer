@@ -1,8 +1,9 @@
 MOSS = {}
-MOSS.ModuleVer = "0.0.62"
+MOSS.ModuleVer = "0.0.7.1"
 MOSS.BriefingConfig = {
   layout: [
-    { DisplayName: "Classic", Name: "classic" }
+    { DisplayName: "Classic", Name: "classic" },
+    { DisplayName: "Text Display", Name: "text" }
   ],
   intro: [
     { DisplayName: "None", Name: "none" },
@@ -118,19 +119,19 @@ MOSS.EditorConfigs ={
           name="PaymentFlavour"
           placeholder="Payment Flavour Text"
         />
-        <textarea
+        <textarea array
           name="DeployedForces"
-          placeholder='Deployed Forces (Defined As Array)'
+          placeholder='Deployed Forces (One per line)'
           style="width: 100%; height: 150px"
         ></textarea>
-        <textarea
+        <textarea array
           name="Objectives"
-          placeholder="Mission Objectives (Defined As Array)"
+          placeholder="Mission Objectives (One per line)"
           style="width: 100%; height: 150px"
         ></textarea>
-        <textarea
+        <textarea array
           name="Notes"
-          placeholder="Mission Notes (Defined As Array)"
+          placeholder="Mission Notes (One per line)"
           style="width: 100%; height: 150px"
         ></textarea>
         Background Color:<input
@@ -150,6 +151,7 @@ MOSS.EditorConfigs ={
         "Name":"generator",
         "DisplayName":"Generate Briefing",
         "type":"button",
+        "closediv":true,
         "onclick":function () {
           var briefobject = {};
       //build a list of the inputs and sort them into the object
@@ -166,31 +168,31 @@ MOSS.EditorConfigs ={
         );
       briefingoptions.forEach((element) => {
         try {
-          briefobject[element.name] = JSON.parse(element.value);
+          if (element.hasAttribute("array")) {
+            briefobject[element.name] = element.value.split('\n').filter(line => line.trim() !== '');
+          } else {
+            briefobject[element.name] = JSON.parse(element.value);
+          }
         } catch (error) {
           briefobject[element.name] = element.value;
         }
       });
       briefobject.LayoutType = document.getElementById("briefingtype").value
       if (document.getElementById("introtype").value != "none") {
-        briefobject.intro = true;
+        briefobject.Intro = true;
         briefobject.IntroData = {};
         briefobject["IntroData"].type =
           document.getElementById("introtype").value;
         introoptions = Array.prototype.slice
-          .call(
-            document.getElementById("introoptions").getElementsByTagName("input")
-          )
-          .concat(
-            Array.prototype.slice.call(
-              document
-                .getElementById("introoptions")
-                .getElementsByTagName("textarea")
-            )
-          );
+          .call(document.getElementById("introoptions").getElementsByTagName("input")) //get all inputs
+          .concat(Array.prototype.slice.call(document.getElementById("introoptions").getElementsByTagName("textarea"))); //get all textareas
         introoptions.forEach((element) => {
           try {
-            briefobject["IntroData"][element.name] = JSON.parse(element.value);
+            if (element.hasAttribute("array")) {
+              briefobject["IntroData"][element.name] = element.value.split('\n').filter(line => line.trim() !== '');
+            } else {
+              briefobject["IntroData"][element.name] = JSON.parse(element.value);
+            }
           } catch (error) {
             briefobject["IntroData"][element.name] = element.value;
           }
@@ -208,18 +210,16 @@ MOSS.EditorConfigs ={
     TextAreaID:"brieftextdisplay",
     TextAreaPlaceholder:"This is where the code for your briefing will show.",
     Buttons:[
-        {
+      {
         Name:"save",
         DisplayName:"Save",
         onclick:function () {submitGenericDialog(JSON.parse(document.getElementById('brieftextdisplay').value),"Briefing","Briefing");}
-        },
-        {
-            Name:"preview",
-            DisplayName:"Preview",
-            onclick:function () {
-                Briefing(JSON.parse(document.getElementById('brieftextdisplay').value));
-            }
-        }
+      },
+      {
+        Name:"preview",
+        DisplayName:"Preview",
+        onclick:function () {Briefing(JSON.parse(document.getElementById('brieftextdisplay').value));}
+      }
     ]
     },
     AfterRender:function (){
@@ -279,7 +279,11 @@ MOSS.EditorConfigs ={
                 
                 optionvalues.forEach((element) => {
                   try {
-                    warningobject[element.name] = JSON.parse(element.value);
+                    if (element.hasAttribute("array")) {
+                      warningobject[element.name] = element.value.split('\n').filter(line => line.trim() !== '');
+                    } else {
+                      warningobject[element.name] = JSON.parse(element.value);
+                    }
                   } catch (error) {
                     warningobject[element.name] = element.value;
                   }
