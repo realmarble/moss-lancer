@@ -40,7 +40,7 @@ function addFilePicker(elem) {
    elem.insertAdjacentElement("afterend",button)
 }
   function OpenFrameViewer(obj){
-      new FrameViewer(obj.link,{title:"Incoming Transmission..."}).render(true);
+      new FrameViewer(obj.link,{title:obj.title||"Incoming Transmission..."}).render(true);
   }
 async function _timer(ms) {return new Promise(res => setTimeout(res, ms))}
 async function _cornerdisplay(lines, prefix = "//"){
