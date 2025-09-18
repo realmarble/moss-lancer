@@ -1,8 +1,9 @@
 MOSS = {}
-MOSS.ModuleVer = "0.0.62"
+MOSS.ModuleVer = "0.0.7.1"
 MOSS.BriefingConfig = {
   layout: [
-    { DisplayName: "Classic", Name: "classic" }
+    { DisplayName: "Classic", Name: "classic" },
+    { DisplayName: "Text Display", Name: "text" }
   ],
   intro: [
     { DisplayName: "None", Name: "none" },
@@ -23,13 +24,16 @@ MOSS.WarningConfig = {
 
 MOSS.SFXConfig = {
   effects: [
-    { DisplayName: "None", Name: "none" },
-    { DisplayName: "Loadscreen", Name: "loadscreen" },
-    { DisplayName: "Logo", Name: "logo" },
-    { DisplayName: "Brigador", Name: "brigador" },
-    { DisplayName: "Encrypted", Name: "encrypted" },
-    { DisplayName: "Directive", Name: "directive" },
-  ]  
+    { DisplayName: "Progenitor Class", Name: "progenitorclass" },
+    { DisplayName: "Security Override", Name: "securityoverride"},
+    { DisplayName: "Image Flash", Name: "vinethud"},
+  ],
+  classBindings: [
+    {Name:"LevelUpEffect", Class: LevelUpEffect},
+    {Name:"SecurityOverride", Class: SecurityOverride},
+    {Name:"ProgenitorClass", Class: ProgenitorClass},
+    {Name:"VineThud", Class: VineThud}
+  ]
 }
 MOSS.EditorConfigs ={
   BriefingEditor:{
@@ -118,19 +122,19 @@ MOSS.EditorConfigs ={
           name="PaymentFlavour"
           placeholder="Payment Flavour Text"
         />
-        <textarea
+        <textarea array
           name="DeployedForces"
-          placeholder='Deployed Forces (Defined As Array)'
+          placeholder='Deployed Forces (One per line)'
           style="width: 100%; height: 150px"
         ></textarea>
-        <textarea
+        <textarea array
           name="Objectives"
-          placeholder="Mission Objectives (Defined As Array)"
+          placeholder="Mission Objectives (One per line)"
           style="width: 100%; height: 150px"
         ></textarea>
-        <textarea
+        <textarea array
           name="Notes"
-          placeholder="Mission Notes (Defined As Array)"
+          placeholder="Mission Notes (One per line)"
           style="width: 100%; height: 150px"
         ></textarea>
         Background Color:<input
@@ -150,6 +154,7 @@ MOSS.EditorConfigs ={
         "Name":"generator",
         "DisplayName":"Generate Briefing",
         "type":"button",
+        "closediv":true,
         "onclick":function () {
           var briefobject = {};
       //build a list of the inputs and sort them into the object
@@ -166,31 +171,31 @@ MOSS.EditorConfigs ={
         );
       briefingoptions.forEach((element) => {
         try {
-          briefobject[element.name] = JSON.parse(element.value);
+          if (element.hasAttribute("array")) {
+            briefobject[element.name] = element.value.split('\n').filter(line => line.trim() !== '');
+          } else {
+            briefobject[element.name] = JSON.parse(element.value);
+          }
         } catch (error) {
           briefobject[element.name] = element.value;
         }
       });
       briefobject.LayoutType = document.getElementById("briefingtype").value
       if (document.getElementById("introtype").value != "none") {
-        briefobject.intro = true;
+        briefobject.Intro = true;
         briefobject.IntroData = {};
         briefobject["IntroData"].type =
           document.getElementById("introtype").value;
         introoptions = Array.prototype.slice
-          .call(
-            document.getElementById("introoptions").getElementsByTagName("input")
-          )
-          .concat(
-            Array.prototype.slice.call(
-              document
-                .getElementById("introoptions")
-                .getElementsByTagName("textarea")
-            )
-          );
+          .call(document.getElementById("introoptions").getElementsByTagName("input")) //get all inputs
+          .concat(Array.prototype.slice.call(document.getElementById("introoptions").getElementsByTagName("textarea"))); //get all textareas
         introoptions.forEach((element) => {
           try {
-            briefobject["IntroData"][element.name] = JSON.parse(element.value);
+            if (element.hasAttribute("array")) {
+              briefobject["IntroData"][element.name] = element.value.split('\n').filter(line => line.trim() !== '');
+            } else {
+              briefobject["IntroData"][element.name] = JSON.parse(element.value);
+            }
           } catch (error) {
             briefobject["IntroData"][element.name] = element.value;
           }
@@ -208,18 +213,16 @@ MOSS.EditorConfigs ={
     TextAreaID:"brieftextdisplay",
     TextAreaPlaceholder:"This is where the code for your briefing will show.",
     Buttons:[
-        {
+      {
         Name:"save",
         DisplayName:"Save",
         onclick:function () {submitGenericDialog(JSON.parse(document.getElementById('brieftextdisplay').value),"Briefing","Briefing");}
-        },
-        {
-            Name:"preview",
-            DisplayName:"Preview",
-            onclick:function () {
-                Briefing(JSON.parse(document.getElementById('brieftextdisplay').value));
-            }
-        }
+      },
+      {
+        Name:"preview",
+        DisplayName:"Preview",
+        onclick:function () {Briefing(JSON.parse(document.getElementById('brieftextdisplay').value));}
+      }
     ]
     },
     AfterRender:function (){
@@ -279,7 +282,11 @@ MOSS.EditorConfigs ={
                 
                 optionvalues.forEach((element) => {
                   try {
-                    warningobject[element.name] = JSON.parse(element.value);
+                    if (element.hasAttribute("array")) {
+                      warningobject[element.name] = element.value.split('\n').filter(line => line.trim() !== '');
+                    } else {
+                      warningobject[element.name] = JSON.parse(element.value);
+                    }
                   } catch (error) {
                     warningobject[element.name] = element.value;
                   }
@@ -355,5 +362,89 @@ AfterRender:function(){
 
   })
 }},
-  SFXEditor:{}
+  SFXEditor:{
+    "Name":"SFX Editor",
+    "DataSections":[
+        {
+            "Name":"sfx",
+            "DisplayName":"SFX type",
+            "type":"select",
+            "data":MOSS.SFXConfig.effects,
+            "onchange":async function () {
+                object = {};
+                introoptions = document.getElementById("sfxoptions");
+              
+                try {
+                    introoptions.innerHTML = await renderTemplate(`modules/moss-lancer/templates/sfx/settingtemplates/${this.value}.html`,{})
+                    inputs = Array.prototype.slice.call(document.getElementById("sfxoptions").getElementsByTagName("input")).concat(Array.prototype.slice.call(document.getElementById("sfxoptions").getElementsByTagName("textarea")));
+                    inputs.forEach(element => {
+                      if (element.hasAttribute("filepicker")) {
+                        addFilePicker(element)
+                      }
+                    });
+                  } catch (error) {
+                    introoptions.innerHTML = "";
+                    console.error(error)
+                  }
+                }
+        },
+        {
+            "Name":"sfx",
+            "DisplayName":"Effect Options",
+            "type":"input",
+            "content":``
+            
+        },
+        {
+            "Name":"generator",
+            "DisplayName":"Generate Warning",
+            "type":"button",
+            "onclick":function () {
+                object = {};
+                object.type = document.getElementById("sfxtype").value
+                //build a list of the inputs and sort them into the object
+                optionvalues = Array.prototype.slice.call(document.getElementById("sfxoptions").querySelectorAll("input[name]")).concat(Array.prototype.slice.call(document.getElementById("sfxoptions").querySelectorAll("textarea[name]")));
+                
+                optionvalues.forEach((element) => {
+                  try {
+                    if (element.hasAttribute("array")) {
+                      object[element.name] = element.value.split('\n').filter(line => line.trim() !== '');
+                    } else {
+                      object[element.name] = JSON.parse(element.value);
+                    }
+                  } catch (error) {
+                    object[element.name] = element.value;
+                  }
+                });
+                document.getElementById("sfxtextdisplay").value = JSON.stringify(
+                  object,
+                  null,
+                  3
+                );
+              }
+          }
+
+    ],
+    "ViewConfig":{
+        TextAreaID:"sfxtextdisplay",
+        TextAreaPlaceholder:"This is where the code for your Effect will show.",
+        Buttons:[
+            {
+            Name:"save",
+            DisplayName:"Save",
+            onclick:function () {submitGenericDialog(JSON.parse(document.getElementById('sfxtextdisplay').value),"SFX","SFX");}
+            },
+            {
+                Name:"preview",
+                DisplayName:"Preview",
+                onclick:function () {
+                    SFX(JSON.parse(document.getElementById('sfxtextdisplay').value))
+                }
+            }
+        ]
+        },
+    AfterRender:function (){
+
+    }
+  }
 }

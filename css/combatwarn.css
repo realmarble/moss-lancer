@@ -82,6 +82,7 @@
   z-index: 100;
 }
 .word {
+  color: black;
   padding: 0px 10px;
   font-family: var(--font-fam);
   text-transform: uppercase;

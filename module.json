@@ -7,17 +7,17 @@
     "name": "moss"
     }
   ],
-  "version": "0.0.61",
+  "version": "0.0.7.1",
   "scripts": [
       "lib/typeit.js",
       "lib/editor.js",
+      "lib/syncwindow.js",
       "document/document.js",
       "sfx/sfx.js",
       "util.js",
       "constants.js",
       "settings.js",
       "briefing/animatedbriefing.js",
-      "additional/tips.js",
       "combatwarn/combatwarn.js",
       "assemblyviewer.js",
       "main.js"
@@ -40,8 +40,8 @@
   ],
   "packs": [],
 "url": "https://github.com/realmarble/moss-lancer",
-"manifest": "https://github.com/realmarble/moss-lancer/releases/download/0.0.61/module.json",
-"download": "https://github.com/realmarble/moss-lancer/releases/download/0.0.61/moss-lancer.zip",
+"manifest": "https://github.com/realmarble/moss-lancer/releases/download/0.0.7.1/module.json",
+"download": "https://github.com/realmarble/moss-lancer/releases/download/0.0.7.1/moss-lancer.zip",
 "license": "MIT",
 "readme": "https://github.com/realmarble/moss-lancer",
 "bugs": "https://github.com/realmarble/moss-lancer/issues",

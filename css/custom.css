@@ -40,6 +40,6 @@
       height: 1.2em;
       left: 0;
       position: absolute;
-      transform: skewY(-5deg) rotate(5deg);
+      /* transform: skewY(-5deg) rotate(5deg); */
     }
   }

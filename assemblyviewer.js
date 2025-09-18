@@ -36,7 +36,7 @@ class LocalStorage {
     }}
   Push(object) {
     var AssemblyStorageTemp = JSON.parse(localStorage.getItem(this.key));
-    object.id = randomID(10); //safer
+    object.id = foundry.utils.randomID(10); //safer
     AssemblyStorageTemp.push(object);
     localStorage.setItem(this.key, JSON.stringify(AssemblyStorageTemp));
   }
@@ -164,7 +164,7 @@ function submitGenericDialog(object,displayname,savetype){
 async function AssemblyEditor(id,object){
   new Dialog({
     title: "Assembly Editor",
-    content: await renderTemplate("modules/moss-lancer/templates/assemblyeditor.hbs", {id:id,object:object}),
+    content: await renderTemplate("modules/moss-lancer/templates/assemblyeditor.hbs", {id:id,object:JSON.stringify(object)}),
     buttons: {
       yes: {
         label: "Save Changes",

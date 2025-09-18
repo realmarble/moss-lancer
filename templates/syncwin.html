@@ -1,0 +1,9 @@
+<main> <!-- Without the main element, eventlisteners won't register correctly.  -->
+    <h1>SyncWindow Test</h1>
+    <blockquote contenteditable="true" id="SyncWindowTestBlockQuote">
+        <p>Editable content</p>
+    </blockquote>
+    <button id="SyncWindowTestButton" onclick="ui.notifications.info('button clicked')">Click Me</button>
+    <input type="range" id="SyncWindowTestRange">
+    <input type="text" id="SyncWindowTestText">
+</main>

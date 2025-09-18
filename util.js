@@ -40,11 +40,11 @@ function addFilePicker(elem) {
    elem.insertAdjacentElement("afterend",button)
 }
   function OpenFrameViewer(obj){
-      new FrameViewer(obj.link,{title:"Incoming Transmission..."}).render(true);
+      new FrameViewer(obj.link,{title:obj.title||"Incoming Transmission..."}).render(true);
   }
 async function _timer(ms) {return new Promise(res => setTimeout(res, ms))}
 async function _cornerdisplay(lines, prefix = "//"){
-    var id = randomID(10)
+    var id = foundry.utils.randomID(10)
     function _displaytype(text){
         el = document.createElement("p")
         document.getElementById(id).appendChild(el);
@@ -72,4 +72,14 @@ async function _cornerdisplay(lines, prefix = "//"){
         await _timer(1500)   
     });
     return overlay
-    }
+}
+function InteractiveMessage(msg){ //whatever you send through this will be received only by the GM.
+  if (game.user.isGM) {
+    ui.notifications.info(`Message Callback: ${msg}`) //this allows GM to check locally whether message works
+  } else {
+    game.socket.emit("module.moss-lancer", {
+      type:"interactivemsg",
+      content:msg
+    }) 
+  }
+}

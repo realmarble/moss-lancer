@@ -11,6 +11,9 @@ class SfxEffect {
     play() {
     }
 }
+class ProgenitorClass extends SfxEffect {
+    
+}
 class SecurityOverride extends SfxEffect {
     
 }
@@ -57,6 +60,8 @@ async play(){
 }
 }
 function SFX(object){
-    //write the parser here
-    object.play()
+    const filter = MOSS.SFXConfig.classBindings.filter(item => item.Name === object.class);
+    sfx = new filter[0].Class(object.data);
+    //create sfx from config
+    sfx.play()
 }
