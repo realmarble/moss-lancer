@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&display=swap');
-/* Custom CSS */
 .-emu-layout body.-emu .dialog .dialog-content {
     padding: 0;
     padding-block-start:0;
@@ -28,18 +25,12 @@
     color: black;
     position: absolute;  
 }
-.redacted span {
-    position: relative;
-    white-space: pre;
-    &:after {
-      background: black;
-      border-radius: 0.1em;
-      box-shadow: 0 0 1px rgba(0,0,0,0.35);
-      content: " ";
-      width: 100%;
-      height: 1.2em;
-      left: 0;
-      position: absolute;
-      /* transform: skewY(-5deg) rotate(5deg); */
-    }
-  }
+.app.window-app.no-padding .window-content {
+    padding: 0px !important;
+}
+.app.window-app.no-overflow .window-content {
+    overflow: hidden !important;
+}
+.app.window-app.display-block .window-content {
+    display: block;
+}

@@ -7,28 +7,33 @@
     "name": "moss"
     }
   ],
-  "version": "0.0.7.1",
+  "version": "0.1",
   "scripts": [
-      "lib/typeit.js",
-      "lib/editor.js",
-      "lib/syncwindow.js",
-      "document/document.js",
-      "sfx/sfx.js",
-      "util.js",
-      "constants.js",
-      "settings.js",
-      "briefing/animatedbriefing.js",
-      "combatwarn/combatwarn.js",
-      "assemblyviewer.js",
-      "main.js"
+      "lib/Core.js",
+      "lib/JsBarcode.js",
+      "lib/TypeIt.js",
+      "lib/SocketManager.js",
+      "lib/SFX.js",
+      "applications/AssemblyViewer.js",
+      "applications/Editor.js",
+      "sfx/window/Briefing.js",
+      "sfx/window/Document.js",
+      "sfx/display/CornerDisplay.js",
+      "sfx/display/CornerDisplayMidnight.js",
+      "sfx/display/VineThud.js",
+      "sfx/display/WarningStripes.js",
+      "sfx/warning/WarningAirforce.js",
+      "sfx/warning/WarningStandard.js",
+      "Util.js",
+      "Settings.js",
+      "Main.js"
     ],
     "styles": [
-      "css/custom.css",
-      "css/combatwarn.css"
+      "css/Main.css"
     ],
   "compatibility": {
     "minimum": "10",
-    "verified": "11"
+    "verified": "12"
   },
   "requires": [
     {
@@ -40,8 +45,8 @@
   ],
   "packs": [],
 "url": "https://github.com/realmarble/moss-lancer",
-"manifest": "https://github.com/realmarble/moss-lancer/releases/download/0.0.7.1/module.json",
-"download": "https://github.com/realmarble/moss-lancer/releases/download/0.0.7.1/moss-lancer.zip",
+"manifest": "https://github.com/realmarble/moss-lancer/releases/download/0.1/module.json",
+"download": "https://github.com/realmarble/moss-lancer/releases/download/0.1/moss-lancer.zip",
 "license": "MIT",
 "readme": "https://github.com/realmarble/moss-lancer",
 "bugs": "https://github.com/realmarble/moss-lancer/issues",

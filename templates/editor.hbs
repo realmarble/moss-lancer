@@ -1,56 +1,51 @@
-{{#if StructureOverride}}
-<div style="width: 100%;height: 100%;">
-{{{html}}}
+<div style="height: 5%;display: inline-flex;flex-direction: row;justify-content: center;width:100%" id="EditorNav">
+    <button>Briefings</button>
+    <button>Warning</button>
+    <button>SFX</button>
+    <button>Misc.</button>
 </div>
-{{else}}
-<div style="width: 100%;height: 100%;">
-  <div style="width: 50%; position: absolute; right: 0; height: 100%">
-    <textarea
-      id="{{ViewConfig.TextAreaID}}"
-      style="width: 100%; height: 94%; resize: none"
-      placeholder="{{ViewConfig.TextAreaPlaceholder}}"
-    ></textarea>
-    <div
-      style="display: inline-flex;flex-direction: row;justify-content: center;width:100%"
-    >
-      {{#each ViewConfig.Buttons}}
-        <button
-          style="height: 5%"
-          id="viewbutton{{this.Name}}"
-        >{{this.DisplayName}}</button>
-      {{/each}}
+<div class="container" style="display: flex;flex-direction:row;height:95%">
+    <div style="flex: 1;overflow:scroll;overflow-x:hidden" id="settingdiv">
+
     </div>
-  </div>
-  <div
-    style="width: 50%;position: absolute;left: 0;overflow-y: scroll;height: 100%;"
-  >
-    {{#each DataSections}}
-      {{#switch this.type}}
-        {{#case "select"}}
-          <h3>{{this.DisplayName}}</h3>
-          <select id="{{this.Name}}type">
-            {{#each data}}
-              <option value="{{this.Name}}">{{this.DisplayName}}</option>
-            {{/each}}
-          </select>
-        {{/case}}
-        {{#case "input"}}
-          <h3>{{this.DisplayName}}</h3>
-          <div id="{{this.Name}}options">
-            {{#if this.content}}
-              {{{this.content}}}
-            {{/if}}
-          </div>
-        {{/case}}
-        {{#case "button"}}
-            {{#if this.closediv}}
-              </div>{{!-- bumfuck fix  --}}
-            {{/if}}
-          <button id="{{this.Name}}button" style="width: 100%">{{this.DisplayName}}</button>
-        {{/case}}
-      {{/switch}}
-    {{/each}}
-  </div>
+    <div style="flex: 1;">
+        <textarea id="editdisplay" style="width: 100%; height:95%;resize: none;" placeholder="This is where the JSON for your Effect will show."></textarea>
+        <div id="actioncontainer" style="display: inline-flex;flex-direction: row;justify-content: center;width:100%">
+            <button>Save</button> <button>Preview</button>
+        </div>
+    </div>
 </div>
-{{/if}}
-</div>
+<script>
+    document.querySelector("#actioncontainer > button:nth-child(1)").addEventListener("click",()=>{
+        submitGenericDialog(JSON.parse(document.querySelector("#editdisplay").value))
+    })
+    document.querySelector("#actioncontainer > button:nth-child(2)").addEventListener("click",()=>{
+        MOSS.Construct(JSON.parse(document.querySelector("#editdisplay").value)).Play()
+    })
+
+    function Hydrate(html,data){
+        if (data.StructureOverride){data.AfterRender();return;}
+    data.DataSections.forEach(element => {
+    if (element.type == "select" && element.onchange) {
+    Array.from(html.querySelectorAll(`#${element.Name}type`))[0].addEventListener("change", element.onchange);
+    }
+    if (element.type == "button" && element.onclick) {
+      Array.from(html.querySelectorAll(`#${element.Name}button`))[0].addEventListener("click", element.onclick);
+    }
+    });
+    if (data.AfterRender) {data.AfterRender()}
+    }
+    let inputsdiv = document.getElementById("settingdiv")
+    let btns = Array.from(document.getElementById("EditorNav").getElementsByTagName("button"))
+    Object.keys(MOSS.Config.EditorAssemblies).forEach((key, index) => {
+        btns[index].addEventListener("click",async ()=>{
+        let html = await renderTemplate(`modules/moss-lancer/templates/settings.hbs`,MOSS.Config.EditorAssemblies[key]);
+        inputsdiv.innerHTML = html;
+        Hydrate(inputsdiv,MOSS.Config.EditorAssemblies[key])
+        })
+    });
+    
+
+
+    
+</script>

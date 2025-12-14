@@ -1,9 +1,0 @@
-{
-    "type":"standard",
-    "Stripes":true,
-    "Emblem":"emblem.svg",
-    "Title":"// SYSTEM //",
-    "ActionColor":"yellow",
-    "Action":"-- CAUTION --",
-    "Message":"ZIGGURAT PRESENT"
-    }

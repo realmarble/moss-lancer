@@ -1,0 +1,28 @@
+{{#each DataSections}}
+      {{#switch this.type}}
+        {{#case "select"}}
+          <h3>{{this.DisplayName}}</h3>
+          <select id="{{this.Name}}type">
+            {{#each data}}
+              <option value="{{this.Name}}">{{this.DisplayName}}</option>
+            {{/each}}
+          </select>
+        {{/case}}
+        {{#case "input"}}
+          <h3>{{this.DisplayName}}</h3>
+          <div id="{{this.Name}}options">
+            {{#if this.content}}
+              {{{this.content}}}
+            {{/if}}
+          </div>
+        {{/case}}
+        {{#case "button"}}
+            {{#if this.closediv}}
+              </div>{{!-- bumfuck fix  --}}
+            {{/if}}
+            <div style="justify-content: center;width:100%;display:flex">
+                <button id="{{this.Name}}button" style="width: 80%">{{this.DisplayName}}</button>
+            </div>
+        {{/case}}
+      {{/switch}}
+{{/each}}

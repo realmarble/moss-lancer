@@ -1,4 +1,11 @@
-
+class DocumentStandard extends SFX {
+    constructor(context){
+        super(context)
+    }
+    async Play(){
+        new DocumentWindow(this.context.Content).render(true)
+    }
+}
 class DocumentWindow extends Application {
     constructor(content) {
       super();
@@ -7,7 +14,7 @@ class DocumentWindow extends Application {
     static get defaultOptions() {
       return mergeObject(super.defaultOptions, {
         classes: ["no-padding"],
-        popOut: true,
+        popOut: true, 
         template: "modules/moss-lancer/templates/document.hbs",
         width: 720,
         height: 900,
@@ -23,15 +30,4 @@ class DocumentWindow extends Application {
       return data;
     }
 }
-function OpenDocument(data){
-
-doc = new DocumentWindow(data.content)
-return doc.render(true)
-}
-
-class DocumentEditor extends BaseEditor {
-  constructor() {
-    super();
-    this.config = MOSS.EditorConfigs.DocumentEditor;
-  }
-}
+DocumentStandard.register()
