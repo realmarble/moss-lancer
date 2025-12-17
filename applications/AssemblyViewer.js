@@ -6,7 +6,7 @@ class AssemblyViewer extends Application {
     return mergeObject(super.defaultOptions, {
       classes: ["no-padding"],
       popOut: true,
-      template: "modules/moss-lancer/templates/assemblyviewer.html",
+      template: "modules/moss-lancer/templates/apps/assemblyviewer.html",
       width: 716,
       height: 720,
       baseApplication: "AssemblyViewer",

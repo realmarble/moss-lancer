@@ -15,7 +15,7 @@ class DocumentWindow extends Application {
       return mergeObject(super.defaultOptions, {
         classes: ["no-padding"],
         popOut: true, 
-        template: "modules/moss-lancer/templates/document.hbs",
+        template: "modules/moss-lancer/templates/misc/document.hbs",
         width: 720,
         height: 900,
         baseApplication: "DocumentWindow",

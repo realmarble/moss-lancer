@@ -1,24 +1,5 @@
 Hooks.on("init", function () {
-  console.log("Moss | registering settings");
-  game.settings.register("moss-lancer", "StartupSound", {
-    name: "Startup Sound",
-    hint: "Whether to play a specific sound on startup.",
-    scope: "world", // This specifies a client-stored setting
-    config: true, // This specifies that the setting appears in the configuration view
-    requiresReload: true, // This will prompt the user to reload the application for the setting to take effect.
-    type: Boolean,
-    default: false, // The default value for the setting
-  });
-  game.settings.register("moss-lancer", "StartupSoundPath", {
-    name: "Startup Sound Path",
-    hint: "The Path to an Audio File that play on startup",
-    scope: "world", // This specifies a client-stored setting
-    config: true, // This specifies that the setting appears in the configuration view
-    requiresReload: false, // This will prompt the user to reload the application for the setting to take effect.
-    type: String,
-    default: "", // The default value for the setting
-    filePicker: true,
-  });
+  console.log(`moss-lancer | no settings to register.`)
 });
 
 // this technically is code for V13

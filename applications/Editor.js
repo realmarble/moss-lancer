@@ -7,7 +7,7 @@ class Editor extends Application {
       return mergeObject(super.defaultOptions, {
         classes:["no-padding","display-block"],
         popOut: true,
-        template:"modules/moss-lancer/templates/editor.hbs",
+        template:"modules/moss-lancer/templates/apps/editor.hbs",
         width:1400,
         height:800,
         baseApplication: "Editor",

@@ -18,6 +18,7 @@
       "applications/Editor.js",
       "sfx/window/Briefing.js",
       "sfx/window/Document.js",
+      "sfx/window/FrameViewer.js",
       "sfx/display/CornerDisplay.js",
       "sfx/display/CornerDisplayMidnight.js",
       "sfx/display/VineThud.js",
@@ -35,7 +36,7 @@
     "minimum": "10",
     "verified": "12"
   },
-  "requires": [
+  "require": [
     {
       "id": "socketlib",
       "type": "module",
