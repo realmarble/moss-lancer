@@ -60,12 +60,8 @@ async function AssemblyEditor(id,object){
   function rendertiles() {
     container = document.getElementById("tilecontainer")
     container.innerHTML=""
-    if (MOSS.LocalStorage.Read().length != 0) {
+    if (MOSS.LocalStorage.Read().length != 0 && MOSS.LocalStorage.Read() != -1) {
       MOSS.LocalStorage.Read().forEach(element => {
-      // if (element.MetaData == undefined) {
-      //   console.log("Element without Metadata")
-      //   return;
-      // }
   div = document.createElement("div")
   div.classList.toggle("tile");
   div.innerHTML = `
