@@ -4,7 +4,7 @@ class Briefing extends SFX {
     }
     async Play(){
         let typeitid = randomID(36);
-        context.randomID = typeitid;
+        this.context.randomID = typeitid;
         let introhtml, briefinghtml,brief;
         if (this.context.Intro) {
             introhtml = await renderTemplate(`modules/moss-lancer/templates/briefings/intros/${this.context.IntroData.type}.hbs`,this.context); 
@@ -17,8 +17,9 @@ class Briefing extends SFX {
             ui.notifications.error(`Error in Briefing: ${error}`);
             return;
         }
-        brief = new BriefingWindow(String.raw`${introhtml + briefinghtml}`,typeitid);
-        brief.render(true);
+          brief = new BriefingWindow(String.raw`${introhtml + briefinghtml}`,typeitid);
+          brief.render(true);   
+        
     }
 }
 
