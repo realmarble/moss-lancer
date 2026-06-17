@@ -1,29 +1,26 @@
-class Editor extends Application {
-    constructor(config){
+class EditorV2 extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.ApplicationV2) {
+    constructor(config = {}){
       super();
-      this.config = config
+      this.config = config;
     }
-    static get defaultOptions() {
-      return mergeObject(super.defaultOptions, {
-        classes:["no-padding","display-block"],
-        popOut: true,
-        template:"modules/moss-lancer/templates/apps/editor.hbs",
+    static DEFAULT_OPTIONS = {
+      classes:["no-padding","display-block"],
+      position: {
         width:1400,
         height:800,
-        baseApplication: "Editor",
-        title:"Editor",
-        // tabs: [{
-        //   group: 'primary-tabs',
-        //   navSelector: '.tabs',
-        //   contentSelector: '.content',
-        //   initial: 'tab1',
-        // }]
-      });
+      },
+      window: {
+        resizable: true,
+        title: "Editor", // Just the localization key
+      },
+    };
+    static PARTS = {
+      form: {
+        template: "modules/moss-lancer/templates/apps/editor.hbs"
+      }
     }
-    getData() {
-      return this.config;
-    }
-    activateListeners(html){
-      super.activateListeners(html);
+    async _prepareContext(options){
+      const context = await super._prepareContext(options);
+      return this.config ? mergeObject(context, this.config) : context;
     }
 }

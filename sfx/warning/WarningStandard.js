@@ -32,44 +32,44 @@ class WarningStandard extends SFX {
     }
   const emblemanim = async () => {
     emblem = document.getElementById("emblem");
-    await _timer(250);
+    await this.timer(250);
     emblem.style.display = "block";
-    await _timer(3550);
+    await this.timer(3550);
     emblem.style.animation = "flicker-out 2s 1";
-    await _timer(2000);
+    await this.timer(2000);
     emblem.style.display = "none";
   };
   const stripeanim = async () => {
     new WarningStripes().Play()
   };
   const popupanim = async () => {
-    await _timer(250);
+    await this.timer(250);
     setTransition("0.2s");
     elem.style.width = "33%";
-    await _timer(250);
+    await this.timer(250);
     elem.style.height = "25%";
-    await _timer(250);
+    await this.timer(250);
     setTransition("0.1s");
     elem.style.borderWidth = "16px";
-    await _timer(50);
+    await this.timer(50);
     document.getElementById("systempopuptitle").style.display = "block";
-    await _timer(250);
+    await this.timer(250);
     document.getElementById("systempopupaction").style.display = "block";
-    await _timer(250);
+    await this.timer(250);
     document.getElementById("systempopupmessage").style.display = "block";
-    await _timer(2500);
+    await this.timer(2500);
     document.getElementById("systempopuptitle").style.animation = "flicker-out 1s 1";
     document.getElementById("systempopupaction").style.animation = "flicker-out 1s 1";
     document.getElementById("systempopupmessage").style.animation = "flicker-out 1s 1";
-    await _timer(250);
+    await this.timer(250);
     elem.style.borderWidth = "1px";
     elem.style.height = "1px";
-    await _timer(250);
+    await this.timer(250);
     elem.style.width = "0px";
     elem.style.display = "none";
   };
   const cleanup = async () => {
-    await _timer(5000);
+    await this.timer(5000);
     emblem.remove();
     style.remove()
     popup.remove();

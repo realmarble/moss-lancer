@@ -14,12 +14,12 @@ class CornerDisplay extends SFX {
     overlay.id = id;
     overlay.style.cssText = `position: absolute;top: 0px;left:0px;`;
     document.body.appendChild(overlay);
-    await _timer(40);
+    await this.timer(40);
     for (const element of this.context.Lines) {
       this.#displaytype(this.context.Prefix + element, id);
-      await _timer(500);
+      await this.timer(500);
     }
-    await _timer(4000);
+    await this.timer(4000);
     document.getElementById(id).remove();
   }
 

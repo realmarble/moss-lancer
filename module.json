@@ -16,9 +16,11 @@
       "lib/SFX.js",
       "applications/AssemblyViewer.js",
       "applications/Editor.js",
+      "sfx/misc/JoustPause.js",
       "sfx/window/Briefing.js",
       "sfx/window/Document.js",
       "sfx/window/FrameViewer.js",
+      "sfx/display/JoustStartup.js",
       "sfx/display/CornerDisplay.js",
       "sfx/display/CornerDisplayMidnight.js",
       "sfx/display/VineThud.js",
@@ -33,8 +35,8 @@
       "css/Main.css"
     ],
   "compatibility": {
-    "minimum": "10",
-    "verified": "12"
+    "minimum": "12",
+    "verified": "13"
   },
   "require": [
     {

@@ -18,15 +18,15 @@ class WarningStripes extends SFX {
     stripe2.innerHTML = `<div class="bottom strip">${`<div class="word">${this.context.Word}</div>\n`.repeat(this.context.WordCount)}</div>`;
     document.body.appendChild(stripe1);
     document.body.appendChild(stripe2);
-    await _timer(250);
+    await this.timer(250);
       var htmlcollection = document.getElementsByClassName("strip");
       var stripes = Array.prototype.slice.call(htmlcollection);
       stripes[0].style.top = 0;
       stripes[1].style.bottom = 0;
-      await _timer(this.context.time);
+      await this.timer(this.context.time);
       stripes[0].style.top = "-100px";
       stripes[1].style.bottom = "-100px";
-      await _timer(500);
+      await this.timer(500);
       stripe1.remove();
       stripe2.remove();
       style.remove();
