@@ -6,3 +6,5 @@ Hooks.on("ready", function() {
     }
     //failsafe for incorrectly set up LocalStorage
 });
+Hooks.on("init",function() {
+})

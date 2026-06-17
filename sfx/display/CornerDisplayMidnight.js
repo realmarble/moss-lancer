@@ -11,7 +11,7 @@ class CornerDisplay_Midnight extends SFX {
     super(context);
   }
   async Play() {
-    let style = _addstyle(`#textbox p{font-size:.5em;margin:0;margin-block-start:0px!important;margin-block-end:0px!important}.intro_redacted{left:0;position:relative;display:inline-block;cursor:zoom-in}.intro_redacted::before{left:0;content:"";position:absolute;width:100%;height:100%;background-color:currentColor;transform:scaleX(0);transform-origin:left;animation:1s cubic-bezier(0,0,.2,1) forwards redact}@keyframes redact{from{transform:scaleX(0)}to{transform:scaleX(1)}}#introbarcode{position:absolute;bottom:10px;right:10px}`)
+    let style = this.addStyle(`#textbox p{font-size:.5em;margin:0;margin-block-start:0px!important;margin-block-end:0px!important}.intro_redacted{left:0;position:relative;display:inline-block;cursor:zoom-in}.intro_redacted::before{left:0;content:"";position:absolute;width:100%;height:100%;background-color:currentColor;transform:scaleX(0);transform-origin:left;animation:1s cubic-bezier(0,0,.2,1) forwards redact}@keyframes redact{from{transform:scaleX(0)}to{transform:scaleX(1)}}#introbarcode{position:absolute;bottom:10px;right:10px}`)
     let overlay = document.createElement("div");
     let h1 = document.createElement("h1");
     h1.style.cssText = `position: absolute; top: 0;width:100%;text-align: center;z-index: 101;font-size:5em;color:white;margin-top:0px;`
