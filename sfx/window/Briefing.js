@@ -1,4 +1,3 @@
-const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 class Briefing extends SFX {
   constructor(context) {
     super(context);
@@ -18,16 +17,6 @@ class Briefing extends SFX {
         this.context,
       );
     }
-<<<<<<< Updated upstream
-    async Play(){
-        let typeitid = randomID(36);
-        this.context.randomID = typeitid;
-        let introhtml, briefinghtml,brief;
-        if (this.context.Intro) {
-            introhtml = await renderTemplate(`modules/moss-lancer/templates/briefings/intros/${this.context.IntroData.type}.hbs`,this.context); 
-        } else {
-            introhtml = await renderTemplate(`modules/moss-lancer/templates/briefings/intros/none.hbs`,this.context);
-        }
         try {
             briefinghtml = await renderTemplate(`modules/moss-lancer/templates/briefings/layouts/${this.context.LayoutType}.hbs`,this.context);
         } catch (error) {
@@ -36,17 +25,7 @@ class Briefing extends SFX {
         }
         brief = new BriefingWindow(String.raw`${introhtml + briefinghtml}`,typeitid);
         brief.render(true);
-=======
-    try {
-      briefinghtml = await renderTemplate(
-        `modules/moss-lancer/templates/briefings/layouts/${this.context.LayoutType}.hbs`,
-        this.context,
-      );
-    } catch (error) {
-      ui.notifications.error(`Error in Briefing: ${error}`);
-      return;
->>>>>>> Stashed changes
-    }
+    
     brief = new BriefingWindowV2(
       String.raw`${introhtml + briefinghtml}`,
       typeitid,
@@ -54,7 +33,7 @@ class Briefing extends SFX {
     brief.render(true);
   }
 }
-class BriefingWindowV2 extends HandlebarsApplicationMixin(ApplicationV2) {
+class BriefingWindowV2 extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.ApplicationV2)  {
   constructor(content, typeitid = foundry.utils.randomID(10)) {
     super();
     this.content = content;

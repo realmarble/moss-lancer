@@ -1,7 +1,3 @@
-Hooks.on("init", function () {
-  console.log(`moss-lancer | no settings to register.`)
-});
-
 //V13 is here! time to use this..
 Hooks.on("getSceneControlButtons", (controls) => {
   if (game.user.isGM) {
@@ -43,3 +39,31 @@ Hooks.on("getSceneControlButtons", (controls) => {
     controls.moss = Controls; //push group to actual controls
   }
 });
+
+Hooks.once("init", () => {
+    console.log(`moss-lancer | registering settings.`)
+    game.settings.register("moss-lancer", "StartupAssembly", {
+        name: "Startup Assembly",
+        hint: "The Effect Assembly to be played on world load.",
+        scope: "world",
+        config: true,
+        type: String,
+        default: null,
+    });
+    game.settings.register("moss-lancer", "HideFoundryBeforeAnim", {
+        name: "Hide Foundry Before Animation",
+        hint: "Whether to hide the Foundry UI before playing the startup animation.",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default: false,
+    });
+    game.settings.register("moss-lancer", "CustomBackgroundColor", {
+        name: "Custom Background Color",
+        hint: "Use this so match the background color of the instance to your assembly.",
+        scope: "world",
+        config: true,
+        type: String,
+        default: "#000000",
+    });
+  });

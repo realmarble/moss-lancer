@@ -35,3 +35,7 @@
 .app.window-app.display-block .window-content {
     display: block;
 }
+
+.superhidden > * {
+  display: none !important;
+}
