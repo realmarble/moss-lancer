@@ -14,6 +14,8 @@
       "lib/TypeIt.js",
       "lib/SocketManager.js",
       "lib/SFX.js",
+      "lib/Canvas.js",
+      "lib/CanvasToolbox.js",
       "applications/AssemblyViewer.js",
       "applications/Editor.js",
       "sfx/misc/JoustPause.js",
@@ -21,6 +23,7 @@
       "sfx/window/Document.js",
       "sfx/window/FrameViewer.js",
       "sfx/display/JoustStartup.js",
+      "sfx/display/DurandalOverride.js",
       "sfx/display/CornerDisplay.js",
       "sfx/display/CornerDisplayMidnight.js",
       "sfx/display/VineThud.js",
@@ -32,7 +35,8 @@
       "Main.js"
     ],
     "styles": [
-      "css/Main.css"
+      "css/Main.css",
+      "css/PPFraktionMono.css"
     ],
   "compatibility": {
     "minimum": "12",

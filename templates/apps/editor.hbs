@@ -39,7 +39,7 @@
     let btns = Array.from(document.getElementById("EditorNav").getElementsByTagName("button"))
     Object.keys(MOSS.Config.EditorAssemblies).forEach((key, index) => {
         btns[index].addEventListener("click",async ()=>{
-        let html = await renderTemplate(`modules/moss-lancer/templates/apps/settings.hbs`,MOSS.Config.EditorAssemblies[key]);
+        let html = await foundry.applications.handlebars.renderTemplate(`modules/moss-lancer/templates/apps/settings.hbs`,MOSS.Config.EditorAssemblies[key]);
         inputsdiv.innerHTML = html;
         Hydrate(inputsdiv,MOSS.Config.EditorAssemblies[key])
         })

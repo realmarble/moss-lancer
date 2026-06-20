@@ -1,0 +1,30 @@
+<div id="standby{{RandomID}}" style="width:100%;height:100%;position:relative;background-color:#000;color:#fff;font-family:'JetBrains Mono',monospace;overflow:hidden;">
+  <div id="background">JOUST.</div>
+  <div id="splash-screen">
+    <h1 id="title{{RandomID}}">{{IntroData.Title}}</h1>
+    <p id="subtitle{{RandomID}}">{{IntroData.Subtitle}}</p>
+  </div>
+  <div class="crt-overlay"></div>
+  <style>
+    #standby{{RandomID}} { background-color: #000; }
+    #splash-screen { position: absolute; bottom: 40px; left: 40px; display: flex; flex-direction: column; z-index: 10; }
+    #splash-screen h1 { margin: 0; font-family: 'Vina Sans', cursive; font-size: 4rem; font-weight: normal; line-height: 1; }
+    #splash-screen p { margin: 0; font-size: 1rem; opacity: 0.75; margin-top: 10px; }
+    #background { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Vina Sans', cursive; font-size: 8rem; font-weight: normal; line-height: 1; opacity: 0.18; user-select: none; pointer-events: none; white-space: nowrap; }
+    .crt-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03)); background-size: 100% 3px, 3px 100%; pointer-events: none; z-index: 100; }
+  </style>
+  <script>
+    const container = document.getElementById('standby{{RandomID}}');
+    const titleElement = document.getElementById('title{{RandomID}}');
+    const subtitleElement = document.getElementById('subtitle{{RandomID}}');
+    const titleText = titleElement.textContent.trim() || 'JOUST.';
+    const subtitleText = subtitleElement.textContent.trim() || 'Union Standardized Computer System Provider';
+    titleElement.textContent = titleText;
+    subtitleElement.textContent = subtitleText;
+    const duration = parseInt(container.dataset.duration, 10) || 3000;
+    setTimeout(() => {
+      container.style.display = 'none';
+      document.getElementById('briefingcontainer{{RandomID}}').style.display = 'block';
+    }, duration);
+  </script>
+</div>

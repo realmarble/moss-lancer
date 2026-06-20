@@ -66,7 +66,7 @@ warningobject = {};
   introoptions = document.getElementById("options");
 
   try {
-      introoptions.innerHTML = await renderTemplate(`modules/moss-lancer/templates/warnings/settingtemplates/${this.value}.html`,{})
+      introoptions.innerHTML = await foundry.applications.handlebars.renderTemplate(`modules/moss-lancer/templates/warnings/settingtemplates/${this.value}.html`,{})
       inputs = Array.prototype.slice.call(document.getElementById("options").getElementsByTagName("input")).concat(Array.prototype.slice.call(document.getElementById("options").getElementsByTagName("textarea")));
       inputs.forEach(element => {
         if (element.hasAttribute("filepicker")) {

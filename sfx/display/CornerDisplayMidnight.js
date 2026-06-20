@@ -1,4 +1,4 @@
-class CornerDisplay_Midnight extends SFX {
+class CornerDisplayMidnight extends SFX {
   constructor(
     context = {
       Lines: [],
@@ -57,4 +57,4 @@ class CornerDisplay_Midnight extends SFX {
     }
   }
 }
-CornerDisplay_Midnight.register()
+CornerDisplayMidnight.register()

@@ -45,7 +45,7 @@ background-color: #6C756B;
 async function AssemblyEditor(id,object){
   new Dialog({
     title: "Assembly Editor",
-    content: await renderTemplate("modules/moss-lancer/templates/apps/assemblyeditor.hbs", {id:id,object:object}),
+    content: await foundry.applications.handlebars.renderTemplate("modules/moss-lancer/templates/apps/assemblyeditor.hbs", {id:id,object:object}),
     buttons: {
       yes: {
         label: "Save Changes",
@@ -79,6 +79,7 @@ async function AssemblyEditor(id,object){
     DeleteConfirm(element.id)
   });
   div.querySelector(".fa-pen-to-square").addEventListener("click", async function() {
+    console.log(JSON.stringify(element,null,3))
      AssemblyEditor(element.id,JSON.stringify(element,null,3))
   });
   })   
