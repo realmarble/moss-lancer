@@ -1,6 +1,8 @@
 <div
   id="briefingcontainer{{RandomID}}"
   style="
+    position:absolute;
+    inset:0;
     height: 100%;
     width: 100%;
     font-family: 'Ubuntu Mono', monospace;
@@ -59,7 +61,7 @@
   </div>
 <div class="mission-briefing"> 
   <div class="briefing-section">
-    <div class="section-title typed{{RandomID}}" data-text="Deploying Forces:"></div>
+    <div class="section-title typed{{RandomID}}" data-text="DEPLOYING FORCES:"></div>
     <ul>
       {{#each DeployedForces}}
         <li><p class="typed{{../RandomID}}" data-text="{{this}}"></p></li>

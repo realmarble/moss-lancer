@@ -34,9 +34,6 @@ class DurandalOverride extends SFX {
     update: (container, delta, elapsedMS, progress) => {
         const g = container.gfx;
         g.clear();
-
-        // 1. Draw Full-Screen Black Tint (Background Layer)
-        // We ensure it is drawn first so it sits behind the crosses
         CanvasToolbox.Tint(g, {
             color: this.context.TintColor,
             alpha: this.context.TintAlpha
@@ -56,7 +53,8 @@ class DurandalOverride extends SFX {
                 thickness: 3,
                 color: this.context.PrimaryColor,
                 alpha: 1,
-                lineLength: 45
+                lineLength: 45,
+                CenterRadius: 45 / 10
             }, pos);
         });
     }
@@ -280,7 +278,8 @@ class DurandalOverride extends SFX {
                     thickness: 2.5,
                     color: textColor,
                     alpha: 1,
-                    lineLength: 32.5
+                    lineLength: 32.5,
+                    CenterRadius: 32.5 / 10
                 };
                 CanvasToolbox.Cross(g, crossCtx, centerPos);
             });

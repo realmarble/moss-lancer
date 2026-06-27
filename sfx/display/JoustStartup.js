@@ -1,3 +1,4 @@
+//calculate time spent in JOUST: Lines*LineTime
 class JoustStartup extends SFX {
   constructor(
     context = {
@@ -17,6 +18,8 @@ class JoustStartup extends SFX {
            `Initiating Tier 2 HUD...`,
           `${game.user.name.toUpperCase()}@JOUST:~$`,
         ],
+      Duration: 7000,
+      LineTime: 150
     }
   ) {
     super(context);
@@ -40,7 +43,7 @@ class JoustStartup extends SFX {
     `;
 
     this.addStyle(`
-      #${id} { position: fixed; inset: 0; background: transparent; color: #fff; z-index: 999999; font-family: "JetBrains Mono", monospace; overflow: hidden; }
+      #${id} { position: fixed; inset: 0; background: transparent; color: #fff; z-index: 150; font-family: "JetBrains Mono", monospace; overflow: hidden; }
       #${id} .joust-startup-body { position: relative; width: 100%; height: 100%; background: #000; transition: background-color 0s; }
       #${id} .joust-background h1 { font-family: "Vina Sans", cursive; margin: 0; padding: 0; font-size: 2em; }
       #${id} .joust-background { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0.2; pointer-events: none; user-select: none; font-size: 8rem; font-weight: 400; line-height: 1; text-transform: uppercase; transition: opacity 0.2s ease; }
@@ -65,61 +68,65 @@ class JoustStartup extends SFX {
 
     const textElement = document.getElementById(`${id}-text`);
 
+    const duration = Number(this.context.Duration) || 7000;
+
+    const runShatter = () => {
+      const bodyContainer = overlay.querySelector('.joust-startup-body');
+      const gridContainer = document.getElementById(`${id}-grid-overlay`);
+      const crtElement = overlay.querySelector('.joust-crt-overlay');
+      
+      const cols = 16;
+      const rows = 9;
+      const totalCubes = cols * rows;
+      const staggerDelay = 0.04; // Seconds between column steps (lower = faster sweep)
+      
+      // Populate screen array with cubes
+      for (let i = 0; i < totalCubes; i++) {
+        const cube = document.createElement('div');
+        cube.classList.add('joust-cube');
+        
+        const colIndex = i % cols;
+        const reverseCol = (cols - 1) - colIndex;
+        const delay = reverseCol * staggerDelay;
+        
+        cube.style.animationDelay = `${delay}s`;
+        gridContainer.appendChild(cube);
+      }
+      void gridContainer.offsetWidth;
+
+      bodyContainer.classList.add('is-shattering');
+      const cubes = gridContainer.querySelectorAll('.joust-cube');
+      cubes.forEach(cube => cube.classList.add('active-shatter'));
+      const blocksAnimationDuration = ((cols - 1) * staggerDelay) + 0.4;
+    
+      setTimeout(() => {
+        if (crtElement) {
+          crtElement.classList.add('fade-out');
+        }
+      }, blocksAnimationDuration * 1000);
+      
+      setTimeout(() => {
+        overlay.remove();
+      }, (blocksAnimationDuration + 0.5) * 1000);
+    };
+
     const ti = new TypeIt(textElement, {
       speed: this.context.Speed,
       cursor: false,
       waitUntilDone: true,
       afterComplete: () => {
-        setTimeout(() => {
-          const bodyContainer = overlay.querySelector('.joust-startup-body');
-          const gridContainer = document.getElementById(`${id}-grid-overlay`);
-          const crtElement = overlay.querySelector('.joust-crt-overlay');
-          
-          const cols = 16;
-          const rows = 9;
-          const totalCubes = cols * rows;
-          const staggerDelay = 0.04; // Seconds between column steps (lower = faster sweep)
-          
-          // Populate screen array with cubes
-          for (let i = 0; i < totalCubes; i++) {
-            const cube = document.createElement('div');
-            cube.classList.add('joust-cube');
-            
-            const colIndex = i % cols;
-            const reverseCol = (cols - 1) - colIndex;
-            const delay = reverseCol * staggerDelay;
-            
-            cube.style.animationDelay = `${delay}s`;
-            gridContainer.appendChild(cube);
-          }
-          void gridContainer.offsetWidth;
-
-          bodyContainer.classList.add('is-shattering');
-          const cubes = gridContainer.querySelectorAll('.joust-cube');
-          cubes.forEach(cube => cube.classList.add('active-shatter'));
-          const blocksAnimationDuration = ((cols - 1) * staggerDelay) + 0.4;
-        
-          setTimeout(() => {
-            if (crtElement) {
-              crtElement.classList.add('fade-out');
-            }
-          }, blocksAnimationDuration * 1000);
-          
-          setTimeout(() => {
-            overlay.remove();
-          }, (blocksAnimationDuration + 0.5) * 1000);
-          
-        }, 1000);
+        if (this.context.OnEnd) {
+          this.context.OnEnd();
+        } else {
+          setTimeout(runShatter, duration);
+        }
       }
     });
 
     this.context.Lines.forEach((line) => {
-      ti.type(line).pause(150).break();
+      ti.type(line).pause(this.context.LineTime).break();
     });
     ti.go();
-
-    const duration = Number(this.context.Duration) || 7000;
-    const fadeDuration = Number(this.context.FadeDuration) || 1000;
   }
 }
 

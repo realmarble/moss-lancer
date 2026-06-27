@@ -1,4 +1,4 @@
-<div id="standby{{RandomID}}" style="width:100%;height:100%;background-size: 40px 40px;overflow-y:hidden;
+<div id="standby{{RandomID}}" style="position:absolute;inset:0;width:100%;height:100%;background-size: 40px 40px;overflow-y:hidden;
   background-image: radial-gradient(circle, {{BackgroundAccent}} 1px, rgba(0, 0, 0, 0) 1px);background-color: {{BackgroundColor}};font-family: 'Ubuntu Mono', monospace;
   color: {{TextColor}};">
 
@@ -24,15 +24,13 @@
       transition: .75s;
   }
   .contractcontainer {
-    /* display: none; */
-    /* transition: 0.75s; */
-    width: 1000px;
+    width: min(1000px, calc(100vw - 80px));
     word-wrap: break-word;
     text-align: center;
-    margin:auto;
     bottom: -2000px;
     position: absolute;
-    left:200px;
+    left:50%;
+    transform: translateX(-50%);
     color: {{TextColor}};
     display:none;
   }
@@ -62,6 +60,7 @@
 </div>
 
 <script>
+  let left, right, contract, _timer;
   left = document.getElementById("left")
   right = document.getElementById("right")
   contract = document.getElementsByClassName("contractcontainer")[0]
@@ -83,7 +82,7 @@ contract.style.bottom = (-2000+i*80)+"px" //moving the contract along the screen
 if (i % 10 == 0) {await _timer(150);}
 }
 }
-fullanim = async () => {
+let fullanim = async () => {
 await _timer(1000);
 logoanim()
 await _timer(1000);

@@ -5,6 +5,7 @@ class Briefing extends SFX {
   async Play() {
     let typeitid = randomID(36);
     this.context.randomID = typeitid;
+    this.context.RandomID = typeitid;
     let introhtml, briefinghtml, brief;
     if (this.context.Intro) {
       introhtml = await foundry.applications.handlebars.renderTemplate(
@@ -39,8 +40,8 @@ class BriefingWindowV2 extends foundry.applications.api.HandlebarsApplicationMix
   static DEFAULT_OPTIONS = {
     classes: ["no-padding", "no-overflow"], 
     position: {
-      width: 1400,
-      height: 700,
+      width: 1600,
+      height: 900,
     },
     window: {
       resizable: true,
@@ -56,6 +57,7 @@ class BriefingWindowV2 extends foundry.applications.api.HandlebarsApplicationMix
     const context = await super._prepareContext(options);
     context.html = this.content;
     context.randomID = this.typeitid;
+    context.RandomID = this.typeitid;
     return context;
   }
 
@@ -67,7 +69,7 @@ class BriefingWindowV2 extends foundry.applications.api.HandlebarsApplicationMix
   }
 
   _fixBriefingPadding() {
-    const briefs = Array.from(this.element.querySelectorAll("briefing"));
+    const briefs = Array.from(this.element.querySelectorAll(".briefing-content"));
     briefs.forEach((element) => {
       if (element.parentElement) element.parentElement.style.padding = "0px";
     });
@@ -80,11 +82,12 @@ class BriefingWindowV2 extends foundry.applications.api.HandlebarsApplicationMix
       if (!(element instanceof HTMLElement)) return;
       if (element.dataset.typeitInitialized === "true") return;
       const text = element.getAttribute("data-text");
+      const speed = parseInt(element.getAttribute("data-textspeed")) || 5;
       if (!text) return;
       element.dataset.typeitInitialized = "true";
       new TypeIt(element, {
         strings: text,
-        speed: 5,
+        speed: speed,
         waitUntilVisible: true,
         cursor: false,
       }).go();
@@ -96,7 +99,15 @@ class BriefingWindowV2 extends foundry.applications.api.HandlebarsApplicationMix
     scripts.forEach((script) => {
       if (!script.parentElement) return;
       const newScript = document.createElement("script");
+      let scriptType = script.getAttribute("type");
+      if (!scriptType && !script.src) {
+        scriptType = "module";
+      }
+      if (scriptType) {
+        newScript.setAttribute("type", scriptType);
+      }
       Array.from(script.attributes).forEach((attr) => {
+        if (attr.name === "type") return;
         newScript.setAttribute(attr.name, attr.value);
       });
       if (script.src) {

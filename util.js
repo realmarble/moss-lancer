@@ -41,7 +41,7 @@ function addFilePicker(elem) {
 }
 
 
-function InteractiveMessage(msg){ //whatever you send through this will be received only by the GM.
+function CallbackMessage(msg){ //whatever you send through this will be received only by the GM.
   if (game.user.isGM) {
     ui.notifications.info(`Message Callback: ${msg}`) //this allows GM to check locally whether message works
   } else {

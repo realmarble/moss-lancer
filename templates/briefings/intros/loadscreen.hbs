@@ -1,33 +1,32 @@
-<div id="standby{{RandomID}}" style="width:100%;height:100%;background-size: 40px 40px;
+<div id="standby{{RandomID}}" style="position:absolute;inset:0;width:100%;height:100%;min-width:100%;min-height:100%;box-sizing:border-box;background-size: 40px 40px;
   background-image: radial-gradient(circle, {{
     BackgroundAccent
   }} 1px, rgba(0, 0, 0, 0) 1px);background-color: {{
     BackgroundColor
   }};font-family: 'Ubuntu Mono', monospace;
-  color: {{TextColor}};">
+  color: {{TextColor}};display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;">
 
-  <h1 style="text-align: center;color:{{TextColor}};font-size:4em;">{{
+  <h1 style="text-align: center;color:{{TextColor}};font-size:4em;width: 100%;position: absolute;top: 0;">{{
     IntroData.LoadScreenTitle
   }}</h1>
-  <div id="fluffmessages{{RandomID}}">
+  <div id="fluffmessages{{RandomID}}" style="position: absolute;top: 0;left: 0;">
     
 <script>
-lines=[
+let lines=[
 {{#each IntroData.LoadScreenFluff}}
 "{{this}}",
 {{/each}}
 ]
-div=document.getElementById("fluffmessages{{RandomID}}")
+let div=document.getElementById("fluffmessages{{RandomID}}")
 var logRandomLine = (arr) => {
 if (arr.length === 0) {
-clearInterval(intervalId{{RandomID}});
 return;
 }
 
 var randomIndex = Math.floor(Math.random() * arr.length);
 var randomLine = arr[randomIndex];
 arr.splice(randomIndex, 1);
-div.innerHTML += '<p>'+randomLine+'</p>'
+div.innerHTML += `<p style="margin:0;padding:0;">${randomLine}</p>`;
 };
 
 // Set an interval to log a random line every 50ms for ten times

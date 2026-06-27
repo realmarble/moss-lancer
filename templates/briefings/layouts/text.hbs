@@ -1,6 +1,8 @@
 <div
   id="briefingcontainer{{RandomID}}"
   style="
+    position:absolute;
+    inset:0;
     height: 100%;
     width: 100%;
     font-family: 'Ubuntu Mono', monospace;
@@ -13,17 +15,17 @@
 >
 
   <p class="text{{RandomID}}" style="top: 20px;position:absolute;text-align:left;"></p>
-  <div class="addhtml{{RandomID}}" style="display: none;">
+  <div class="addhtml{{RandomID}}" style="display: none;position: absolute;bottom: 20px;width: 100%">
     {{{AdditionalHTML}}}
   </div>
   <script>
 
-lines=[
+let lines{{RandomID}}=[
 {{#each TextLines}}
 "{{{this}}}",
 {{/each}}
 ]
-instance{{RandomID}} = new TypeIt("p.text{{RandomID}}", {
+let instance{{RandomID}} = new TypeIt("p.text{{RandomID}}", {
     speed: {{TextSpeed}},
     waitUntilVisible: true,
     cursor: false,
@@ -31,7 +33,7 @@ instance{{RandomID}} = new TypeIt("p.text{{RandomID}}", {
     document.getElementsByClassName("addhtml{{RandomID}}")[0].style.display= "block"
     }
     })
-lines.forEach(element => {
+lines{{RandomID}}.forEach(element => {
   instance{{RandomID}}.type(element).break()
 });
 instance{{RandomID}}.go()
