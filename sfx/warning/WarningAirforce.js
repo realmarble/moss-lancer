@@ -15,10 +15,9 @@ class WarningAirforce extends SFX{
   }
   async Play(){
     if (this.context.Stripes){new WarningStripes().Play()}
-    let style = this.addStyle(`@import url(https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap);@import url(https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&display=swap);.centered{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#fff;border:16px solid #000;font-family:'Ubuntu Mono',monospace}`)
+    let style = this.addStyle(`@import url(https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap);@import url(https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&display=swap);.centered{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#fff;font-family:'Ubuntu Mono',monospace}.centered > h1 {font-family:'Ubuntu Mono', monospace;}`)
     let container = document.createElement("div");
     container.classList.add("centered");
-    container.style.borderWidth = "0px"; //clean unnecessary border
     let employerstring = document.createElement("h1");
     let teamstring = document.createElement("h1");
     teamstring.style.fontSize = "4em";
@@ -63,3 +62,4 @@ class WarningAirforce extends SFX{
   }
 }
 WarningAirforce.register()
+

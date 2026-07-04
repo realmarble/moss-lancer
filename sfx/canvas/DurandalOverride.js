@@ -3,8 +3,8 @@ class DurandalOverride extends SFX {
     PrimaryColor: 0xFFFF00,
     TextColor: 0x000000,
     TintColor: 0x000000,
-    TintAlpha: 0.7,
-    Time: 10000,
+    TintAlpha: 0.75,
+    Duration: 10000,
     Background: true,
     FontFamily: "PP Fraktion Mono",
     PIDText: "D-777",
@@ -19,13 +19,14 @@ class DurandalOverride extends SFX {
     GlitchColors: [0xFF0000, 0xFFFF00],
     IntroPhaseTexts: ["全", "全覆", "全覆蓋"],
     IntroFinalText: "全覆蓋",
-    MaskFillColor: 0xffffff
+    MaskFillColor: 0xffffff,
+    id: "DURANDAL-OVERRIDE"
   }) {
     super(context);
   }
   async Play() {
     if (this.context.Background) {
-    MOSS.Canvas.add("tint-background", {
+    MOSS.Canvas.add(`${this.context.id}-background`, {
     duration: 0, 
     setup: (app, container) => {
         container.gfx = new PIXI.Graphics();
@@ -60,7 +61,7 @@ class DurandalOverride extends SFX {
     }
 });   
     }
-    MOSS.Canvas.add("complete-override", {
+    MOSS.Canvas.add(this.context.id, {
     duration: 0, // Runs permanently until explicitly removed
     
     setup: (app, container) => {
@@ -412,12 +413,12 @@ if (progress > 0) {
     }
     }
 });
-setTimeout(function() {
-   MOSS.Canvas.close("complete-override", 350);
-}, this.context.Time - 350);
-setTimeout(function() {
-   MOSS.Canvas.remove("tint-background")
-}, this.context.Time);
+setTimeout(() => {
+   MOSS.Canvas.close(this.context.id, 350);
+}, this.context.Duration - 350);
+setTimeout(() => {
+   MOSS.Canvas.remove(`${this.context.id}-background`);
+}, this.context.Duration);
   }
 }
 DurandalOverride.register()

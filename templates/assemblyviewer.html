@@ -43,9 +43,10 @@ background-color: #6C756B;
     rendertiles();
 }
 async function AssemblyEditor(id,object){
+  const serializedObject = typeof object === "string" ? object : JSON.stringify(object, null, 3);
   new Dialog({
     title: "Assembly Editor",
-    content: await foundry.applications.handlebars.renderTemplate("modules/moss-lancer/templates/assemblyeditor.hbs", {id:id,object:object}),
+    content: await foundry.applications.handlebars.renderTemplate("modules/moss-lancer/templates/assemblyeditor.hbs", {id:id,assemblyJson:serializedObject}),
     buttons: {
       yes: {
         label: "Save Changes",

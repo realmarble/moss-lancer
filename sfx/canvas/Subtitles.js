@@ -1,5 +1,5 @@
 class Subtitles extends SFX {
-    constructor(context = { subtitleTrack: [] }) {
+    constructor(context = { subtitleTrack: [], subtitleBackgroundColor: null }) {
         super(context);
     }
 
@@ -8,6 +8,12 @@ class Subtitles extends SFX {
             layer: "subtitles",
             duration: 0, 
             setup: (app, container) => {
+                const subtitleBackgroundColor = this.context.subtitleBackgroundColor ?? null;
+                const subtitlePadding = 12;
+
+                const backgroundGraphics = new PIXI.Graphics();
+                container.addChild(backgroundGraphics);
+
                 const textStyle = new PIXI.TextStyle({
                     fontFamily: "PP Fraktion Mono", 
                     fontSize: 24,
@@ -22,10 +28,35 @@ class Subtitles extends SFX {
                 displayField.anchor.set(0.5, 1); 
                 container.addChild(displayField);
 
+                const updateBackground = () => {
+                    backgroundGraphics.clear();
+
+                    if (subtitleBackgroundColor == null || !displayField.text) {
+                        return;
+                    }
+
+                    const width = displayField.width;
+                    const height = displayField.height;
+
+                    if (!width || !height) {
+                        return;
+                    }
+
+                    backgroundGraphics.beginFill(subtitleBackgroundColor, 1);
+                    backgroundGraphics.drawRect(
+                        displayField.x - (width / 2) - subtitlePadding,
+                        displayField.y - height - subtitlePadding,
+                        width + (subtitlePadding * 2),
+                        height + (subtitlePadding * 2)
+                    );
+                    backgroundGraphics.endFill();
+                };
+
                 const repositionText = () => {
                     displayField.x = app.screen.width / 2;
                     displayField.y = app.screen.height - 50; 
                     displayField.style.wordWrapWidth = app.screen.width * 0.8;
+                    updateBackground();
                 };
                 repositionText();
                 window.addEventListener("resize", repositionText);
@@ -34,6 +65,8 @@ class Subtitles extends SFX {
                 container._subtitleState = {
                     track: this.context.subtitleTrack || [],
                     displayField,
+                    backgroundGraphics,
+                    updateBackground,
                     currentIndex: 0,
                     trackTimer: 0, 
                     isActive: (this.context.subtitleTrack || []).length > 0,
@@ -50,6 +83,7 @@ class Subtitles extends SFX {
 
                 if (activeBlock) {
                     state.displayField.text = activeBlock.text;
+                    state.updateBackground();
 
                     if (state.trackTimer >= activeBlock.duration) {
                         state.currentIndex++;
@@ -57,6 +91,7 @@ class Subtitles extends SFX {
                     }
                 } else {
                     state.displayField.text = "";
+                    state.backgroundGraphics.clear();
                     state.isActive = false; 
 
                     if (state.cleanupListener) {

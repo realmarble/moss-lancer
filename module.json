@@ -8,7 +8,7 @@
     "discord":"realmoss"
     }
   ],
-  "version": "0.1",
+  "version": "0.2",
   "scripts": [
       "lib/Core.js",
       "lib/JsBarcode.js",
@@ -29,6 +29,7 @@
       "sfx/canvas/DurandalOverride.js",
       "sfx/canvas/DurandalRender.js",
       "sfx/canvas/Subtitles.js",
+      "sfx/canvas/Video.js",
       "sfx/canvas/Annotation.js",
       "sfx/display/CornerDisplay.js",
       "sfx/display/CornerDisplayMidnight.js",
@@ -42,7 +43,8 @@
     ],
     "styles": [
       "css/Main.css",
-      "css/PPFraktionMono.css"
+      "css/PPFraktionMono.css",
+      "css/Maratype.css"
     ],
   "compatibility": {
     "minimum": "12",
@@ -59,7 +61,7 @@
   "packs": [],
 "url": "https://github.com/realmarble/moss-lancer",
 "manifest": "https://github.com/realmarble/moss-lancer/releases/latest/download/module.json",
-"download": "https://github.com/realmarble/moss-lancer/releases/download/0.1/moss-lancer.zip",
+"download": "https://github.com/realmarble/moss-lancer/releases/download/0.2/moss-lancer.zip",
 "license": "MIT",
 "readme": "https://github.com/realmarble/moss-lancer",
 "bugs": "https://github.com/realmarble/moss-lancer/issues",

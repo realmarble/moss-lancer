@@ -2,18 +2,20 @@ class DurandalRender extends SFX {
   constructor(context = {
     Mode: "VIDEO", // VIDEO | IMAGE | DEBUG | NOISE | CANVAS
     ResolutionScale: 1,
+    AssetAlias: "",
     Source: "https://mossfoundry.s3.dualstack.eu-north-1.amazonaws.com/LANCER/badapple.mp4",
     BrightColor: 0xccff00,
     MidColor: 0x668800,
     DarkColor: 0x223300,
     BaseTextureSize: 32,
-    Duration: 0
+    Duration: 0,
+    id: "DurandalRender",
   }) {
     super(context);
   }
 
   async Play() {
-    MOSS.Canvas.add("video-render", {
+    MOSS.Canvas.add(this.context.id, {
       duration: this.context.Duration,
       setup: (app, container) => {
         const TARGET_WIDTH = 120 * this.context.ResolutionScale;
@@ -184,19 +186,33 @@ class DurandalRender extends SFX {
         const ctx = processingCanvas.getContext("2d", { willReadFrequently: true });
 
         let generatedVideoElement = null;
+        let ownsVideoElement = false;
         if (this.context.Source && this.context.Mode === "VIDEO") {
-          generatedVideoElement = document.createElement("video");
-          generatedVideoElement.src = this.context.Source;
-          generatedVideoElement.crossOrigin = "anonymous";
+          if (this.context.AssetAlias) {
+            const videoTexture = PIXI.Assets.get(this.context.AssetAlias);
+            generatedVideoElement = videoTexture?.source?.resource?.source || videoTexture?.baseTexture?.resource?.source || null;
+            if (!generatedVideoElement) {
+              console.warn(`Preloaded video alias \"${this.context.AssetAlias}\" was not found. Falling back to Source.`);
+            }
+          }
+
+          if (!generatedVideoElement) {
+            generatedVideoElement = document.createElement("video");
+            generatedVideoElement.src = this.context.Source;
+            generatedVideoElement.crossOrigin = "anonymous";
+            generatedVideoElement.style.display = "none";
+            document.body.appendChild(generatedVideoElement);
+            ownsVideoElement = true;
+          }
+
           generatedVideoElement.loop = true;
           generatedVideoElement.volume = 0.1;
           generatedVideoElement.playsInline = true;
           generatedVideoElement.muted = false;
           generatedVideoElement.autoplay = true;
-          generatedVideoElement.style.display = "none";
-          document.body.appendChild(generatedVideoElement);
+          generatedVideoElement.currentTime = 0;
 
-          generatedVideoElement.play().catch((err) => 
+          generatedVideoElement.play().catch((err) =>
             console.warn("Internal autoplay deferred:", err)
           );
         }
@@ -222,16 +238,41 @@ class DurandalRender extends SFX {
           paletteTextures,
           spriteGrid,
           VideoSource: generatedVideoElement,
+          ownsVideoElement,
           ImageSource: generatedImageElement,
           externalCanvas: null, 
           noiseFn: baseNoiseFn,
           internalTime: 0,
+          cleanedUp: false,
+        };
+
+        container._cleanupMatrixState = () => {
+          const matrixState = container._matrixState;
+          if (!matrixState || matrixState.cleanedUp) return;
+
+          window.removeEventListener("resize", resizeLayout);
+
+          if (matrixState.VideoSource) {
+            matrixState.VideoSource.pause();
+            if (matrixState.ownsVideoElement && matrixState.VideoSource.parentNode) {
+              matrixState.VideoSource.parentNode.removeChild(matrixState.VideoSource);
+            }
+          }
+
+          matrixState.cleanedUp = true;
         };
       },
 
       update: (container, delta, elapsedMS, progress) => {
         const state = container._matrixState;
         if (!state) return;
+
+        if (progress >= 1 && !state.cleanedUp) {
+          if (typeof container._cleanupMatrixState === "function") {
+            container._cleanupMatrixState();
+          }
+          return;
+        }
 
         const {
           ctx,
