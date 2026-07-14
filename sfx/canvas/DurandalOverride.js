@@ -15,14 +15,18 @@ class DurandalOverride extends SFX {
     BottomLogText: "no response cleared\nCORES [ACTING]\nSYS OVERRIDE\nVERSION: [JOUST v3.4]\nDEFRAG FAILED\nUNABLE TO CLOSE TRANSMISSION",
     ScrollText: "OVERRIDE  ",
     ScrollSpeed: 8,
-    RandomChars: "X01!@#$%^&*()_+-=[]{}|;':,./<>?",
-    GlitchColors: [0xFF0000, 0xFFFF00],
-    IntroPhaseTexts: ["全", "全覆", "全覆蓋"],
-    IntroFinalText: "全覆蓋",
-    MaskFillColor: 0xffffff,
-    id: "DURANDAL-OVERRIDE"
   }) {
     super(context);
+    // because i'm lazy, we're going to fix most of the manifest issues by manually patching provided context.
+    if (context.TintAlpha == 0) {
+        context.Background = false;
+    }
+    context.GlitchColors = context.GlitchColors || [0xFF0000, 0xFFFF00]; 
+    context.FontFamily = context.FontFamily || "PP Fraktion Mono";
+    context.RandomChars = context.RandomChars || "X01!@#$%^&*()_+-=[]{}|;':,./<>?";
+    context.IntroPhaseTexts = context.IntroPhaseTexts || ["全", "全覆", "全覆蓋"]; // this should be editable but i'm a bum
+    context.MaskFillColor = context.MaskFillColor || 0xffffff;
+    context.id = context.id || "DURANDAL-OVERRIDE";
   }
   async Play() {
     if (this.context.Background) {
