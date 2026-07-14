@@ -6,7 +6,9 @@ class WarningStripes extends SFX {
     Background: "#ffff00ff",
     Text: "#000000ff"
   }) {
-    super(context)
+    super(context);
+    context.WordCount = 20;
+    context.Time = 3550;
   }
   async Play() {
     let style = document.createElement("style");
