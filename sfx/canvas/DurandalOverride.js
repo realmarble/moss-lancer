@@ -189,7 +189,7 @@ class DurandalOverride extends SFX {
             letterSpacing: 14
         });
 
-        const baseString = "OVERRIDE  "; 
+        const baseString = this.context.ScrollText;
         const metricText = new PIXI.Text(baseString, scrollStyle);
         container.textWidth = metricText.width;
         metricText.destroy(); 
